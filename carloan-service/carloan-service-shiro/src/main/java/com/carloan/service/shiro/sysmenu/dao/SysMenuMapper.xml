@@ -274,7 +274,7 @@
     </select>
 
     <select id="querySysMenuByUserId" parameterType="java.util.Map" resultMap="SysMenuDTO">
-      SELECT e.*,a.resoure_url,a.resoure_type,a.permission
+      SELECT DISTINCT e.*,a.resoure_url,a.resoure_type,a.permission
 		FROM
 		sys_resource a
 		LEFT JOIN sys_acl b ON b.resoure_id = a.id
