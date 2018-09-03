@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.car.modules.loan.carloanlog.dao.CarLoanLogDao">
+<resultMap id="CarLoanLogDTO" type="com.car.modules.loan.carloanlog.dto.CarLoanLogDTO">
+				<result property="id" column="id" jdbcType="DECIMAL" />
+				<result property="orderNumber" column="ORDER_NUMBER" jdbcType="VARCHAR" />
+				<result property="operationAction" column="OPERATION_ACTION" jdbcType="VARCHAR" />
+				<result property="reqJson" column="REQ_JSON" jdbcType="CLOB" />
+				<result property="errJson" column="ERR_JSON" jdbcType="CLOB" />
+				<result property="creationTime" column="CREATION_TIME" jdbcType="TIMESTAMP" />
+				<result property="updateTime" column="UPDATE_TIME" jdbcType="TIMESTAMP" />
+</resultMap>
+				
+<!-- 分页查询 CAR_LOAN_LOG -->	
+<select id="searchCarLoanLogByPaging" parameterType="java.util.Map" resultMap="CarLoanLogDTO">
+    	 		select 
+						t1.id                             ,
+						t1.order_number                   ,
+						t1.operation_action               ,
+						t1.req_json                       ,
+						t1.err_json                       ,
+						t1.creation_time                  ,
+						t1.update_time                    
+					
+				from car_loan_log 	t1
+				where 1=1
+    			<if test="dto.id != null and dto.id != ''">
+						and t1.id =#{dto.id}
+    			</if>
+    			<if test="dto.orderNumber != null and dto.orderNumber != ''">
+						and t1.ORDER_NUMBER =#{dto.orderNumber}
+    			</if>
+    			<if test="dto.operationAction != null and dto.operationAction != ''">
+						and t1.OPERATION_ACTION =#{dto.operationAction}
+    			</if>
+
+
+
+
+
+				
+				order by t1.id desc
+</select>
+  
+<!-- 查询列表 CAR_LOAN_LOG  -->
+<select id="searchCarLoanLog" parameterType="java.util.Map" resultMap="CarLoanLogDTO">
+    	     select 
+						t1.id                             ,
+						t1.order_number                   ,
+						getDetailName(t1.operation_action,'CAR_LOG_TYPE')operation_action,
+						t1.req_json                       ,
+						t1.err_json                       ,
+						t1.creation_time                  ,
+						t1.update_time                    
+				from car_loan_log 		t1
+				where 1=1
+    			<if test="dto.id != null and dto.id != ''">
+						and t1.id = #{dto.id}
+    			</if>
+    			<if test="dto.orderNumber != null and dto.orderNumber != ''">
+						and t1.ORDER_NUMBER = #{dto.orderNumber}
+    			</if>
+    			<if test="dto.operationAction != null and dto.operationAction != ''">
+						and t1.OPERATION_ACTION = #{dto.operationAction}
+    			</if>
+    			<if test="dto.reqJson != null and dto.reqJson != ''">
+						and t1.REQ_JSON = #{dto.reqJson}
+    			</if>
+    			<if test="dto.errJson != null and dto.errJson != ''">
+						and t1.ERR_JSON = #{dto.errJson}
+    			</if>
+				<if test="dto.creationTimeSta != null and dto.creationTimeSta != ''">
+					and DATE_FORMAT(t1.CREATION_TIME,'%Y-%m-%d') &gt;=#{dto.creationTimeSta}
+				</if>
+
+				<if test="dto.creationTimeEnd != null and dto.creationTimeEnd != ''">
+						and DATE_FORMAT(t1.CREATION_TIME,'%Y-%m-%d') &lt;=#{dto.creationTimeEnd}
+				</if>
+
+					<if test="dto.status == 1 ">
+						and t1.ERR_JSON =""
+					</if>
+
+
+				<if test="dto.status == 2  ">
+					and t1.ERR_JSON !=""
+				</if>
+
+				order by t1.CREATION_TIME desc
+</select>
+  
+<!-- 主键查询对象  CAR_LOAN_LOG -->
+<select id="findCarLoanLogByPrimaryKey" parameterType="java.util.Map" resultMap="CarLoanLogDTO">
+   	 		select 
+					t1.id                             ,
+					t1.order_number                   ,
+					t1.operation_action               ,
+					t1.req_json                       ,
+					t1.err_json                       ,
+					t1.creation_time                  ,
+					t1.update_time                    
+			from car_loan_log 		t1
+			where 
+				t1.id = #{id}
+</select>
+  
+<!-- 新增对象 CAR_LOAN_LOG -->
+<insert id="insertCarLoanLog" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="dto.id">
+			insert into car_loan_log
+			(   		
+						id                             ,
+						order_number                   ,
+						operation_action               ,
+						req_json                       ,
+						err_json                       ,
+						creation_time                  ,
+						update_time                    
+			)
+			values(
+						#{dto.id,jdbcType=DECIMAL}
+						,
+						#{dto.orderNumber,jdbcType=VARCHAR}
+						,
+						#{dto.operationAction,jdbcType=VARCHAR}
+						,
+						#{dto.reqJson,jdbcType=CLOB}
+						,
+						#{dto.errJson,jdbcType=CLOB}
+						,
+						now()
+						,
+						#{dto.updateTime,jdbcType=TIMESTAMP}
+						
+			)
+</insert>
+    
+<!-- 更新对象 CAR_LOAN_LOG -->
+<update id="updateCarLoanLog" parameterType="java.util.Map">
+	     update car_loan_log t1
+	           set 
+			           t1.id                             =#{dto.id,jdbcType=DECIMAL},
+			           t1.order_number                   =#{dto.orderNumber,jdbcType=VARCHAR},
+			           t1.operation_action               =#{dto.operationAction,jdbcType=VARCHAR},
+			           t1.req_json                       =#{dto.reqJson,jdbcType=CLOB},
+			           t1.err_json                       =#{dto.errJson,jdbcType=CLOB},
+			           t1.creation_time                  =#{dto.creationTime,jdbcType=TIMESTAMP},
+			           t1.update_time                    =#{dto.updateTime,jdbcType=TIMESTAMP}
+	     where t1.id = #{dto.id}
+</update>
+   
+<!-- 主键删除 CAR_LOAN_LOG -->
+<delete id="deleteCarLoanLogByID" parameterType="java.util.Map">
+    	delete from car_loan_log where id in (${ids} )
+</delete>
+<!-- 主键假删除 CAR_LOAN_LOG -->
+<update id="deleteCarLoanLogByPrimaryKey" parameterType="java.util.Map">
+	     update car_loan_log t1
+	           set   t1.valid='0'	
+	     where t1.id in( ${ids})
+</update>
+</mapper>

@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.car.modules.loan.carantifraudopnition.dao.CarAntifraudOpnitionDao">
+<resultMap id="CarAntifraudOpnitionDTO" type="com.car.modules.loan.carantifraudopnition.dto.CarAntifraudOpnitionDTO">
+				<result property="id" column="id" jdbcType="DECIMAL" />
+				<result property="orderNumber" column="ORDER_NUMBER" jdbcType="VARCHAR" />
+				<result property="carInfoId" column="CAR_INFO_ID" jdbcType="DECIMAL" />
+				<result property="fraudConclusion" column="FRAUD_CONCLUSION" jdbcType="VARCHAR" />
+				<result property="mainOption" column="MAIN_OPTION" jdbcType="VARCHAR" />
+				<result property="subOption" column="SUB_OPTION" jdbcType="VARCHAR" />
+				<result property="remarks" column="REMARKS" jdbcType="VARCHAR" />
+				<result property="approver" column="APPROVER" jdbcType="VARCHAR" />
+				<result property="ext1" column="EXT1" jdbcType="VARCHAR" />
+				<result property="ext2" column="EXT2" jdbcType="VARCHAR" />
+				<result property="staTus" column="STA_TUS" jdbcType="VARCHAR" />
+				<result property="auditState" column="AUDIT_STATE" jdbcType="VARCHAR" />
+				<result property="createTime" column="CREATE_TIME" jdbcType="TIMESTAMP" />
+				<result property="updateTime" column="UPDATE_TIME" jdbcType="TIMESTAMP" />
+				<result property="operation" column="OPERATION" jdbcType="SMALLINT" />
+				<result property="validateState" column="VALIDATE_STATE" jdbcType="SMALLINT" />
+</resultMap>
+				
+<!-- 分页查询 car_antifraud_opnition -->	
+<select id="searchCarAntifraudOpnitionByPaging" parameterType="java.util.Map" resultMap="CarAntifraudOpnitionDTO">
+    	 		select 
+						t1.id                             ,
+						t1.order_number                   ,
+						t1.car_info_id                    ,
+						t1.fraud_conclusion               ,
+						t1.main_option                    ,
+						t1.sub_option                     ,
+						t1.remarks                        ,
+						t1.approver                       ,
+						t1.ext1                           ,
+						t1.ext2                           ,
+						t1.sta_tus                        ,
+						t1.audit_state                    ,
+						t1.create_time                    ,
+						t1.update_time                    ,
+						t1.operation                      ,
+						t1.validate_state                 
+					
+				from car_antifraud_opnition 	t1
+				where 1=1
+    			<if test="dto.id != null and dto.id != ''">
+						and t1.id =#{dto.id}
+    			</if>
+    			<if test="dto.orderNumber != null and dto.orderNumber != ''">
+						and t1.ORDER_NUMBER =#{dto.orderNumber}
+    			</if>
+    			<if test="dto.carInfoId != null and dto.carInfoId != ''">
+						and t1.CAR_INFO_ID =#{dto.carInfoId}
+    			</if>
+    			<if test="dto.fraudConclusion != null and dto.fraudConclusion != ''">
+						and t1.FRAUD_CONCLUSION =#{dto.fraudConclusion}
+    			</if>
+    			<if test="dto.mainOption != null and dto.mainOption != ''">
+						and t1.MAIN_OPTION =#{dto.mainOption}
+    			</if>
+    			<if test="dto.subOption != null and dto.subOption != ''">
+						and t1.SUB_OPTION =#{dto.subOption}
+    			</if>
+    			<if test="dto.remarks != null and dto.remarks != ''">
+						and t1.REMARKS =#{dto.remarks}
+    			</if>
+    			<if test="dto.approver != null and dto.approver != ''">
+						and t1.APPROVER =#{dto.approver}
+    			</if>
+    			<if test="dto.ext1 != null and dto.ext1 != ''">
+						and t1.EXT1 =#{dto.ext1}
+    			</if>
+    			<if test="dto.ext2 != null and dto.ext2 != ''">
+						and t1.EXT2 =#{dto.ext2}
+    			</if>
+    			<if test="dto.staTus != null and dto.staTus != ''">
+						and t1.STA_TUS =#{dto.staTus}
+    			</if>
+    			<if test="dto.auditState != null and dto.auditState != ''">
+						and t1.AUDIT_STATE =#{dto.auditState}
+    			</if>
+    			<if test="dto.createTime != null and dto.createTime != ''">
+						and t1.CREATE_TIME =#{dto.createTime}
+    			</if>
+    			<if test="dto.updateTime != null and dto.updateTime != ''">
+						and t1.UPDATE_TIME =#{dto.updateTime}
+    			</if>
+    			<if test="dto.operation != null and dto.operation != ''">
+						and t1.OPERATION =#{dto.operation}
+    			</if>
+    			<if test="dto.validateState != null and dto.validateState != ''">
+						and t1.VALIDATE_STATE =#{dto.validateState}
+    			</if>
+				
+				order by t1.id desc
+</select>
+  
+<!-- 查询列表 car_antifraud_opnition  -->
+<select id="searchCarAntifraudOpnition" parameterType="java.util.Map" resultMap="CarAntifraudOpnitionDTO">
+    	     select 
+						t1.id                             ,
+						t1.order_number                   ,
+						t1.car_info_id                    ,
+						t1.fraud_conclusion               ,
+						t1.main_option                    ,
+						t1.sub_option                     ,
+						t1.remarks                        ,
+						t1.approver                       ,
+						t1.ext1                           ,
+						t1.ext2                           ,
+						t1.sta_tus                        ,
+						t1.audit_state                    ,
+						t1.create_time                    ,
+						t1.update_time                    ,
+						t1.operation                      ,
+						t1.validate_state                 
+				from car_antifraud_opnition 		t1
+				where 1=1
+    			<if test="dto.id != null and dto.id != ''">
+						and t1.id = #{dto.id}
+    			</if>
+    			<if test="dto.orderNumber != null and dto.orderNumber != ''">
+						and t1.ORDER_NUMBER = #{dto.orderNumber}
+    			</if>
+    			<if test="dto.carInfoId != null and dto.carInfoId >0">
+						and t1.CAR_INFO_ID = #{dto.carInfoId}
+    			</if>
+    			<if test="dto.validateState != null and dto.validateState >0">
+						and t1.VALIDATE_STATE = #{dto.validateState}
+    			</if>
+</select>
+  
+<!-- 主键查询对象  car_antifraud_opnition -->
+<select id="findCarAntifraudOpnitionByPrimaryKey" parameterType="java.util.Map" resultMap="CarAntifraudOpnitionDTO">
+   	 		select 
+					t1.id                             ,
+					t1.order_number                   ,
+					t1.car_info_id                    ,
+					t1.fraud_conclusion               ,
+					t1.main_option                    ,
+					t1.sub_option                     ,
+					t1.remarks                        ,
+					t1.approver                       ,
+					t1.ext1                           ,
+					t1.ext2                           ,
+					t1.sta_tus                        ,
+					t1.audit_state                    ,
+					t1.create_time                    ,
+					t1.update_time                    ,
+					t1.operation                      ,
+					t1.validate_state                 
+			from car_antifraud_opnition 		t1
+			where 
+				t1.id = #{id}
+</select>
+  
+<!-- 新增对象 car_antifraud_opnition -->
+<insert id="insertCarAntifraudOpnition" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="dto.id">
+			insert into car_antifraud_opnition
+			(   		
+						id                             ,
+						order_number                   ,
+						car_info_id                    ,
+						fraud_conclusion               ,
+						main_option                    ,
+						sub_option                     ,
+						remarks                        ,
+						approver                       ,
+						ext1                           ,
+						ext2                           ,
+						sta_tus                        ,
+						audit_state                    ,
+						create_time                    ,
+						update_time                    ,
+						operation                      ,
+						validate_state                 
+			)
+			values(
+						#{dto.id,jdbcType=DECIMAL}
+						,
+						#{dto.orderNumber,jdbcType=VARCHAR}
+						,
+						#{dto.carInfoId,jdbcType=DECIMAL}
+						,
+						#{dto.fraudConclusion,jdbcType=VARCHAR}
+						,
+						#{dto.mainOption,jdbcType=VARCHAR}
+						,
+						#{dto.subOption,jdbcType=VARCHAR}
+						,
+						#{dto.remarks,jdbcType=VARCHAR}
+						,
+						#{dto.approver,jdbcType=VARCHAR}
+						,
+						#{dto.ext1,jdbcType=VARCHAR}
+						,
+						#{dto.ext2,jdbcType=VARCHAR}
+						,
+						#{dto.staTus,jdbcType=VARCHAR}
+						,
+						#{dto.auditState,jdbcType=VARCHAR}
+						,
+						now()
+						,
+						now()
+						,
+						#{dto.operation,jdbcType=SMALLINT}
+						,
+						'1'
+						
+			)
+</insert>
+    
+<!-- 更新对象 car_antifraud_opnition -->
+<update id="updateCarAntifraudOpnition" parameterType="java.util.Map">
+	     update car_antifraud_opnition t1
+	           set 
+					 <if test="dto.id != null and dto.id != ''">
+						 t1.id                             =#{dto.id,jdbcType=DECIMAL},
+					 </if>
+					 <if test="dto.orderNumber != null and dto.orderNumber != ''">
+						 t1.order_number                   =#{dto.orderNumber,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.carInfoId != null and dto.carInfoId != ''">
+						 t1.car_info_id                    =#{dto.carInfoId,jdbcType=DECIMAL},
+					 </if>
+					 <if test="dto.fraudConclusion != null and dto.fraudConclusion != ''">
+						 t1.fraud_conclusion               =#{dto.fraudConclusion,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.mainOption != null and dto.mainOption != ''">
+						 t1.main_option                    =#{dto.mainOption,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.subOption != null and dto.subOption != ''">
+						 t1.sub_option                     =#{dto.subOption,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.remarks != null and dto.remarks != ''">
+						 t1.remarks                        =#{dto.remarks,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.approver != null and dto.approver != ''">
+						 t1.approver                       =#{dto.approver,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.ext1 != null and dto.ext1 != ''">
+						 t1.ext1                           =#{dto.ext1,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.ext2 != null and dto.ext2 != ''">
+						 t1.ext2                           =#{dto.ext2,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.staTus != null and dto.staTus != ''">
+						 t1.sta_tus                        =#{dto.staTus,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.auditState != null and dto.auditState != ''">
+						 t1.audit_state                    =#{dto.auditState,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.updateTime != null ">
+						 t1.update_time=now(),
+					 </if>
+
+						 t1.operation                      =#{dto.operation,jdbcType=SMALLINT},
+
+						 t1.validate_state  =#{dto.validateState,jdbcType=SMALLINT}
+
+	      where t1.id = #{dto.id}
+</update>
+
+
+<select id="queryLikeCarAntifraudOpnition" parameterType="java.util.Map" resultMap="CarAntifraudOpnitionDTO">
+	select
+	t1.id                             ,
+	t1.order_number                   ,
+	t1.car_info_id                    ,
+	t1.fraud_conclusion               ,
+	t1.main_option                    ,
+	t1.sub_option                     ,
+	t1.remarks                        ,
+	t1.approver                       ,
+	t1.ext1                           ,
+	t1.ext2                           ,
+	t1.sta_tus                        ,
+	t1.audit_state                    ,
+	t1.create_time                    ,
+	t1.update_time                    ,
+	t1.operation                      ,
+	t1.validate_state                 
+			from car_antifraud_opnition 		t1
+			where 1=1
+	<if test="dto.id != null and dto.id != ''">
+	and t1.id = #{dto.id}
+	</if>
+	<if test="dto.orderNumber != null and dto.orderNumber != ''">
+	and t1.ORDER_NUMBER = #{dto.orderNumber}
+	</if>
+	<if test="dto.carInfoId != null and dto.carInfoId != ''">
+	and t1.CAR_INFO_ID = #{dto.carInfoId}
+	</if>
+	<if test="dto.fraudConclusion != null and dto.fraudConclusion != ''">
+	and t1.FRAUD_CONCLUSION = #{dto.fraudConclusion}
+	</if>
+	<if test="dto.mainOption != null and dto.mainOption != ''">
+	and t1.MAIN_OPTION = #{dto.mainOption}
+	</if>
+	<if test="dto.subOption != null and dto.subOption != ''">
+	and t1.SUB_OPTION = #{dto.subOption}
+	</if>
+	<if test="dto.remarks != null and dto.remarks != ''">
+	and t1.REMARKS = #{dto.remarks}
+	</if>
+	<if test="dto.approver != null and dto.approver != ''">
+	and t1.APPROVER = #{dto.approver}
+	</if>
+	<if test="dto.ext1 != null and dto.ext1 != ''">
+	and t1.EXT1 = #{dto.ext1}
+	</if>
+	<if test="dto.ext2 != null and dto.ext2 != ''">
+	and t1.EXT2 = #{dto.ext2}
+	</if>
+	<if test="dto.staTus != null and dto.staTus != ''">
+	and t1.STA_TUS = #{dto.staTus}
+	</if>
+	<if test="dto.auditState != null and dto.auditState != ''">
+	and t1.AUDIT_STATE = #{dto.auditState}
+	</if>
+	<if test="dto.createTime != null and dto.createTime != ''">
+	and t1.CREATE_TIME = #{dto.createTime}
+	</if>
+	<if test="dto.updateTime != null and dto.updateTime != ''">
+	and t1.UPDATE_TIME = #{dto.updateTime}
+	</if>
+	<if test="dto.operation != null and dto.operation != ''">
+	and t1.OPERATION = #{dto.operation}
+	</if>
+	<if test="dto.validateState != null and dto.validateState != ''">
+	and t1.VALIDATE_STATE = #{dto.validateState}
+	</if>
+			</select>
+
+
+</mapper>

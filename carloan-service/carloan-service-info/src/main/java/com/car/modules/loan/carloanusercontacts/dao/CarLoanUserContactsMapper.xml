@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.car.modules.loan.carloanusercontacts.dao.CarLoanUserContactsDao">
+<resultMap id="CarLoanUserContactsDTO" type="com.car.modules.loan.carloanusercontacts.dto.CarLoanUserContactsDTO">
+				<result property="id" column="id" jdbcType="DECIMAL" />
+				<result property="orderNumber" column="ORDER_NUMBER" jdbcType="VARCHAR" />
+				<result property="carLoanUserId" column="CAR_LOAN_USER_ID" jdbcType="VARCHAR" />
+				<result property="relationship" column="RELATIONSHIP" jdbcType="VARCHAR" />
+				<result property="name" column="USER_NAME" jdbcType="VARCHAR" />
+				<result property="contactNumber" column="USER_TELEPHONE" jdbcType="VARCHAR" />
+				<result property="homeOrOfficeAddresses" column="HOME_ADDRESS" jdbcType="VARCHAR" />
+				<result property="workUnit" column="COMPANY_NAME" jdbcType="VARCHAR" />
+				<result property="creationTime" column="CREATION_TIME" jdbcType="TIMESTAMP" />
+				<result property="updateTime" column="UPDATE_TIME" jdbcType="TIMESTAMP" />
+</resultMap>
+				
+<!-- 分页查询 CAR_LOAN_USER_CONTACTS -->	
+<select id="searchCarLoanUserContactsByPaging" parameterType="java.util.Map" resultMap="CarLoanUserContactsDTO">
+    	 		select 
+						t1.id                             ,
+						t1.order_number                   ,
+						t1.car_loan_user_id               ,
+						t1.relationship                   ,
+						t1.user_name                      ,
+						t1.user_telephone                 ,
+						t1.home_address                   ,
+						t1.company_name                   ,
+						t1.creation_time                  ,
+						t1.update_time                    
+					
+				from car_loan_user_contacts 	t1
+				where 1=1
+    			<if test="dto.id != null and dto.id != ''">
+						and t1.id =#{dto.id}
+    			</if>
+    			<if test="dto.orderNumber != null and dto.orderNumber != ''">
+						and t1.ORDER_NUMBER =#{dto.orderNumber}
+    			</if>
+    			<if test="dto.carLoanUserId != null and dto.carLoanUserId != ''">
+						and t1.CAR_LOAN_USER_ID =#{dto.carLoanUserId}
+    			</if>
+    			<if test="dto.relationship != null and dto.relationship != ''">
+						and t1.RELATIONSHIP =#{dto.relationship}
+    			</if>
+    			<if test="dto.userName != null and dto.userName != ''">
+						and t1.USER_NAME =#{dto.userName}
+    			</if>
+    			<if test="dto.userTelephone != null and dto.userTelephone != ''">
+						and t1.USER_TELEPHONE =#{dto.userTelephone}
+    			</if>
+    			<if test="dto.homeAddress != null and dto.homeAddress != ''">
+						and t1.HOME_ADDRESS =#{dto.homeAddress}
+    			</if>
+    			<if test="dto.companyName != null and dto.companyName != ''">
+						and t1.COMPANY_NAME =#{dto.companyName}
+    			</if>
+    			<if test="dto.creationTime != null and dto.creationTime != ''">
+						and t1.CREATION_TIME =#{dto.creationTime}
+    			</if>
+    			<if test="dto.updateTime != null and dto.updateTime != ''">
+						and t1.UPDATE_TIME =#{dto.updateTime}
+    			</if>
+				
+				order by t1.id desc
+</select>
+  
+<!-- 查询列表 CAR_LOAN_USER_CONTACTS  -->
+<select id="searchCarLoanUserContacts" parameterType="java.util.Map" resultMap="CarLoanUserContactsDTO">
+    	     select 
+						t1.id                             ,
+						t1.order_number                   ,
+						t1.car_loan_user_id               ,
+						t1.relationship                   ,
+						t1.user_name                      ,
+						t1.user_telephone                 ,
+						t1.home_address                   ,
+						t1.company_name                   ,
+						t1.creation_time                  ,
+						t1.update_time                    
+				from car_loan_user_contacts 		t1
+				where
+						 t1.ORDER_NUMBER = #{order_number}
+</select>
+  
+<!-- 主键查询对象  CAR_LOAN_USER_CONTACTS -->
+<select id="findCarLoanUserContactsByPrimaryKey" parameterType="java.util.Map" resultMap="CarLoanUserContactsDTO">
+   	 		select
+					t1.id                             ,
+					t1.order_number                   ,
+					t1.car_loan_user_id               ,
+					t1.relationship                   ,
+					t1.user_name                      ,
+					t1.user_telephone                 ,
+					t1.home_address                   ,
+					t1.company_name                   ,
+					t1.creation_time                  ,
+					t1.update_time
+			from car_loan_user_contacts 		t1
+			where
+				t1.id = #{id}
+</select>
+  
+<!-- 新增对象 CAR_LOAN_USER_CONTACTS -->
+<insert id="insertCarLoanUserContacts" parameterType="java.util.Map" >
+			insert into car_loan_user_contacts
+			(   		
+						order_number                   ,
+						relationship                   ,
+						user_name                      ,
+						user_telephone                 ,
+						home_address                   ,
+						company_name                   ,
+						creation_time                  ,
+						update_time                    ,
+						CAR_INFO_ID
+			)
+			values
+	<foreach collection="list" item="dto"   separator=",">
+		(
+				#{dto.orderNumber,jdbcType=VARCHAR}
+				,
+				#{dto.relationship,jdbcType=VARCHAR}
+				,
+				#{dto.name,jdbcType=VARCHAR}
+				,
+				#{dto.contactNumber,jdbcType=VARCHAR}
+				,
+				#{dto.homeOrOfficeAddresses,jdbcType=VARCHAR}
+				,
+				#{dto.workUnit,jdbcType=VARCHAR}
+				,
+				now()
+				,
+				#{dto.updateTime,jdbcType=TIMESTAMP}
+				,
+				#{carinfoid,jdbcType=DECIMAL}
+			)
+			</foreach>
+
+</insert>
+    
+<!-- 更新对象 CAR_LOAN_USER_CONTACTS -->
+<update id="updateCarLoanUserContacts" parameterType="java.util.Map">
+	     update car_loan_user_contacts t1
+	           set 
+			           t1.id                             =#{dto.id,jdbcType=DECIMAL},
+			           t1.order_number                   =#{dto.orderNumber,jdbcType=VARCHAR},
+			           t1.car_loan_user_id               =#{dto.carLoanUserId,jdbcType=VARCHAR},
+			           t1.relationship                   =#{dto.relationship,jdbcType=VARCHAR},
+			           t1.user_name                      =#{dto.userName,jdbcType=VARCHAR},
+			           t1.user_telephone                 =#{dto.userTelephone,jdbcType=VARCHAR},
+			           t1.home_address                   =#{dto.homeAddress,jdbcType=VARCHAR},
+			           t1.company_name                   =#{dto.companyName,jdbcType=VARCHAR},
+			           t1.creation_time                  =#{dto.creationTime,jdbcType=TIMESTAMP},
+			           t1.update_time                    =#{dto.updateTime,jdbcType=TIMESTAMP}
+	     where t1.id = #{dto.id}
+</update>
+   
+<!-- 主键删除 CAR_LOAN_USER_CONTACTS -->
+<delete id="deleteCarLoanUserContactsByID" parameterType="java.util.Map">
+    	delete from car_loan_user_contacts where id in (${ids} )
+</delete>
+<!-- 主键假删除 CAR_LOAN_USER_CONTACTS -->
+<update id="deleteCarLoanUserContactsByPrimaryKey" parameterType="java.util.Map">
+	     update car_loan_user_contacts t1
+	           set   t1.valid='0'	
+	     where t1.id in( ${ids})
+</update>
+
+	<!-- 根据订单好查询  CAR_LOAN_USER_CONTACTS -->
+	<select id="findCarLoanUserContactsByOrderNum" parameterType="java.util.Map" resultMap="CarLoanUserContactsDTO">
+		select
+		t1.id                             ,
+		t1.order_number                   ,
+		t1.car_loan_user_id               ,
+		t1.relationship                   ,
+		t1.user_name                      ,
+		t1.user_telephone                 ,
+		t1.home_address                   ,
+		t1.company_name                   ,
+		t1.creation_time                  ,
+		t1.update_time
+		from car_loan_user_contacts 		t1
+		where
+		t1.order_number = #{orderNuber}
+	</select>
+</mapper>

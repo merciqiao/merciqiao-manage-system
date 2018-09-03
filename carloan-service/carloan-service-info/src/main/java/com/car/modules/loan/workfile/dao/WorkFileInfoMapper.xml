@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.car.modules.loan.workfile.dao.WorkFileInfoDao">
+    <resultMap id="WorkFileInfoDTO" type="com.car.modules.loan.workfile.dto.WorkFileInfoDTO">
+        <result property="infoId" column="id" jdbcType="BIGINT"/>
+        <result property="orderNumber" column="ORDER_NUMBER" jdbcType="VARCHAR"/>
+        <result property="userName" column="USER_NAME" jdbcType="VARCHAR"/>
+        <result property="idCard" column="ID_CARD" jdbcType="VARCHAR"/>
+        <result property="phoneNumber" column="PHONE_NUMBER" jdbcType="VARCHAR"/>
+
+        <result property="productType" column="PRODUCT_TYPE" jdbcType="VARCHAR"/>
+        <result property="approvalProductType" column="APPROVAL_PRODUCT_TYPE" jdbcType="VARCHAR"/>
+        <result property="approvalTerm" column="APPROVAL_TERM" jdbcType="VARCHAR"/>
+        <result property="approvalAmount" column="APPROVAL_AMOUNT" jdbcType="VARCHAR"/>
+
+        <result property="auditeState" column="AUDITE_STATE" jdbcType="VARCHAR"/>
+        <result property="creUserId" column="CRE_USER_ID" jdbcType="VARCHAR"/>
+
+        <result property="secondLevelName" column="SECOND_LEVEL_NAME" jdbcType="VARCHAR"/>
+
+        <result property="creationTime" column="CREATION_TIME" jdbcType="TIMESTAMP"/>
+        <result property="oneStart" column="ONE_START" jdbcType="TIMESTAMP"/>
+        <result property="oneEnd" column="ONE_END" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- 查询质检后的所有状态进件  -->
+    <select id="query" parameterType="java.util.Map" resultMap="WorkFileInfoDTO">
+        SELECT
+        a.id /*主键id*/
+        ,a.ORDER_NUMBER /*订单编号,进件编号*/
+        ,b.USER_NAME /*人姓名,客户姓名*/
+        ,b.ID_CARD /*身份证号,证件号码*/
+        ,b.PHONE_NUMBER /*联系电话,手机号*/
+
+        ,a.PRODUCT_TYPE /*产品类型,申请产品*/
+        ,a.APPROVAL_PRODUCT_TYPE /*审批产品类型,审批产品*/
+        ,a.APPROVAL_TERM /*审批期限*/
+        ,a.APPROVAL_AMOUNT /*审批金额,审批额度*/
+
+        ,a.AUDITE_STATE /*审核状态*/
+        ,a.CRE_USER_ID /*信审员ID,信审员*/
+
+        ,a.SECOND_LEVEL_NAME /*进件门店二级NAME,城市,所属门店*/
+
+        ,a.CREATION_TIME /*进件时间,创建时间*/
+        ,a.ONE_START /*信审流程开始时间,信审开始时间*/
+        ,a.ONE_END /*信审流程结束时间,审批结束时间*/
+
+        FROM car_loan_info a
+        LEFT JOIN car_loan_user b ON a.id=b.CAR_INFO_ID
+        where 1=1
+
+        <if test="dto.orderNumber != null and dto.orderNumber != ''">
+            and a.ORDER_NUMBER LIKE "%"#{dto.orderNumber}"%"
+        </if>
+        <if test="dto.userName != null and dto.userName != ''">
+            and b.USER_NAME LIKE "%"#{dto.userName}"%"
+        </if>
+        <if test="dto.auditeStateList != null and dto.auditeStateList.size > 0">
+            and a.AUDITE_STATE IN
+            <foreach item="item" index="index" collection="dto.auditeStateList" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="dto.productType != null and dto.productType != ''">
+            and a.PRODUCT_TYPE =#{dto.productType}
+        </if>
+
+        <if test="dto.idCard != null and dto.idCard!= ''">
+            and b.ID_CARD LIKE "%"#{dto.idCard}"%"
+        </if>
+        <if test="dto.phoneNumber != null and dto.phoneNumber!= ''">
+            and b.PHONE_NUMBER LIKE "%"#{dto.phoneNumber}"%"
+        </if>
+
+        <if test="dto.creationTimeStart != null">
+            and DATE_FORMAT(a.CREATION_TIME,'%Y-%m-%d') &gt;= DATE_FORMAT(#{dto.creationTimeStart},'%Y-%m-%d')
+        </if>
+        <if test="dto.creationTimeEnd != null">
+            and DATE_FORMAT(a.CREATION_TIME,'%Y-%m-%d') &lt;= DATE_FORMAT(#{dto.creationTimeEnd},'%Y-%m-%d')
+        </if>
+
+        <if test="dto.entryOrgId != null and dto.entryOrgId != ''">
+            and a.ENTRY_ORG_ID = #{dto.entryOrgId}
+        </if>
+        <if test="dto.secondLevelId != null and dto.secondLevelId != ''">
+            and a.SECOND_LEVEL_ID = #{dto.secondLevelId}
+        </if>
+
+        <if test="dto.oneStartStart != null">
+            and DATE_FORMAT(a.ONE_START,'%Y-%m-%d') &gt;= DATE_FORMAT(#{dto.oneStartStart},'%Y-%m-%d')
+        </if>
+        <if test="dto.oneStartEnd != null">
+            and DATE_FORMAT(a.ONE_START,'%Y-%m-%d') &lt;= DATE_FORMAT(#{dto.oneStartEnd},'%Y-%m-%d')
+        </if>
+        <if test="dto.oneEndStart != null">
+            and DATE_FORMAT(a.ONE_END,'%Y-%m-%d') &gt;= DATE_FORMAT(#{dto.oneEndStart},'%Y-%m-%d')
+        </if>
+        <if test="dto.oneEndEnd != null">
+            and DATE_FORMAT(a.ONE_END,'%Y-%m-%d') &lt;= DATE_FORMAT(#{dto.oneEndEnd},'%Y-%m-%d')
+        </if>
+
+        ORDER BY a.id DESC
+    </select>
+
+</mapper>

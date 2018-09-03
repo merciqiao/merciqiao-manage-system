@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.carloan.service.master.sysdictdetail.dao.SysDictDetailDao">
+<resultMap id="SysDictDetailDTO" type="com.carloan.service.master.sysdictdetail.dto.SysDictDetailDTO">
+				<result property="id" column="ID" jdbcType="DECIMAL" />
+				<result property="dictId" column="DICT_ID" jdbcType="DECIMAL" />
+				<result property="dictDetailName" column="DICT_DETAIL_NAME" jdbcType="VARCHAR" />
+				<result property="dictDetailValue" column="DICT_DETAIL_VALUE" jdbcType="VARCHAR" />
+				<result property="orderBy" column="ORDER_BY" jdbcType="VARCHAR" />
+				<result property="validateState" column="VALIDATE_STATE" jdbcType="VARCHAR" />
+				<result property="version" column="VERSION" jdbcType="DECIMAL" />
+				<result property="creationTime" column="CREATION_TIME" jdbcType="TIMESTAMP" />
+</resultMap>
+				
+<!-- 分页查询 sys_dict_detail -->	
+<select id="searchSysDictDetailByPaging" parameterType="java.util.Map" resultMap="SysDictDetailDTO">
+    	 		select 
+						t1.id                             ,
+						t1.dict_id                        ,
+						t1.dict_detail_name               ,
+						t1.dict_detail_value              ,
+						t1.order_by                       ,
+						t1.validate_state                 ,
+						t1.version                        ,
+						t1.creation_time                  
+					
+				from sys_dict_detail 	t1
+				where 1=1
+    			<if test="dto.id != null and dto.id != ''">
+						and t1.ID =#{dto.id}
+    			</if>
+    			<if test="dto.dictId != null and dto.dictId != ''">
+						and t1.DICT_ID =#{dto.dictId}
+    			</if>
+    			<if test="dto.dictDetailName != null and dto.dictDetailName != ''">
+						and t1.DICT_DETAIL_NAME =#{dto.dictDetailName}
+    			</if>
+    			<if test="dto.dictDetailValue != null and dto.dictDetailValue != ''">
+						and t1.DICT_DETAIL_VALUE =#{dto.dictDetailValue}
+    			</if>
+    			<if test="dto.orderBy != null and dto.orderBy != ''">
+						and t1.ORDER_BY =#{dto.orderBy}
+    			</if>
+    			<if test="dto.validateState != null and dto.validateState != ''">
+						and t1.VALIDATE_STATE =#{dto.validateState}
+    			</if>
+    			<if test="dto.version != null and dto.version != ''">
+						and t1.VERSION =#{dto.version}
+    			</if>
+    			<if test="dto.creationTime != null and dto.creationTime != ''">
+						and t1.CREATION_TIME =#{dto.creationTime}
+    			</if>
+				
+				order by t1.id desc
+</select>
+  
+<!-- 查询列表 sys_dict_detail  -->
+<select id="searchSysDictDetail" parameterType="java.util.Map" resultMap="SysDictDetailDTO">
+    	     select 
+						t1.id                             ,
+						t1.dict_id                        ,
+						t1.dict_detail_name               ,
+						t1.dict_detail_value              ,
+						t1.order_by                       ,
+						t1.validate_state                 ,
+						t1.version                        ,
+						t1.creation_time                  
+				from sys_dict_detail 		t1
+				where 1=1
+    			<if test="dto.id != null and dto.id != ''">
+						and t1.ID = #{dto.id}
+    			</if>
+    			<if test="dto.dictId != null and dto.dictId != ''">
+						and t1.DICT_ID = #{dto.dictId}
+    			</if>
+    			<if test="dto.dictDetailName != null and dto.dictDetailName != ''">
+						and t1.DICT_DETAIL_NAME = #{dto.dictDetailName}
+    			</if>
+    			<if test="dto.dictDetailValue != null and dto.dictDetailValue != ''">
+						and t1.DICT_DETAIL_VALUE = #{dto.dictDetailValue}
+    			</if>
+    			<if test="dto.orderBy != null and dto.orderBy != ''">
+						and t1.ORDER_BY = #{dto.orderBy}
+    			</if>
+    			<if test="dto.validateState != null and dto.validateState != ''">
+						and t1.VALIDATE_STATE = #{dto.validateState}
+    			</if>
+    			<if test="dto.version != null and dto.version != ''">
+						and t1.VERSION = #{dto.version}
+    			</if>
+    			<if test="dto.creationTime != null and dto.creationTime != ''">
+						and t1.CREATION_TIME = #{dto.creationTime}
+    			</if>
+</select>
+  
+<!-- 主键查询对象  sys_dict_detail -->
+<select id="findSysDictDetailByPrimaryKey" parameterType="java.util.Map" resultMap="SysDictDetailDTO">
+   	 		select 
+					t1.id                             ,
+					t1.dict_id                        ,
+					t1.dict_detail_name               ,
+					t1.dict_detail_value              ,
+					t1.order_by                       ,
+					t1.validate_state                 ,
+					t1.version                        ,
+					t1.creation_time                  
+			from sys_dict_detail 		t1
+			where 
+				t1.id = #{id}
+</select>
+  
+<!-- 新增对象 sys_dict_detail -->
+<insert id="insertSysDictDetail" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="dto.id">
+			insert into sys_dict_detail
+			(   		
+						dict_id                        ,
+						dict_detail_name               ,
+						dict_detail_value              ,
+						order_by                       ,
+						validate_state                 ,
+						version                        ,
+						creation_time                  
+			)
+			values(
+						#{dto.dictId,jdbcType=DECIMAL}
+						,
+						#{dto.dictDetailName,jdbcType=VARCHAR}
+						,
+						#{dto.dictDetailValue,jdbcType=VARCHAR}
+						,
+						#{dto.orderBy,jdbcType=VARCHAR}
+						,
+						'1'
+						,
+						#{dto.version,jdbcType=DECIMAL}
+						,
+						#{dto.creationTime,jdbcType=TIMESTAMP}
+						
+			)
+</insert>
+    
+<!-- 更新对象 sys_dict_detail -->
+<update id="updateSysDictDetail" parameterType="java.util.Map">
+	     update sys_dict_detail t1
+	           set 
+					 <if test="dto.dictId != null and dto.dictId != ''">
+						 t1.dict_id                        =#{dto.dictId,jdbcType=DECIMAL},
+					 </if>
+					 <if test="dto.dictDetailName != null and dto.dictDetailName != ''">
+						 t1.dict_detail_name               =#{dto.dictDetailName,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.dictDetailValue != null and dto.dictDetailValue != ''">
+						 t1.dict_detail_value              =#{dto.dictDetailValue,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.orderBy != null and dto.orderBy != ''">
+						 t1.order_by                       =#{dto.orderBy,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.validateState != null and dto.validateState != ''">
+						 t1.validate_state                 ='1',
+					 </if>
+					 <if test="dto.version != null and dto.version != ''">
+						 t1.version                        =#{dto.version,jdbcType=DECIMAL},
+					 </if>
+					 <if test="dto.creationTime != null and dto.creationTime != ''">
+						 t1.creation_time                  =#{dto.creationTime,jdbcType=TIMESTAMP}
+					 </if>
+	     where t1.id = #{dto.id}
+</update>
+
+
+<select id="queryLikeSysDictDetail" parameterType="java.util.Map" resultMap="SysDictDetailDTO">
+	select
+	t1.id                             ,
+	t1.dict_id                        ,
+	t1.dict_detail_name               ,
+	t1.dict_detail_value              ,
+	t1.order_by                       ,
+	t1.validate_state                 ,
+	t1.version                        ,
+	t1.creation_time                  
+			from sys_dict_detail 		t1
+			where 1=1
+	<if test="dto.id != null and dto.id != ''">
+	and t1.ID = #{dto.id}
+	</if>
+	<if test="dto.dictId != null and dto.dictId != ''">
+	and t1.DICT_ID = #{dto.dictId}
+	</if>
+	<if test="dto.dictDetailName != null and dto.dictDetailName != ''">
+	and t1.DICT_DETAIL_NAME = #{dto.dictDetailName}
+	</if>
+	<if test="dto.dictDetailValue != null and dto.dictDetailValue != ''">
+	and t1.DICT_DETAIL_VALUE = #{dto.dictDetailValue}
+	</if>
+	<if test="dto.orderBy != null and dto.orderBy != ''">
+	and t1.ORDER_BY = #{dto.orderBy}
+	</if>
+	<if test="dto.validateState != null and dto.validateState != ''">
+	and t1.VALIDATE_STATE = #{dto.validateState}
+	</if>
+	<if test="dto.version != null and dto.version != ''">
+	and t1.VERSION = #{dto.version}
+	</if>
+	<if test="dto.creationTime != null and dto.creationTime != ''">
+	and t1.CREATION_TIME = #{dto.creationTime}
+	</if>
+			</select>
+
+
+
+
+
+
+
+	<select id="searchCodeSysDictDetail" parameterType="java.lang.String" resultMap="SysDictDetailDTO">
+				SELECT
+		  k.ID,
+			k.DICT_ID,
+			k.DICT_DETAIL_VALUE,
+			k.DICT_DETAIL_NAME
+		FROM
+			sys_dict_detail k
+		LEFT JOIN sys_dict m ON k.DICT_ID = m.id
+		WHERE
+			m.DICT_CODE = #{code}
+	</select>
+</mapper>

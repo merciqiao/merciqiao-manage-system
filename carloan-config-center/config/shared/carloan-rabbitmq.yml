@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: carloan-rabbitmq
+  profiles:
+    active: dev
+  rabbitmq:
+      car_host: 172.24.133.35
+      car_port: 9090
+      car_username: yg_car_loan
+      car_password: yg_car_loan
+      car_vhost: car_loan
+      car_exchange: car_loan_exchange
+      car_routingkey: routing-key:car_loan
+      car_queuename: car_loan_queue_qlx
+      car_put_routingkey: rk-car-loan-audit
+server:
+  port: 10006
+
+logging:
+  config: config/logback.xml
+
+feign:
+   hystrix:
+     enabled: true #开启feign自带的熔断器,默认不开启的
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9901/eureka/
+  instance:
+    #是否使用IP定义注册中心的地址
+    preferIpAddress: true
+
+
+

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>carloan-feign</artifactId>
+        <groupId>com.yingu.project</groupId>
+        <version>0.0.1</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>carloan-feign-info</artifactId>
+    <dependencies>
+        <!--<dependency>-->
+            <!--<groupId>carloan-service-info</groupId>-->
+            <!--<artifactId>carloan-service-info</artifactId>-->
+            <!--<version>0.0.1-SNAPSHOT</version>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>com.yingu.project</groupId>
+            <artifactId>carloan-api-model-shiro</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.yingu.project</groupId>
+            <artifactId>carloan-api-model-workflow</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.openfeign.form</groupId>
+            <artifactId>feign-form-spring</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+    </dependencies>
+
+
+</project>

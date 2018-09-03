@@ -1,0 +1,632 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.carloan.service.admin.sysuser.dao.SysUserDao">
+<resultMap id="SysUserDTO" type="com.carloan.service.admin.sysuser.dto.SysUserDTO">
+				<result property="id" column="ID" jdbcType="DECIMAL" />
+				<result property="userName" column="USER_NAME" jdbcType="VARCHAR" />
+				<result property="userNo" column="USER_NO" jdbcType="VARCHAR" />
+				<result property="loginName" column="LOGIN_NAME" jdbcType="VARCHAR" />
+				<result property="password" column="PASSWORD" jdbcType="VARCHAR" />
+	            <result property="orgid" column="ORG_ID" jdbcType="BIGINT" />
+	            <result property="positionid" column="POSITION_ID" jdbcType="BIGINT" />
+				<result property="salt" column="SALT" jdbcType="VARCHAR" />
+				<result property="mobile" column="MOBILE" jdbcType="VARCHAR" />
+				<result property="email" column="EMAIL" jdbcType="VARCHAR" />
+				<result property="userImage" column="USER_IMAGE" jdbcType="VARCHAR" />
+				<result property="sex" column="SEX" jdbcType="VARCHAR" />
+				<result property="birthday" column="BIRTHDAY" jdbcType="VARCHAR" />
+				<result property="nationality" column="NATIONALITY" jdbcType="VARCHAR" />
+				<result property="education" column="EDUCATION" jdbcType="VARCHAR" />
+				<result property="job" column="JOB" jdbcType="VARCHAR" />
+				<result property="homeAddress" column="HOME_ADDRESS" jdbcType="VARCHAR" />
+				<result property="homeZipcode" column="HOME_ZIPCODE" jdbcType="VARCHAR" />
+				<result property="homeTel" column="HOME_TEL" jdbcType="VARCHAR" />
+				<result property="officeTel" column="OFFICE_TEL" jdbcType="VARCHAR" />
+				<result property="officeAddress" column="OFFICE_ADDRESS" jdbcType="VARCHAR" />
+				<result property="orderBy" column="ORDER_BY" jdbcType="VARCHAR" />
+				<result property="validateState" column="VALIDATE_STATE" jdbcType="VARCHAR" />
+				<result property="isLocked" column="IS_LOCKED" jdbcType="VARCHAR" />
+				<result property="version" column="VERSION" jdbcType="DECIMAL" />
+				<result property="createDate" column="CREATE_DATE" jdbcType="TIMESTAMP" />
+				<result property="cardNo" column="CARD_NO" jdbcType="VARCHAR" />
+				<result property="probationPeriod" column="PROBATION_PERIOD" jdbcType="DECIMAL" />
+				<result property="entryDate" column="ENTRY_DATE" jdbcType="TIMESTAMP" />
+				<result property="quitDate" column="QUIT_DATE" jdbcType="TIMESTAMP" />
+				<result property="workDate" column="WORK_DATE" jdbcType="TIMESTAMP" />
+				<result property="politicalStatus" column="POLITICAL_STATUS" jdbcType="VARCHAR" />
+				<result property="userRelation" column="USER_RELATION" jdbcType="VARCHAR" />
+				<result property="annualLeave" column="ANNUAL_LEAVE" jdbcType="DECIMAL" />
+				<result property="jxzj" column="JXZJ" jdbcType="VARCHAR" />
+				<result property="njqsrq" column="NJQSRQ" jdbcType="TIMESTAMP" />
+				<result property="uuid" column="UUID" jdbcType="VARCHAR" />
+				<result property="orgname" column="orgname" jdbcType="VARCHAR" />
+				<result property="positionname" column="positionname" jdbcType="VARCHAR" />
+</resultMap>
+				
+<!-- 分页查询 sys_user -->	
+<select id="searchSysUserByPaging" parameterType="java.util.Map" resultMap="SysUserDTO">
+    	 		select 
+						t1.id                             ,
+						t1.user_name                      ,
+						t1.user_no                        ,
+						t1.login_name                     ,
+						t1.password                       ,
+	        t1.org_id,
+	        t1.position_id,
+						t1.salt                           ,
+						t1.mobile                         ,
+						t1.email                          ,
+						t1.user_image                     ,
+						t1.sex                            ,
+						t1.birthday                       ,
+						t1.nationality                    ,
+						t1.education                      ,
+						t1.job                            ,
+						t1.home_address                   ,
+						t1.home_zipcode                   ,
+						t1.home_tel                       ,
+						t1.office_tel                     ,
+						t1.office_address                 ,
+						t1.order_by                       ,
+						t1.validate_state                 ,
+						t1.is_locked                      ,
+						t1.version                        ,
+						t1.create_date                    ,
+						t1.card_no                        ,
+						t1.probation_period               ,
+						t1.entry_date                     ,
+						t1.quit_date                      ,
+						t1.work_date                      ,
+						t1.political_status               ,
+						t1.user_relation                  ,
+						t1.annual_leave                   ,
+						t1.jxzj                           ,
+						t1.njqsrq                         ,
+						t1.uuid,
+						t2.ORG_NAME as orgname,
+						t3.POSITION_NAME as positionname
+					
+				from sys_user 	t1
+			left join sys_org t2 on t1.ORG_ID=t2.id
+			left join sys_position t3 on t3.ID=t1.POSITION_ID
+				where 1=1
+    			<if test="dto.id != null and dto.id >0">
+						and t1.ID =#{dto.id}
+    			</if>
+    			<if test="dto.userName != null and dto.userName != ''">
+						and t1.USER_NAME =#{dto.userName}
+    			</if>
+    			<if test="dto.userNo != null and dto.userNo != ''">
+						and t1.USER_NO =#{dto.userNo}
+    			</if>
+    			<if test="dto.loginName != null and dto.loginName != ''">
+						and t1.LOGIN_NAME =#{dto.loginName}
+    			</if>
+    			<if test="dto.mobile != null and dto.mobile != ''">
+						and t1.MOBILE =#{dto.mobile}
+    			</if>
+    			<if test="dto.sex != null and dto.sex != ''">
+						and t1.SEX =#{dto.sex}
+    			</if>
+    			<if test="dto.job != null and dto.job != ''">
+						and t1.JOB =#{dto.job}
+    			</if>
+				<if test="dto.orgid != null and dto.orgid>0">
+					and t1.org_id =#{dto.orgid}
+				</if>
+				<if test="dto.positionid != null and dto.positionid>0">
+					and t1.position_id =#{dto.positionid}
+				</if>
+	and t1.validate_state=1
+				
+				order by t1.id desc
+</select>
+  
+<!-- 查询列表 sys_user  -->
+<select id="searchSysUser" parameterType="java.util.Map" resultMap="SysUserDTO">
+    	     select 
+						t1.id                             ,
+						t1.user_name                      ,
+						t1.user_no                        ,
+						t1.login_name                     ,
+						t1.password                       ,
+	t1.org_id,
+	t1.position_id,
+						t1.salt                           ,
+						t1.mobile                         ,
+						t1.email                          ,
+						t1.user_image                     ,
+						t1.sex                            ,
+						t1.birthday                       ,
+						t1.nationality                    ,
+						t1.education                      ,
+						t1.job                            ,
+						t1.home_address                   ,
+						t1.home_zipcode                   ,
+						t1.home_tel                       ,
+						t1.office_tel                     ,
+						t1.office_address                 ,
+						t1.order_by                       ,
+						t1.validate_state                 ,
+						t1.is_locked                      ,
+						t1.version                        ,
+						t1.create_date                    ,
+						t1.card_no                        ,
+						t1.probation_period               ,
+						t1.entry_date                     ,
+						t1.quit_date                      ,
+						t1.work_date                      ,
+						t1.political_status               ,
+						t1.user_relation                  ,
+						t1.annual_leave                   ,
+						t1.jxzj                           ,
+						t1.njqsrq                         ,
+						t1.uuid    ,
+						t2.ORG_NAME as orgname,
+						t3.POSITION_NAME as positionname
+				from sys_user 		t1
+					left join sys_org t2 on t1.ORG_ID=t2.id
+					left join sys_position t3 on t3.ID=t1.POSITION_ID
+				where 1=1
+    			<if test="dto.id != null and dto.id >0">
+						and t1.ID = #{dto.id}
+    			</if>
+    			<if test="dto.userName != null and dto.userName != ''">
+						and t1.USER_NAME like  CONCAT('%',#{dto.userName},'%')
+    			</if>
+    			<if test="dto.userNo != null and dto.userNo != ''">
+						and t1.USER_NO = #{dto.userNo}
+    			</if>
+    			<if test="dto.loginName != null and dto.loginName != ''">
+						and t1.LOGIN_NAME = #{dto.loginName}
+    			</if>
+
+    			<if test="dto.mobile != null and dto.mobile != ''">
+						and t1.MOBILE = #{dto.mobile}
+    			</if>
+    			<if test="dto.sex != null and dto.sex != ''">
+						and t1.SEX = #{dto.sex}
+    			</if>
+
+    			<if test="dto.job != null and dto.job != ''">
+						and t1.JOB = #{dto.job}
+    			</if>
+				<if test="dto.orgid != null and dto.orgid>0">
+					and t1.org_id =#{dto.orgid}
+				</if>
+				<if test="dto.positionid != null and dto.positionid>0">
+					and t1.position_id =#{dto.positionid}
+				</if>
+	and t1.validate_state=1
+
+</select>
+  
+<!-- 主键查询对象  sys_user -->
+<select id="findSysUserByPrimaryKey" parameterType="java.util.Map" resultMap="SysUserDTO">
+   	 		select 
+					t1.id                             ,
+					t1.user_name                      ,
+					t1.user_no                        ,
+					t1.login_name                     ,
+					t1.password                       ,
+					t1.org_id,
+					t1.position_id,
+					t1.salt                           ,
+					t1.mobile                         ,
+					t1.email                          ,
+					t1.user_image                     ,
+					t1.sex                            ,
+					t1.birthday                       ,
+					t1.nationality                    ,
+					t1.education                      ,
+					t1.job                            ,
+					t1.home_address                   ,
+					t1.home_zipcode                   ,
+					t1.home_tel                       ,
+					t1.office_tel                     ,
+					t1.office_address                 ,
+					t1.order_by                       ,
+					t1.validate_state                 ,
+					t1.is_locked                      ,
+					t1.version                        ,
+					t1.create_date                    ,
+					t1.card_no                        ,
+					t1.probation_period               ,
+					t1.entry_date                     ,
+					t1.quit_date                      ,
+					t1.work_date                      ,
+					t1.political_status               ,
+					t1.user_relation                  ,
+					t1.annual_leave                   ,
+					t1.jxzj                           ,
+					t1.njqsrq                         ,
+					t1.uuid,
+			       t2.ORG_NAME as orgname,
+					t3.POSITION_NAME as positionname
+				from sys_user 		t1
+					left join sys_org t2 on t1.ORG_ID=t2.id
+					left join sys_position t3 on t3.ID=t1.POSITION_ID
+			where 
+				t1.id = #{id}
+</select>
+  
+<!-- 新增对象 sys_user -->
+<insert id="insertSysUser" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="dto.id">
+			insert into sys_user
+			(   		
+						user_name                      ,
+						user_no                        ,
+						login_name                     ,
+						password                       ,
+						org_id,
+						position_id,
+						salt                           ,
+						mobile                         ,
+						email                          ,
+						user_image                     ,
+						sex                            ,
+						birthday                       ,
+						nationality                    ,
+						education                      ,
+						job                            ,
+						home_address                   ,
+						home_zipcode                   ,
+						home_tel                       ,
+						office_tel                     ,
+						office_address                 ,
+						order_by                       ,
+						validate_state                 ,
+						is_locked                      ,
+						version                        ,
+						create_date                    ,
+						card_no                        ,
+						probation_period               ,
+						entry_date                     ,
+						quit_date                      ,
+						work_date                      ,
+						political_status               ,
+						user_relation                  ,
+						annual_leave                   ,
+						jxzj                           ,
+						njqsrq                         ,
+						uuid                           
+			)
+			values(
+						#{dto.userName,jdbcType=VARCHAR}
+						,
+						#{dto.userNo,jdbcType=VARCHAR}
+						,
+						#{dto.loginName,jdbcType=VARCHAR}
+						,
+						#{dto.password,jdbcType=VARCHAR}
+						,
+						#{dto.orgid,jdbcType=BIGINT}
+						,
+						#{dto.positionid,jdbcType=BIGINT}
+						,
+						#{dto.salt,jdbcType=VARCHAR}
+						,
+						#{dto.mobile,jdbcType=VARCHAR}
+						,
+						#{dto.email,jdbcType=VARCHAR}
+						,
+						#{dto.userImage,jdbcType=VARCHAR}
+						,
+						#{dto.sex,jdbcType=VARCHAR}
+						,
+						#{dto.birthday,jdbcType=VARCHAR}
+						,
+						#{dto.nationality,jdbcType=VARCHAR}
+						,
+						#{dto.education,jdbcType=VARCHAR}
+						,
+						#{dto.job,jdbcType=VARCHAR}
+						,
+						#{dto.homeAddress,jdbcType=VARCHAR}
+						,
+						#{dto.homeZipcode,jdbcType=VARCHAR}
+						,
+						#{dto.homeTel,jdbcType=VARCHAR}
+						,
+						#{dto.officeTel,jdbcType=VARCHAR}
+						,
+						#{dto.officeAddress,jdbcType=VARCHAR}
+						,
+						#{dto.orderBy,jdbcType=VARCHAR}
+						,
+						'1'
+						,
+						#{dto.isLocked,jdbcType=VARCHAR}
+						,
+						#{dto.version,jdbcType=DECIMAL}
+						,
+						now()
+						,
+						#{dto.cardNo,jdbcType=VARCHAR}
+						,
+						#{dto.probationPeriod,jdbcType=DECIMAL}
+						,
+						#{dto.entryDate,jdbcType=TIMESTAMP}
+						,
+						#{dto.quitDate,jdbcType=TIMESTAMP}
+						,
+						#{dto.workDate,jdbcType=TIMESTAMP}
+						,
+						#{dto.politicalStatus,jdbcType=VARCHAR}
+						,
+						#{dto.userRelation,jdbcType=VARCHAR}
+						,
+						#{dto.annualLeave,jdbcType=DECIMAL}
+						,
+						#{dto.jxzj,jdbcType=VARCHAR}
+						,
+						now()
+						,
+						#{dto.uuid,jdbcType=VARCHAR}
+						
+			)
+</insert>
+    
+<!-- 更新对象 sys_user -->
+<update id="updateSysUser" parameterType="java.util.Map">
+	     update sys_user t1
+	           set 
+					 <if test="dto.userName != null and dto.userName != ''">
+						 t1.user_name                      =#{dto.userName,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.userNo != null and dto.userNo != ''">
+						 t1.user_no                        =#{dto.userNo,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.loginName != null and dto.loginName != ''">
+						 t1.login_name                     =#{dto.loginName,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.password != null and dto.password != ''">
+						 t1.password                       =#{dto.password,jdbcType=VARCHAR},
+					 </if>
+					<if test="dto.orgid != null and dto.orgid>0 ">
+						t1.org_id                       =#{dto.orgid,jdbcType=BIGINT},
+					</if>
+					<if test="dto.positionid != null and dto.positionid >0">
+						t1.position_id                       =#{dto.positionid,jdbcType=BIGINT},
+					</if>
+					 <if test="dto.salt != null and dto.salt != ''">
+						 t1.salt                           =#{dto.salt,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.mobile != null and dto.mobile != ''">
+						 t1.mobile                         =#{dto.mobile,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.email != null and dto.email != ''">
+						 t1.email                          =#{dto.email,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.userImage != null and dto.userImage != ''">
+						 t1.user_image                     =#{dto.userImage,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.sex != null and dto.sex != ''">
+						 t1.sex                            =#{dto.sex,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.birthday != null and dto.birthday != ''">
+						 t1.birthday                       =#{dto.birthday,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.nationality != null and dto.nationality != ''">
+						 t1.nationality                    =#{dto.nationality,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.education != null and dto.education != ''">
+						 t1.education                      =#{dto.education,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.job != null and dto.job != ''">
+						 t1.job                            =#{dto.job,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.homeAddress != null and dto.homeAddress != ''">
+						 t1.home_address                   =#{dto.homeAddress,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.homeZipcode != null and dto.homeZipcode != ''">
+						 t1.home_zipcode                   =#{dto.homeZipcode,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.homeTel != null and dto.homeTel != ''">
+						 t1.home_tel                       =#{dto.homeTel,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.officeTel != null and dto.officeTel != ''">
+						 t1.office_tel                     =#{dto.officeTel,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.officeAddress != null and dto.officeAddress != ''">
+						 t1.office_address                 =#{dto.officeAddress,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.orderBy != null and dto.orderBy != ''">
+						 t1.order_by                       =#{dto.orderBy,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.isLocked != null and dto.isLocked != ''">
+						 t1.is_locked                      =#{dto.isLocked,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.version != null and dto.version != ''">
+						 t1.version                        =#{dto.version,jdbcType=DECIMAL},
+					 </if>
+					 <if test="dto.cardNo != null and dto.cardNo != ''">
+						 t1.card_no                        =#{dto.cardNo,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.probationPeriod != null and dto.probationPeriod != ''">
+						 t1.probation_period               =#{dto.probationPeriod,jdbcType=DECIMAL},
+					 </if>
+					 <if test="dto.entryDate != null ">
+						 t1.entry_date                     =#{dto.entryDate,jdbcType=TIMESTAMP},
+					 </if>
+					 <if test="dto.quitDate != null ">
+						 t1.quit_date                      =#{dto.quitDate,jdbcType=TIMESTAMP},
+					 </if>
+					 <if test="dto.workDate != null ">
+						 t1.work_date                      =#{dto.workDate,jdbcType=TIMESTAMP},
+					 </if>
+					 <if test="dto.politicalStatus != null and dto.politicalStatus != ''">
+						 t1.political_status               =#{dto.politicalStatus,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.userRelation != null and dto.userRelation != ''">
+						 t1.user_relation                  =#{dto.userRelation,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.annualLeave != null and dto.annualLeave != ''">
+						 t1.annual_leave                   =#{dto.annualLeave,jdbcType=DECIMAL},
+					 </if>
+					 <if test="dto.jxzj != null and dto.jxzj != ''">
+						 t1.jxzj                           =#{dto.jxzj,jdbcType=VARCHAR},
+					 </if>
+
+					 <if test="dto.uuid != null and dto.uuid != ''">
+						 t1.uuid                           =#{dto.uuid,jdbcType=VARCHAR},
+					 </if>
+	           t1.validate_state                 ='1'
+	     where t1.id = #{dto.id}
+</update>
+	<update id="deleteSysUserByPrimaryKey" parameterType="java.util.Map">
+		update sys_user  t1
+		set   t1.validate_state='0'
+		where t1.id in( ${ids})
+	</update>
+
+<select id="queryLikeSysUser" parameterType="java.util.Map" resultMap="SysUserDTO">
+	select
+	t1.id                             ,
+	t1.user_name                      ,
+	t1.user_no                        ,
+	t1.login_name                     ,
+	t1.password                       ,
+	t1.salt                           ,
+	t1.org_id,
+	t1.position_id,
+	t1.mobile                         ,
+	t1.email                          ,
+	t1.user_image                     ,
+	t1.sex                            ,
+	t1.birthday                       ,
+	t1.nationality                    ,
+	t1.education                      ,
+	t1.job                            ,
+	t1.home_address                   ,
+	t1.home_zipcode                   ,
+	t1.home_tel                       ,
+	t1.office_tel                     ,
+	t1.office_address                 ,
+	t1.order_by                       ,
+	t1.validate_state                 ,
+	t1.is_locked                      ,
+	t1.version                        ,
+	t1.create_date                    ,
+	t1.card_no                        ,
+	t1.probation_period               ,
+	t1.entry_date                     ,
+	t1.quit_date                      ,
+	t1.work_date                      ,
+	t1.political_status               ,
+	t1.user_relation                  ,
+	t1.annual_leave                   ,
+	t1.jxzj                           ,
+	t1.njqsrq                         ,
+	t1.uuid                           
+			from sys_user 		t1
+			where 1=1
+	<if test="dto.id != null and dto.id != ''">
+	and t1.ID = #{dto.id}
+	</if>
+	<if test="dto.userName != null and dto.userName != ''">
+	and t1.USER_NAME = #{dto.userName}
+	</if>
+	<if test="dto.userNo != null and dto.userNo != ''">
+	and t1.USER_NO = #{dto.userNo}
+	</if>
+	<if test="dto.loginName != null and dto.loginName != ''">
+	and t1.LOGIN_NAME = #{dto.loginName}
+	</if>
+	<if test="dto.password != null and dto.password != ''">
+	and t1.PASSWORD = #{dto.password}
+	</if>
+	<if test="dto.salt != null and dto.salt != ''">
+	and t1.SALT = #{dto.salt}
+	</if>
+	<if test="dto.mobile != null and dto.mobile != ''">
+	and t1.MOBILE = #{dto.mobile}
+	</if>
+	<if test="dto.email != null and dto.email != ''">
+	and t1.EMAIL = #{dto.email}
+	</if>
+	<if test="dto.userImage != null and dto.userImage != ''">
+	and t1.USER_IMAGE = #{dto.userImage}
+	</if>
+	<if test="dto.sex != null and dto.sex != ''">
+	and t1.SEX = #{dto.sex}
+	</if>
+	<if test="dto.birthday != null and dto.birthday != ''">
+	and t1.BIRTHDAY = #{dto.birthday}
+	</if>
+	<if test="dto.nationality != null and dto.nationality != ''">
+	and t1.NATIONALITY = #{dto.nationality}
+	</if>
+	<if test="dto.education != null and dto.education != ''">
+	and t1.EDUCATION = #{dto.education}
+	</if>
+	<if test="dto.job != null and dto.job != ''">
+	and t1.JOB = #{dto.job}
+	</if>
+	<if test="dto.homeAddress != null and dto.homeAddress != ''">
+	and t1.HOME_ADDRESS = #{dto.homeAddress}
+	</if>
+	<if test="dto.homeZipcode != null and dto.homeZipcode != ''">
+	and t1.HOME_ZIPCODE = #{dto.homeZipcode}
+	</if>
+	<if test="dto.homeTel != null and dto.homeTel != ''">
+	and t1.HOME_TEL = #{dto.homeTel}
+	</if>
+	<if test="dto.officeTel != null and dto.officeTel != ''">
+	and t1.OFFICE_TEL = #{dto.officeTel}
+	</if>
+	<if test="dto.officeAddress != null and dto.officeAddress != ''">
+	and t1.OFFICE_ADDRESS = #{dto.officeAddress}
+	</if>
+	<if test="dto.orderBy != null and dto.orderBy != ''">
+	and t1.ORDER_BY = #{dto.orderBy}
+	</if>
+	<if test="dto.validateState != null and dto.validateState != ''">
+	and t1.VALIDATE_STATE = #{dto.validateState}
+	</if>
+	<if test="dto.isLocked != null and dto.isLocked != ''">
+	and t1.IS_LOCKED = #{dto.isLocked}
+	</if>
+	<if test="dto.version != null and dto.version != ''">
+	and t1.VERSION = #{dto.version}
+	</if>
+	<if test="dto.createDate != null and dto.createDate != ''">
+	and t1.CREATE_DATE = #{dto.createDate}
+	</if>
+	<if test="dto.cardNo != null and dto.cardNo != ''">
+	and t1.CARD_NO = #{dto.cardNo}
+	</if>
+	<if test="dto.probationPeriod != null and dto.probationPeriod != ''">
+	and t1.PROBATION_PERIOD = #{dto.probationPeriod}
+	</if>
+	<if test="dto.entryDate != null and dto.entryDate != ''">
+	and t1.ENTRY_DATE = #{dto.entryDate}
+	</if>
+	<if test="dto.quitDate != null and dto.quitDate != ''">
+	and t1.QUIT_DATE = #{dto.quitDate}
+	</if>
+	<if test="dto.workDate != null and dto.workDate != ''">
+	and t1.WORK_DATE = #{dto.workDate}
+	</if>
+	<if test="dto.politicalStatus != null and dto.politicalStatus != ''">
+	and t1.POLITICAL_STATUS = #{dto.politicalStatus}
+	</if>
+	<if test="dto.userRelation != null and dto.userRelation != ''">
+	and t1.USER_RELATION = #{dto.userRelation}
+	</if>
+	<if test="dto.annualLeave != null and dto.annualLeave != ''">
+	and t1.ANNUAL_LEAVE = #{dto.annualLeave}
+	</if>
+	<if test="dto.jxzj != null and dto.jxzj != ''">
+	and t1.JXZJ = #{dto.jxzj}
+	</if>
+	<if test="dto.njqsrq != null and dto.njqsrq != ''">
+	and t1.NJQSRQ = #{dto.njqsrq}
+	</if>
+	<if test="dto.uuid != null and dto.uuid != ''">
+	and t1.UUID = #{dto.uuid}
+	</if>
+			</select>
+
+
+</mapper>

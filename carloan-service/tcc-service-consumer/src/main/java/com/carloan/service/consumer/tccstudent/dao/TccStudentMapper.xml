@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.carloan.service.consumer.tccstudent.dao.TccStudentDao">
+<resultMap id="TccStudentDTO" type="com.carloan.service.consumer.tccstudent.dto.TccStudentDTO">
+				<result property="id" column="id" jdbcType="DECIMAL" />
+				<result property="name" column="name" jdbcType="VARCHAR" />
+				<result property="city" column="city" jdbcType="VARCHAR" />
+				<result property="createtime" column="createtime" jdbcType="DATE" />
+</resultMap>
+				
+<!-- 分页查询 tcc_student -->	
+<select id="searchTccStudentByPaging" parameterType="java.util.Map" resultMap="TccStudentDTO">
+    	 		select 
+						t1.id                             ,
+						t1.name                           ,
+						t1.city                           ,
+						t1.createtime                     
+					
+				from tcc_student 	t1
+				where 1=1
+    			<if test="dto.id != null and dto.id != ''">
+						and t1.id =#{dto.id}
+    			</if>
+    			<if test="dto.name != null and dto.name != ''">
+						and t1.name =#{dto.name}
+    			</if>
+    			<if test="dto.city != null and dto.city != ''">
+						and t1.city =#{dto.city}
+    			</if>
+    			<if test="dto.createtime != null and dto.createtime != ''">
+						and t1.createtime =#{dto.createtime}
+    			</if>
+				
+				order by t1.id desc
+</select>
+  
+<!-- 查询列表 tcc_student  -->
+<select id="searchTccStudent" parameterType="java.util.Map" resultMap="TccStudentDTO">
+    	     select 
+						t1.id                             ,
+						t1.name                           ,
+						t1.city                           ,
+						t1.createtime                     
+				from tcc_student 		t1
+				where 1=1
+    			<if test="dto.id != null and dto.id != ''">
+						and t1.id = #{dto.id}
+    			</if>
+    			<if test="dto.name != null and dto.name != ''">
+						and t1.name = #{dto.name}
+    			</if>
+    			<if test="dto.city != null and dto.city != ''">
+						and t1.city = #{dto.city}
+    			</if>
+    			<if test="dto.createtime != null and dto.createtime != ''">
+						and t1.createtime = #{dto.createtime}
+    			</if>
+</select>
+  
+<!-- 主键查询对象  tcc_student -->
+<select id="findTccStudentByPrimaryKey" parameterType="java.util.Map" resultMap="TccStudentDTO">
+   	 		select 
+					t1.id                             ,
+					t1.name                           ,
+					t1.city                           ,
+					t1.createtime                     
+			from tcc_student 		t1
+			where 
+				t1.id = #{id}
+</select>
+  
+<!-- 新增对象 tcc_student -->
+<insert id="insertTccStudent" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="dto.id">
+			insert into tcc_student
+			(   		
+						id                             ,
+						name                           ,
+						city                           ,
+						createtime                     
+			)
+			values(
+						#{dto.id,jdbcType=DECIMAL}
+						,
+						#{dto.name,jdbcType=VARCHAR}
+						,
+						#{dto.city,jdbcType=VARCHAR}
+						,
+						#{dto.createtime,jdbcType=DATE}
+						
+			)
+</insert>
+    
+<!-- 更新对象 tcc_student -->
+<update id="updateTccStudent" parameterType="java.util.Map">
+	     update tcc_student t1
+	           set 
+					 <if test="dto.id != null and dto.id != ''">
+						 t1.id                             =#{dto.id,jdbcType=DECIMAL},
+					 </if>
+					 <if test="dto.name != null and dto.name != ''">
+						 t1.name                           =#{dto.name,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.city != null and dto.city != ''">
+						 t1.city                           =#{dto.city,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.createtime != null">
+						 t1.createtime                     =#{dto.createtime,jdbcType=TIMESTAMP}
+					 </if>
+	     where t1.id = #{dto.id}
+</update>
+
+
+<select id="queryLikeTccStudent" parameterType="java.util.Map" resultMap="TccStudentDTO">
+	select
+	t1.id                             ,
+	t1.name                           ,
+	t1.city                           ,
+	t1.createtime                     
+			from tcc_student 		t1
+			where 1=1
+	<if test="dto.id != null and dto.id != ''">
+	and t1.id = #{dto.id}
+	</if>
+	<if test="dto.name != null and dto.name != ''">
+	and t1.name = #{dto.name}
+	</if>
+	<if test="dto.city != null and dto.city != ''">
+	and t1.city = #{dto.city}
+	</if>
+	<if test="dto.createtime != null and dto.createtime != ''">
+	and t1.createtime = #{dto.createtime}
+	</if>
+			</select>
+
+
+</mapper>

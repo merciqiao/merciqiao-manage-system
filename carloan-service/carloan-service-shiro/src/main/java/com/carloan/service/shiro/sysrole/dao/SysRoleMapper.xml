@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.carloan.service.shiro.sysrole.dao.SysRoleDao">
+<resultMap id="SysRoleDTO" type="com.carloan.service.shiro.sysrole.dto.SysRoleDTO">
+				<result property="id" column="ID" jdbcType="DECIMAL" />
+				<result property="roleName" column="ROLE_NAME" jdbcType="VARCHAR" />
+				<result property="roleCode" column="ROLE_CODE" jdbcType="VARCHAR" />
+				<result property="roleType" column="ROLE_TYPE" jdbcType="VARCHAR" />
+				<result property="appId" column="APP_ID" jdbcType="DECIMAL" />
+				<result property="validateState" column="VALIDATE_STATE" jdbcType="VARCHAR" />
+				<result property="version" column="VERSION" jdbcType="DECIMAL" />
+</resultMap>
+				
+<!-- 分页查询 sys_role -->	
+<select id="searchSysRoleByPaging" parameterType="java.util.Map" resultMap="SysRoleDTO">
+    	 		select 
+						t1.id                             ,
+						t1.role_name                      ,
+						t1.role_code                      ,
+						t1.role_type                      ,
+						t1.app_id                         ,
+						t1.validate_state                 ,
+						t1.version                        
+					
+				from sys_role 	t1
+				where 1=1
+    			<if test="dto.id != null and dto.id != ''">
+						and t1.ID =#{dto.id}
+    			</if>
+    			<if test="dto.roleName != null and dto.roleName != ''">
+						and t1.ROLE_NAME =#{dto.roleName}
+    			</if>
+    			<if test="dto.roleCode != null and dto.roleCode != ''">
+						and t1.ROLE_CODE =#{dto.roleCode}
+    			</if>
+    			<if test="dto.roleType != null and dto.roleType != ''">
+						and t1.ROLE_TYPE =#{dto.roleType}
+    			</if>
+    			<if test="dto.appId != null and dto.appId != ''">
+						and t1.APP_ID =#{dto.appId}
+    			</if>
+    			<if test="dto.validateState != null and dto.validateState != ''">
+						and t1.VALIDATE_STATE =#{dto.validateState}
+    			</if>
+    			<if test="dto.version != null and dto.version != ''">
+						and t1.VERSION =#{dto.version}
+    			</if>
+				
+				order by t1.id desc
+</select>
+  
+<!-- 查询列表 sys_role  -->
+<select id="searchSysRole" parameterType="java.util.Map" resultMap="SysRoleDTO">
+    	     select 
+						t1.id                             ,
+						t1.role_name                      ,
+						t1.role_code                      ,
+						t1.role_type                      ,
+						t1.app_id                         ,
+						t1.validate_state                 ,
+						t1.version                        
+				from sys_role 		t1
+				where 1=1
+    			<if test="dto.id != null and dto.id != ''">
+						and t1.ID = #{dto.id}
+    			</if>
+    			<if test="dto.roleName != null and dto.roleName != ''">
+						and t1.ROLE_NAME = #{dto.roleName}
+    			</if>
+    			<if test="dto.roleCode != null and dto.roleCode != ''">
+						and t1.ROLE_CODE = #{dto.roleCode}
+    			</if>
+    			<if test="dto.roleType != null and dto.roleType != ''">
+						and t1.ROLE_TYPE = #{dto.roleType}
+    			</if>
+    			<if test="dto.appId != null and dto.appId != ''">
+						and t1.APP_ID = #{dto.appId}
+    			</if>
+    			<if test="dto.validateState != null and dto.validateState != ''">
+						and t1.VALIDATE_STATE = #{dto.validateState}
+    			</if>
+    			<if test="dto.version != null and dto.version != ''">
+						and t1.VERSION = #{dto.version}
+    			</if>
+</select>
+  
+<!-- 主键查询对象  sys_role -->
+<select id="findSysRoleByPrimaryKey" parameterType="java.util.Map" resultMap="SysRoleDTO">
+   	 		select 
+					t1.id                             ,
+					t1.role_name                      ,
+					t1.role_code                      ,
+					t1.role_type                      ,
+					t1.app_id                         ,
+					t1.validate_state                 ,
+					t1.version                        
+			from sys_role 		t1
+			where 
+				t1.id = #{id}
+</select>
+  
+<!-- 新增对象 sys_role -->
+<insert id="insertSysRole" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="dto.id">
+			insert into sys_role
+			(   		
+						role_name                      ,
+						role_code                      ,
+						role_type                      ,
+						app_id                         ,
+						validate_state                 ,
+						version                        
+			)
+			values(
+						#{dto.roleName,jdbcType=VARCHAR}
+						,
+						#{dto.roleCode,jdbcType=VARCHAR}
+						,
+						#{dto.roleType,jdbcType=VARCHAR}
+						,
+						#{dto.appId,jdbcType=DECIMAL}
+						,
+						'1'
+						,
+						#{dto.version,jdbcType=DECIMAL}
+						
+			)
+</insert>
+    
+<!-- 更新对象 sys_role -->
+<update id="updateSysRole" parameterType="java.util.Map">
+	     update sys_role t1
+	           set 
+			           t1.role_name                      =#{dto.roleName,jdbcType=VARCHAR},
+			           t1.role_code                      =#{dto.roleCode,jdbcType=VARCHAR},
+			           t1.role_type                      =#{dto.roleType,jdbcType=VARCHAR},
+			           t1.app_id                         =#{dto.appId,jdbcType=DECIMAL},
+			           t1.validate_state                 ='1',
+			           t1.version                        =#{dto.version,jdbcType=DECIMAL}
+	     where t1.id = #{dto.id}
+</update>
+   
+<!-- 主键删除 sys_role -->
+<delete id="deleteSysRoleByID" parameterType="java.util.Map">
+    	delete from sys_role where id in (${ids} )
+</delete>
+<!-- 主键假删除 sys_role -->
+<update id="deleteSysRoleByPrimaryKey" parameterType="java.util.Map">
+	     update sys_role t1
+	           set   t1.valid='0'	
+	     where t1.id in( ${ids})
+</update>
+	<select id="selectSysRoleByUserId" parameterType="java.util.Map" resultMap="SysRoleDTO">
+		select
+		t1.id                             ,
+		t1.role_name                      ,
+		t1.role_code                      ,
+		t1.role_type                      ,
+		t1.app_id                         ,
+		t1.validate_state                 ,
+		t1.version
+		from sys_role 		t1, sys_role_user t2
+		where t1.id = t2.role_id
+		and t2.target_id = #{dto.target_id}
+		and  t1.validate_state='1'
+	</select>
+</mapper>

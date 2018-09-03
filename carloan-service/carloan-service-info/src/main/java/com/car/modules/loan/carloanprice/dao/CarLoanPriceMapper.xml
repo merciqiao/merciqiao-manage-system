@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.car.modules.loan.carloanprice.dao.CarLoanPriceDao">
+	<resultMap id="CarLoanPriceDTO" type="com.car.modules.loan.carloanprice.dto.CarLoanPriceDTO">
+		<result property="id" column="id" jdbcType="DECIMAL" />
+		<result property="orderNumber" column="ORDER_NUMBER" jdbcType="VARCHAR" />
+		<result property="pricingProductType" column="PRICING_PRODUCT_TYPE" jdbcType="VARCHAR" />
+		<result property="pricingConclusion" column="PRICING_CONCLUSION" jdbcType="VARCHAR" />
+		<result property="pricingMoney" column="PRICING_MONEY" jdbcType="VARCHAR" />
+		<result property="pricingRemarks" column="PRICING_REMARKS" jdbcType="VARCHAR" />
+		<result property="innerRemarks" column="INNER_REMARKS" jdbcType="VARCHAR" />
+		<result property="currentApprover" column="CURRENT_APPROVER" jdbcType="VARCHAR" />
+		<result property="auditState" column="AUDIT_STATE" jdbcType="VARCHAR" />
+		<result property="creationTime" column="CREATION_TIME" jdbcType="TIMESTAMP" />
+		<result property="updateTime" column="UPDATE_TIME" jdbcType="TIMESTAMP" />
+		<result property="staTus" column="STA_TUS" jdbcType="VARCHAR" />
+		<result property="carInfoId" column="CAR_INFO_ID" jdbcType="DECIMAL" />
+		<result property="operation" column="OPERATION" jdbcType="SMALLINT" />
+	</resultMap>
+
+	<!-- 分页查询 car_loan_price -->
+	<select id="searchCarLoanPriceByPaging" parameterType="java.util.Map" resultMap="CarLoanPriceDTO">
+		select
+		t1.id                             ,
+		t1.order_number                   ,
+		t1.pricing_product_type           ,
+		t1.pricing_conclusion             ,
+		t1.pricing_money                  ,
+		t1.pricing_remarks                ,
+		t1.inner_remarks                ,
+		t1.current_approver               ,
+		t1.audit_state                    ,
+		t1.creation_time                  ,
+		t1.update_time                    ,
+		t1.sta_tus                        ,
+		t1.car_info_id                    ,
+		t1.operation
+
+		from car_loan_price 	t1
+		where 1=1
+		<if test="dto.id != null and dto.id != ''">
+			and t1.id =#{dto.id}
+		</if>
+		<if test="dto.orderNumber != null and dto.orderNumber != ''">
+			and t1.ORDER_NUMBER =#{dto.orderNumber}
+		</if>
+		<if test="dto.pricingProductType != null and dto.pricingProductType != ''">
+			and t1.PRICING_PRODUCT_TYPE =#{dto.pricingProductType}
+		</if>
+		<if test="dto.pricingConclusion != null and dto.pricingConclusion != ''">
+			and t1.PRICING_CONCLUSION =#{dto.pricingConclusion}
+		</if>
+		<if test="dto.pricingMoney != null and dto.pricingMoney != ''">
+			and t1.PRICING_MONEY =#{dto.pricingMoney}
+		</if>
+		<if test="dto.pricingRemarks != null and dto.pricingRemarks != ''">
+			and t1.PRICING_REMARKS =#{dto.pricingRemarks}
+		</if>
+		<if test="dto.currentApprover != null and dto.currentApprover != ''">
+			and t1.CURRENT_APPROVER =#{dto.currentApprover}
+		</if>
+		<if test="dto.auditState != null and dto.auditState != ''">
+			and t1.AUDIT_STATE =#{dto.auditState}
+		</if>
+		<if test="dto.creationTime != null and dto.creationTime != ''">
+			and t1.CREATION_TIME =#{dto.creationTime}
+		</if>
+		<if test="dto.updateTime != null and dto.updateTime != ''">
+			and t1.UPDATE_TIME =#{dto.updateTime}
+		</if>
+		<if test="dto.staTus != null and dto.staTus != ''">
+			and t1.STA_TUS =#{dto.staTus}
+		</if>
+		<if test="dto.carInfoId != null and dto.carInfoId != ''">
+			and t1.CAR_INFO_ID =#{dto.carInfoId}
+		</if>
+		<if test="dto.operation != null and dto.operation != ''">
+			and t1.OPERATION =#{dto.operation}
+		</if>
+
+		order by t1.id desc
+	</select>
+
+	<!-- 查询列表 car_loan_price  -->
+	<select id="searchCarLoanPrice" parameterType="java.util.Map" resultMap="CarLoanPriceDTO">
+		select
+		t1.id                             ,
+		t1.order_number                   ,
+		t1.pricing_product_type           ,
+		t1.pricing_conclusion             ,
+		t1.pricing_money                  ,
+		t1.pricing_remarks                ,
+		t1.inner_remarks                ,
+		t1.current_approver               ,
+		t1.audit_state                    ,
+		t1.creation_time                  ,
+		t1.update_time                    ,
+		t1.sta_tus                        ,
+		t1.car_info_id                    ,
+		t1.operation
+		from car_loan_price 		t1
+		where 1=1
+		<if test="dto.id != null and dto.id != ''">
+			and t1.id = #{dto.id}
+		</if>
+		<if test="dto.orderNumber != null and dto.orderNumber != ''">
+			and t1.ORDER_NUMBER = #{dto.orderNumber}
+		</if>
+		<if test="dto.pricingProductType != null and dto.pricingProductType != ''">
+			and t1.PRICING_PRODUCT_TYPE = #{dto.pricingProductType}
+		</if>
+		<if test="dto.pricingConclusion != null and dto.pricingConclusion != ''">
+			and t1.PRICING_CONCLUSION = #{dto.pricingConclusion}
+		</if>
+		<if test="dto.pricingMoney != null and dto.pricingMoney != ''">
+			and t1.PRICING_MONEY = #{dto.pricingMoney}
+		</if>
+		<if test="dto.pricingRemarks != null and dto.pricingRemarks != ''">
+			and t1.PRICING_REMARKS = #{dto.pricingRemarks}
+		</if>
+		<if test="dto.currentApprover != null and dto.currentApprover != ''">
+			and t1.CURRENT_APPROVER = #{dto.currentApprover}
+		</if>
+		<if test="dto.auditState != null and dto.auditState != ''">
+			and t1.AUDIT_STATE = #{dto.auditState}
+		</if>
+		<if test="dto.creationTime != null and dto.creationTime != ''">
+			and t1.CREATION_TIME = #{dto.creationTime}
+		</if>
+		<if test="dto.updateTime != null and dto.updateTime != ''">
+			and t1.UPDATE_TIME = #{dto.updateTime}
+		</if>
+		<if test="dto.staTus != null and dto.staTus != ''">
+			and t1.STA_TUS = #{dto.staTus}
+		</if>
+		<if test="dto.carInfoId != null and dto.carInfoId != ''">
+			and t1.CAR_INFO_ID = #{dto.carInfoId}
+		</if>
+		<if test="dto.operation != null and dto.operation != ''">
+			and t1.OPERATION = #{dto.operation}
+		</if>
+	</select>
+
+	<!-- 主键查询对象  car_loan_price -->
+	<select id="findCarLoanPriceByPrimaryKey" parameterType="java.util.Map" resultMap="CarLoanPriceDTO">
+		select
+		t1.id                             ,
+		t1.order_number                   ,
+		t1.pricing_product_type           ,
+		t1.pricing_conclusion             ,
+		t1.pricing_money                  ,
+		t1.pricing_remarks                ,
+		t1.inner_remarks                ,
+		t1.current_approver               ,
+		t1.audit_state                    ,
+		t1.creation_time                  ,
+		t1.update_time                    ,
+		t1.sta_tus                        ,
+		t1.car_info_id                    ,
+		t1.operation
+		from car_loan_price 		t1
+		where
+		t1.id = #{id}
+	</select>
+
+	<!-- 新增对象 car_loan_price -->
+	<insert id="insertCarLoanPrice" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="dto.id">
+		insert into car_loan_price
+		(
+		id                             ,
+		order_number                   ,
+		pricing_product_type           ,
+		pricing_conclusion             ,
+		pricing_money                  ,
+		pricing_remarks                ,
+		inner_remarks                ,
+		current_approver               ,
+		audit_state                    ,
+		creation_time                  ,
+		update_time                    ,
+		sta_tus                        ,
+		car_info_id                    ,
+		operation
+		)
+		values(
+		#{dto.id,jdbcType=DECIMAL}
+		,
+		#{dto.orderNumber,jdbcType=VARCHAR}
+		,
+		#{dto.pricingProductType,jdbcType=VARCHAR}
+		,
+		#{dto.pricingConclusion,jdbcType=VARCHAR}
+		,
+		#{dto.pricingMoney,jdbcType=VARCHAR}
+		,
+		#{dto.pricingRemarks,jdbcType=VARCHAR}
+		,
+		#{dto.innerRemarks,jdbcType=VARCHAR}
+		,
+		#{dto.currentApprover,jdbcType=VARCHAR}
+		,
+		#{dto.auditState,jdbcType=VARCHAR}
+		,
+		#{dto.creationTime,jdbcType=TIMESTAMP}
+		,
+		#{dto.updateTime,jdbcType=TIMESTAMP}
+		,
+		#{dto.staTus,jdbcType=VARCHAR}
+		,
+		#{dto.carInfoId,jdbcType=DECIMAL}
+		,
+		#{dto.operation,jdbcType=SMALLINT}
+
+		)
+	</insert>
+
+	<!-- 更新对象 car_loan_price -->
+	<update id="updateCarLoanPrice" parameterType="java.util.Map">
+		update car_loan_price t1
+		set
+		<if test="dto.id != null and dto.id != ''">
+			t1.id                             =#{dto.id,jdbcType=DECIMAL},
+		</if>
+		<if test="dto.orderNumber != null and dto.orderNumber != ''">
+			t1.order_number                   =#{dto.orderNumber,jdbcType=VARCHAR},
+		</if>
+		<if test="dto.pricingProductType != null and dto.pricingProductType != ''">
+			t1.pricing_product_type           =#{dto.pricingProductType,jdbcType=VARCHAR},
+		</if>
+		<if test="dto.pricingConclusion != null and dto.pricingConclusion != ''">
+			t1.pricing_conclusion             =#{dto.pricingConclusion,jdbcType=VARCHAR},
+		</if>
+		<if test="dto.pricingMoney != null and dto.pricingMoney != ''">
+			t1.pricing_money                  =#{dto.pricingMoney,jdbcType=VARCHAR},
+		</if>
+		<if test="dto.pricingRemarks != null and dto.pricingRemarks != ''">
+			t1.pricing_remarks                =#{dto.pricingRemarks,jdbcType=VARCHAR},
+		</if>
+		<if test="dto.innerRemarks != null and dto.innerRemarks != ''">
+			t1.inner_remarks                =#{dto.innerRemarks,jdbcType=VARCHAR},
+		</if>
+		<if test="dto.currentApprover != null and dto.currentApprover != ''">
+			t1.current_approver               =#{dto.currentApprover,jdbcType=VARCHAR},
+		</if>
+		<if test="dto.auditState != null and dto.auditState != ''">
+			t1.audit_state                    =#{dto.auditState,jdbcType=VARCHAR},
+		</if>
+		<if test="dto.creationTime != null">
+			t1.creation_time                  =#{dto.creationTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="dto.updateTime != null">
+			t1.update_time                    =now(),
+		</if>
+		<if test="dto.staTus != null and dto.staTus != ''">
+			t1.sta_tus                        =#{dto.staTus,jdbcType=VARCHAR},
+		</if>
+		t1.car_info_id                    =#{dto.carInfoId,jdbcType=DECIMAL},
+		t1.operation                      =#{dto.operation,jdbcType=SMALLINT}
+		where t1.id = #{dto.id}
+	</update>
+
+
+	<select id="queryLikeCarLoanPrice" parameterType="java.util.Map" resultMap="CarLoanPriceDTO">
+		select
+		t1.id                             ,
+		t1.order_number                   ,
+		t1.pricing_product_type           ,
+		t1.pricing_conclusion             ,
+		t1.pricing_money                  ,
+		t1.pricing_remarks                ,
+		t1.inner_remarks,
+		t1.current_approver               ,
+		t1.audit_state                    ,
+		t1.creation_time                  ,
+		t1.update_time                    ,
+		t1.sta_tus                        ,
+		t1.car_info_id                    ,
+		t1.operation
+		from car_loan_price 		t1
+		where 1=1
+		<if test="dto.id != null and dto.id != ''">
+			and t1.id = #{dto.id}
+		</if>
+		<if test="dto.orderNumber != null and dto.orderNumber != ''">
+			and t1.ORDER_NUMBER = #{dto.orderNumber}
+		</if>
+		<if test="dto.pricingProductType != null and dto.pricingProductType != ''">
+			and t1.PRICING_PRODUCT_TYPE = #{dto.pricingProductType}
+		</if>
+		<if test="dto.pricingConclusion != null and dto.pricingConclusion != ''">
+			and t1.PRICING_CONCLUSION = #{dto.pricingConclusion}
+		</if>
+		<if test="dto.pricingMoney != null and dto.pricingMoney != ''">
+			and t1.PRICING_MONEY = #{dto.pricingMoney}
+		</if>
+		<if test="dto.pricingRemarks != null and dto.pricingRemarks != ''">
+			and t1.PRICING_REMARKS = #{dto.pricingRemarks}
+		</if>
+		<if test="dto.currentApprover != null and dto.currentApprover != ''">
+			and t1.CURRENT_APPROVER = #{dto.currentApprover}
+		</if>
+		<if test="dto.auditState != null and dto.auditState != ''">
+			and t1.AUDIT_STATE = #{dto.auditState}
+		</if>
+		<if test="dto.creationTime != null and dto.creationTime != ''">
+			and t1.CREATION_TIME = #{dto.creationTime}
+		</if>
+		<if test="dto.updateTime != null and dto.updateTime != ''">
+			and t1.UPDATE_TIME = #{dto.updateTime}
+		</if>
+		<if test="dto.staTus != null and dto.staTus != ''">
+			and t1.STA_TUS = #{dto.staTus}
+		</if>
+		<if test="dto.carInfoId != null and dto.carInfoId != ''">
+			and t1.CAR_INFO_ID = #{dto.carInfoId}
+		</if>
+		<if test="dto.operation != null and dto.operation != ''">
+			and t1.OPERATION = #{dto.operation}
+		</if>
+	</select>
+
+
+</mapper>

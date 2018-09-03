@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.carloan.service.shiro.sysmenu.dao.SysMenuDao">
+    <resultMap id="SysMenuDTO" type="com.carloan.service.shiro.sysmenu.dto.SysMenuDTO">
+        <result property="id" column="ID" jdbcType="DECIMAL"/>
+        <result property="menuCode" column="MENU_CODE" jdbcType="VARCHAR"/>
+        <result property="menuName" column="MENU_NAME" jdbcType="VARCHAR"/>
+        <result property="menuIcon" column="MENU_ICON" jdbcType="VARCHAR"/>
+        <result property="menuUrl" column="MENU_URL" jdbcType="VARCHAR"/>
+        <result property="parentId" column="PARENT_ID" jdbcType="VARCHAR"/>
+        <result property="orderBy" column="ORDER_BY" jdbcType="VARCHAR"/>
+        <result property="validateState" column="VALIDATE_STATE" jdbcType="VARCHAR"/>
+        <result property="appId" column="APP_ID" jdbcType="DECIMAL"/>
+        <result property="version" column="VERSION" jdbcType="DECIMAL"/>
+        <result property="resourceId" column="RESOURCE_ID" jdbcType="DECIMAL"/>
+        <result property="resoure_url" column="resoure_url" jdbcType="VARCHAR"/>
+        <result property="resoure_type" column="resoure_type" jdbcType="VARCHAR"/>
+        <result property="isShow" column="IS_SHOW" jdbcType="DECIMAL"/>
+        <result property="permission" column="permission" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 分页查询 sys_menu -->
+    <select id="searchSysMenuByPaging" parameterType="java.util.Map" resultMap="SysMenuDTO">
+        select
+        t1.id ,
+        t1.menu_code ,
+        t1.menu_name ,
+        t1.menu_icon ,
+        t1.menu_url ,
+        t1.parent_id ,
+        t1.order_by ,
+        t1.validate_state ,
+        t1.app_id ,
+        t1.version ,
+        t1.resource_id
+
+        from sys_menu t1
+        where 1=1
+        <if test="dto.id != null and dto.id != ''">
+            and t1.ID =#{dto.id}
+        </if>
+        <if test="dto.menuCode != null and dto.menuCode != ''">
+            and t1.MENU_CODE =#{dto.menuCode}
+        </if>
+        <if test="dto.menuName != null and dto.menuName != ''">
+            and t1.MENU_NAME =#{dto.menuName}
+        </if>
+        <if test="dto.menuIcon != null and dto.menuIcon != ''">
+            and t1.MENU_ICON =#{dto.menuIcon}
+        </if>
+        <if test="dto.menuUrl != null and dto.menuUrl != ''">
+            and t1.MENU_URL =#{dto.menuUrl}
+        </if>
+        <if test="dto.parentId != null and dto.parentId != ''">
+            and t1.PARENT_ID =#{dto.parentId}
+        </if>
+        <if test="dto.orderBy != null and dto.orderBy != ''">
+            and t1.ORDER_BY =#{dto.orderBy}
+        </if>
+        <if test="dto.validateState != null and dto.validateState != ''">
+            and t1.VALIDATE_STATE =#{dto.validateState}
+        </if>
+        <if test="dto.appId != null and dto.appId != ''">
+            and t1.APP_ID =#{dto.appId}
+        </if>
+        <if test="dto.version != null and dto.version != ''">
+            and t1.VERSION =#{dto.version}
+        </if>
+        <if test="dto.resourceId != null and dto.resourceId != ''">
+            and t1.RESOURCE_ID =#{dto.resourceId}
+        </if>
+
+        order by t1.id desc
+    </select>
+
+    <!-- 查询列表 sys_menu  -->
+    <select id="searchSysMenu" parameterType="java.util.Map" resultMap="SysMenuDTO">
+        select
+        t1.id ,
+        t1.menu_code ,
+        t1.menu_name ,
+        t1.menu_icon ,
+        t1.menu_url ,
+        t1.parent_id ,
+        t1.order_by ,
+        t1.validate_state ,
+        t1.app_id ,
+        t1.version ,
+        t1.resource_id
+        from sys_menu t1
+        where 1=1
+        <if test="dto.id != null and dto.id != ''">
+            and t1.ID = #{dto.id}
+        </if>
+        <if test="dto.menuCode != null and dto.menuCode != ''">
+            and t1.MENU_CODE = #{dto.menuCode}
+        </if>
+        <if test="dto.menuName != null and dto.menuName != ''">
+            and t1.MENU_NAME = #{dto.menuName}
+        </if>
+        <if test="dto.menuIcon != null and dto.menuIcon != ''">
+            and t1.MENU_ICON = #{dto.menuIcon}
+        </if>
+        <if test="dto.menuUrl != null and dto.menuUrl != ''">
+            and t1.MENU_URL = #{dto.menuUrl}
+        </if>
+        <if test="dto.parentId != null and dto.parentId != ''">
+            and t1.PARENT_ID = #{dto.parentId}
+        </if>
+        <if test="dto.orderBy != null and dto.orderBy != ''">
+            and t1.ORDER_BY = #{dto.orderBy}
+        </if>
+        <if test="dto.validateState != null and dto.validateState != ''">
+            and t1.VALIDATE_STATE = #{dto.validateState}
+        </if>
+        <if test="dto.appId != null and dto.appId != ''">
+            and t1.APP_ID = #{dto.appId}
+        </if>
+        <if test="dto.version != null and dto.version != ''">
+            and t1.VERSION = #{dto.version}
+        </if>
+        <if test="dto.resourceId != null and dto.resourceId != ''">
+            and t1.RESOURCE_ID = #{dto.resourceId}
+        </if>
+    </select>
+
+    <!-- 主键查询对象  sys_menu -->
+    <select id="findSysMenuByPrimaryKey" parameterType="java.util.Map" resultMap="SysMenuDTO">
+   	 		select 
+					t1.id                             ,
+					t1.menu_code                      ,
+					t1.menu_name                      ,
+					t1.menu_icon                      ,
+					t1.menu_url                       ,
+					t1.parent_id                      ,
+					t1.order_by                       ,
+					t1.validate_state                 ,
+					t1.app_id                         ,
+					t1.version                        ,
+					t1.resource_id                    
+			from sys_menu 		t1
+			where 
+				t1.id = #{id}
+</select>
+
+    <!-- 新增对象 sys_menu -->
+    <insert id="insertSysMenu" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="dto.id">
+			insert into sys_menu
+			(   		
+						menu_code                      ,
+						menu_name                      ,
+						menu_icon                      ,
+						menu_url                       ,
+						parent_id                      ,
+						order_by                       ,
+						validate_state                 ,
+						app_id                         ,
+						version                        ,
+						resource_id                    
+			)
+			values(
+						#{dto.menuCode,jdbcType=VARCHAR}
+						,
+						#{dto.menuName,jdbcType=VARCHAR}
+						,
+						#{dto.menuIcon,jdbcType=VARCHAR}
+						,
+						#{dto.menuUrl,jdbcType=VARCHAR}
+						,
+						#{dto.parentId,jdbcType=VARCHAR}
+						,
+						#{dto.orderBy,jdbcType=VARCHAR}
+						,
+						'1'
+						,
+						#{dto.appId,jdbcType=DECIMAL}
+						,
+						#{dto.version,jdbcType=DECIMAL}
+						,
+						#{dto.resourceId,jdbcType=DECIMAL}
+						
+			)
+</insert>
+
+    <!-- 更新对象 sys_menu -->
+    <update id="updateSysMenu" parameterType="java.util.Map">
+        update sys_menu t1
+        set
+        <if test="dto.menuCode != null and dto.menuCode != ''">
+            t1.menu_code =#{dto.menuCode,jdbcType=VARCHAR},
+        </if>
+        <if test="dto.menuName != null and dto.menuName != ''">
+            t1.menu_name =#{dto.menuName,jdbcType=VARCHAR},
+        </if>
+        <if test="dto.menuIcon != null and dto.menuIcon != ''">
+            t1.menu_icon =#{dto.menuIcon,jdbcType=VARCHAR},
+        </if>
+        <if test="dto.menuUrl != null and dto.menuUrl != ''">
+            t1.menu_url =#{dto.menuUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="dto.parentId != null and dto.parentId != ''">
+            t1.parent_id =#{dto.parentId,jdbcType=VARCHAR},
+        </if>
+        <if test="dto.orderBy != null and dto.orderBy != ''">
+            t1.order_by =#{dto.orderBy,jdbcType=VARCHAR},
+        </if>
+        <if test="dto.validateState != null and dto.validateState != ''">
+            t1.validate_state ='1',
+        </if>
+        <if test="dto.appId != null and dto.appId != ''">
+            t1.app_id =#{dto.appId,jdbcType=DECIMAL},
+        </if>
+        <if test="dto.version != null and dto.version != ''">
+            t1.version =#{dto.version,jdbcType=DECIMAL},
+        </if>
+        <if test="dto.resourceId != null and dto.resourceId != ''">
+            t1.resource_id =#{dto.resourceId,jdbcType=DECIMAL}
+        </if>
+        where t1.id = #{dto.id}
+    </update>
+    <delete id="deleteSysMenu" parameterType="java.util.Map">
+        DELETE from  sys_menu t1 WHERE where t1.id in( ${ids})
+
+    </delete>
+
+    <select id="queryLikeSysMenu" parameterType="java.util.Map" resultMap="SysMenuDTO">
+        select
+        t1.id ,
+        t1.menu_code ,
+        t1.menu_name ,
+        t1.menu_icon ,
+        t1.menu_url ,
+        t1.parent_id ,
+        t1.order_by ,
+        t1.validate_state ,
+        t1.app_id ,
+        t1.version ,
+        t1.resource_id
+        from sys_menu t1
+        where 1=1
+        <if test="dto.id != null and dto.id != ''">
+            and t1.ID = #{dto.id}
+        </if>
+        <if test="dto.menuCode != null and dto.menuCode != ''">
+            and t1.MENU_CODE = #{dto.menuCode}
+        </if>
+        <if test="dto.menuName != null and dto.menuName != ''">
+            and t1.MENU_NAME = #{dto.menuName}
+        </if>
+        <if test="dto.menuIcon != null and dto.menuIcon != ''">
+            and t1.MENU_ICON = #{dto.menuIcon}
+        </if>
+        <if test="dto.menuUrl != null and dto.menuUrl != ''">
+            and t1.MENU_URL = #{dto.menuUrl}
+        </if>
+        <if test="dto.parentId != null and dto.parentId != ''">
+            and t1.PARENT_ID = #{dto.parentId}
+        </if>
+        <if test="dto.orderBy != null and dto.orderBy != ''">
+            and t1.ORDER_BY = #{dto.orderBy}
+        </if>
+        <if test="dto.validateState != null and dto.validateState != ''">
+            and t1.VALIDATE_STATE = #{dto.validateState}
+        </if>
+        <if test="dto.appId != null and dto.appId != ''">
+            and t1.APP_ID = #{dto.appId}
+        </if>
+        <if test="dto.version != null and dto.version != ''">
+            and t1.VERSION = #{dto.version}
+        </if>
+        <if test="dto.resourceId != null and dto.resourceId != ''">
+            and t1.RESOURCE_ID = #{dto.resourceId}
+        </if>
+    </select>
+
+    <select id="querySysMenuByUserId" parameterType="java.util.Map" resultMap="SysMenuDTO">
+      SELECT e.*,a.resoure_url,a.resoure_type,a.permission
+		FROM
+		sys_resource a
+		LEFT JOIN sys_acl b ON b.resoure_id = a.id
+		LEFT JOIN sys_role c ON b.role_id = c.id
+		left join sys_role_user d on c.id=d.ROLE_ID
+		left join sys_menu e on e.RESOURCE_ID=a.id
+        where 1=1
+        and d.TARGET_ID=#{userId}
+
+        and (a.RESOURE_Type='url' or a.RESOURE_Type='module')
+
+        AND e.ID IS NOT NULL
+        AND e.VALIDATE_STATE='1'
+    </select>
+</mapper>

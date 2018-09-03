@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>carloan-cloud</artifactId>
+        <groupId>com.yingu.project</groupId>
+        <version>0.0.1</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>carloan-feign</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>carloan-feign-quartzjob</module>
+        <module>carloan-feign-workflow</module>
+        <module>carloan-feign-shiro</module>
+        <module>carloan-feign-info</module>
+        <module>carloan-feign-activity</module>
+        <module>carloan-feign-admin</module>
+        <module>carloan-feign-master</module>
+        <module>carloan-feign-tcc</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.yingu.project</groupId>
+            <artifactId>carloan-api-model-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-feign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.yingu.project</groupId>
+            <artifactId>carloan-api-model-quartzjob</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+
+
+    </dependencies>
+</project>

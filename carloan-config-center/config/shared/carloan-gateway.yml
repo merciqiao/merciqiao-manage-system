@@ -1,0 +1,57 @@
+spring:
+  application:
+    name: carloan-web
+  redis:
+        hostName: 10.0.128.144
+        port: 6379
+        password:
+        pool:
+          maxActive: 200
+          maxWait: -1
+          maxIdle: 8
+          minIdle: 0
+        timeout: 0
+        database: 0
+        sentinel:
+          master: mymaster
+          nodes: 10.0.128.144
+          port: 26379
+server:
+  port: 9060
+
+
+shiro-redis:
+  host: 10.0.128.144:26379,10.0.128.144:26379 #哨兵模式
+  #host: localhost
+  port: 6379
+  password:
+  timeout: 30000 #超时时间30秒
+  sessionexpiretime: 1800000 #过期时间30分钟
+  permissionxpiretime: 1800000 #过期时间30分钟
+  mastername: mymaster
+#接口调用超时时间设置
+ribbon:
+  ReadTimeout: 25000
+  ConnectTimeout: 25000
+feign:
+   hystrix:
+     enabled: false #开启feign自带的熔断器,默认不开启的
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 30000
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9901/eureka/
+    #从Eureka服务器端获取注册信息的间隔时间，单位：秒，默认30s
+    registryFetchIntervalSeconds: 1
+  instance:
+    #是否使用IP定义注册中心的地址
+    preferIpAddress: true
+
+
+

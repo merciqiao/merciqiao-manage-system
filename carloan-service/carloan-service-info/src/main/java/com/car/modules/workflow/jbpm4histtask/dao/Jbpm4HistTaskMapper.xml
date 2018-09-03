@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.car.modules.workflow.jbpm4histtask.dao.Jbpm4HistTaskDao">
+    <resultMap id="Jbpm4HistTaskDTO" type="com.car.modules.workflow.jbpm4histtask.dto.Jbpm4HistTaskDTO">
+        <result property="id" column="ID" jdbcType="DECIMAL"/>
+        <result property="proInstanceId" column="PRO_INSTANCE_ID" jdbcType="VARCHAR"/>
+        <result property="activityName" column="ACTIVITY_NAME" jdbcType="VARCHAR"/>
+        <result property="activityType" column="ACTIVITY_TYPE" jdbcType="VARCHAR"/>
+        <result property="transition" column="TRANSITION" jdbcType="VARCHAR"/>
+        <result property="createTime" column="CREATE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="endTime" column="END_TIME" jdbcType="TIMESTAMP"/>
+        <result property="assignee" column="ASSIGNEE" jdbcType="VARCHAR"/>
+        <result property="nextTransition" column="NEXT_TRANSITION" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID, PRO_INSTANCE_ID, ACTIVITY_NAME, ACTIVITY_TYPE, TRANSITION, CREATE_TIME, END_TIME, ASSIGNEE
+  </sql>
+    <!-- 分页查询 jbpm4_hist_task -->
+    <select id="searchJbpm4HistTaskByPaging" parameterType="java.util.Map" resultMap="Jbpm4HistTaskDTO">
+        select
+        t1.id ,
+        t1.pro_instance_id ,
+        t1.activity_name ,
+        t1.activity_type ,
+        t1.transition ,
+        t1.create_time ,
+        t1.end_time ,
+        t1.assignee
+
+        from jbpm4_hist_task t1
+        where 1=1
+        <if test="dto.id != null and dto.id != ''">
+            and t1.ID =#{dto.id}
+        </if>
+        <if test="dto.proInstanceId != null and dto.proInstanceId != ''">
+            and t1.PRO_INSTANCE_ID =#{dto.proInstanceId}
+        </if>
+        <if test="dto.activityName != null and dto.activityName != ''">
+            and t1.ACTIVITY_NAME =#{dto.activityName}
+        </if>
+        <if test="dto.activityType != null and dto.activityType != ''">
+            and t1.ACTIVITY_TYPE =#{dto.activityType}
+        </if>
+        <if test="dto.transition != null and dto.transition != ''">
+            and t1.TRANSITION =#{dto.transition}
+        </if>
+        <if test="dto.createTime != null and dto.createTime != ''">
+            and t1.CREATE_TIME =#{dto.createTime}
+        </if>
+        <if test="dto.endTime != null and dto.endTime != ''">
+            and t1.END_TIME =#{dto.endTime}
+        </if>
+        <if test="dto.assignee != null and dto.assignee != ''">
+            and t1.ASSIGNEE =#{dto.assignee}
+        </if>
+
+        order by t1.id desc
+    </select>
+
+    <!-- 查询列表 jbpm4_hist_task  -->
+    <select id="searchJbpm4HistTask" parameterType="java.util.Map" resultMap="Jbpm4HistTaskDTO">
+        select
+        t1.id ,
+        t1.pro_instance_id ,
+        t1.activity_name ,
+        t1.activity_type ,
+        t1.transition ,
+        t1.create_time ,
+        t1.end_time ,
+        t1.assignee
+        from jbpm4_hist_task t1
+        where 1=1
+        <if test="dto.id != null and dto.id != ''">
+            and t1.ID = #{dto.id}
+        </if>
+        <if test="dto.proInstanceId != null and dto.proInstanceId != ''">
+            and t1.PRO_INSTANCE_ID = #{dto.proInstanceId}
+        </if>
+        <if test="dto.activityName != null and dto.activityName != ''">
+            and t1.ACTIVITY_NAME = #{dto.activityName}
+        </if>
+        <if test="dto.activityType != null and dto.activityType != ''">
+            and t1.ACTIVITY_TYPE = #{dto.activityType}
+        </if>
+        <if test="dto.transition != null and dto.transition != ''">
+            and t1.TRANSITION = #{dto.transition}
+        </if>
+        <if test="dto.createTime != null and dto.createTime != ''">
+            and t1.CREATE_TIME = #{dto.createTime}
+        </if>
+        <if test="dto.endTime != null and dto.endTime != ''">
+            and t1.END_TIME = #{dto.endTime}
+        </if>
+        <if test="dto.assignee != null and dto.assignee != ''">
+            and t1.ASSIGNEE = #{dto.assignee}
+        </if>
+    </select>
+
+    <!-- 主键查询对象  jbpm4_hist_task -->
+    <select id="findJbpm4HistTaskByPrimaryKey" parameterType="java.util.Map" resultMap="Jbpm4HistTaskDTO">
+   	 		select 
+					t1.id                             ,
+					t1.pro_instance_id                ,
+					t1.activity_name                  ,
+					t1.activity_type                  ,
+					t1.transition                     ,
+					t1.create_time                    ,
+					t1.end_time                       ,
+					t1.assignee                       
+			from jbpm4_hist_task 		t1
+			where 
+				t1.id = #{id}
+</select>
+
+    <!-- 新增对象 jbpm4_hist_task -->
+    <insert id="insertJbpm4HistTask" parameterType="java.util.Map">
+			insert into jbpm4_hist_task
+			(   		id,
+						pro_instance_id                ,
+						activity_name                  ,
+						activity_type                  ,
+						transition                     ,
+						create_time                    ,
+						end_time                       ,
+						assignee                       
+			)
+			values(
+			            #{dto.id,jdbcType=DECIMAL}
+			            ,
+						#{dto.proInstanceId,jdbcType=VARCHAR}
+						,
+						#{dto.activityName,jdbcType=VARCHAR}
+						,
+						#{dto.activityType,jdbcType=VARCHAR}
+						,
+						#{dto.transition,jdbcType=VARCHAR}
+						,
+						#{dto.createTime,jdbcType=TIMESTAMP}
+						,
+						#{dto.endTime,jdbcType=TIMESTAMP}
+						,
+						#{dto.assignee,jdbcType=VARCHAR}
+						
+			)
+</insert>
+
+    <!-- 更新对象 jbpm4_hist_task -->
+    <update id="updateJbpm4HistTask" parameterType="java.util.Map">
+        update jbpm4_hist_task t1
+        set
+        <if test="dto.proInstanceId != null and dto.proInstanceId != ''">
+            t1.pro_instance_id =#{dto.proInstanceId,jdbcType=VARCHAR},
+        </if>
+        <if test="dto.activityName != null and dto.activityName != ''">
+            t1.activity_name =#{dto.activityName,jdbcType=VARCHAR},
+        </if>
+        <if test="dto.activityType != null and dto.activityType != ''">
+            t1.activity_type =#{dto.activityType,jdbcType=VARCHAR},
+        </if>
+        <if test="dto.transition != null and dto.transition != ''">
+            t1.transition =#{dto.transition,jdbcType=VARCHAR},
+        </if>
+        <if test="dto.createTime != null">
+            t1.create_time =#{dto.createTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="dto.endTime != null">
+            t1.end_time =#{dto.endTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="dto.assignee != null and dto.assignee != ''">
+            t1.assignee =#{dto.assignee,jdbcType=VARCHAR},
+        </if>
+        <if test="dto.nextTransition != null and dto.nextTransition != ''">
+            t1.next_transition =#{dto.nextTransition,jdbcType=VARCHAR}
+        </if>
+        where t1.id = #{dto.id}
+    </update>
+
+
+    <select id="queryLikeJbpm4HistTask" parameterType="java.util.Map" resultMap="Jbpm4HistTaskDTO">
+        select
+        t1.id ,
+        t1.pro_instance_id ,
+        t1.activity_name ,
+        t1.activity_type ,
+        t1.transition ,
+        t1.create_time ,
+        t1.end_time ,
+        t1.assignee,
+        t1.next_transition
+        from jbpm4_hist_task t1
+        where 1=1
+        <if test="dto.id != null and dto.id != ''">
+            and t1.ID = #{dto.id}
+        </if>
+        <if test="dto.proInstanceId != null and dto.proInstanceId != ''">
+            and t1.PRO_INSTANCE_ID = #{dto.proInstanceId}
+        </if>
+        <if test="dto.activityName != null and dto.activityName != ''">
+            and t1.ACTIVITY_NAME = #{dto.activityName}
+        </if>
+        <if test="dto.activityType != null and dto.activityType != ''">
+            and t1.ACTIVITY_TYPE = #{dto.activityType}
+        </if>
+        <if test="dto.transition != null and dto.transition != ''">
+            and t1.TRANSITION = #{dto.transition}
+        </if>
+        <if test="dto.createTime != null and dto.createTime != ''">
+            and t1.CREATE_TIME = #{dto.createTime}
+        </if>
+        <if test="dto.endTime != null and dto.endTime != ''">
+            and t1.END_TIME = #{dto.endTime}
+        </if>
+        <if test="dto.assignee != null and dto.assignee != ''">
+            and t1.ASSIGNEE = #{dto.assignee}
+        </if>
+        order by t1.create_time desc limit 1
+    </select>
+
+    <select id="searchHistTaskByOrdernum" parameterType="java.util.Map" resultMap="Jbpm4HistTaskDTO">
+         select
+        t1.id ,
+        t1.pro_instance_id ,
+        t1.activity_name ,
+        t1.activity_type ,
+        t1.transition ,
+        t1.create_time ,
+        t1.end_time ,
+        u.user_name as assignee,
+        t1.next_Transition
+        from jbpm4_hist_task t1
+        join jbpm4_biz_tab t2 on t1.PRO_INSTANCE_ID=t2.PRO_INSTANCE_ID
+        left join sys_user u on t1.ASSIGNEE=u.ID
+
+        where t2.BIZ_INF_NO=#{ordernum} and ACTIVITY_NAME not in ('同意','拒绝')
+
+    </select>
+    <!--获取节点的历史处理人-->
+    <select id="getHisUserOfActiveByProInstId" resultMap="Jbpm4HistTaskDTO" parameterType="java.lang.String">
+        SELECT
+          <include refid="Base_Column_List"/>
+        FROM
+          JBPM4_HIST_TASK
+        WHERE PRO_INSTANCE_ID = #{proInstanceId,jdbcType=VARCHAR}
+          AND activity_name = #{activityName,jdbcType=VARCHAR}
+          AND end_time IS NOT NULL
+        ORDER BY create_time DESC
+        LIMIT 1;
+    </select>
+    <!--更新任务处理人，sql并发控制派单池重复派单 ;boolValue==true,说明是派单池派单-->
+    <update id="updateAssigneeByPrimaryKey">
+        UPDATE
+        JBPM4_HIST_TASK
+        SET
+        ASSIGNEE = #{toUserId,jdbcType=VARCHAR}
+        WHERE ID = #{taskId,jdbcType=BIGINT}
+    </update>
+</mapper>

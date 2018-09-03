@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.car.modules.loan.carloanrichtext.dao.CarLoanRichTextDao">
+	<resultMap id="CarLoanRichTextDTO" type="com.car.modules.loan.carloanrichtext.dto.CarLoanRichTextDTO">
+		<result property="id" column="id" jdbcType="DECIMAL" />
+		<result property="relationNumber" column="RELATION_NUMBER" jdbcType="VARCHAR" />
+		<result property="bizType" column="BIZ_TYPE" jdbcType="VARCHAR" />
+		<result property="content" column="CONTENT" jdbcType="VARCHAR" />
+		<result property="creationTime" column="CREATION_TIME" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<!-- 分页查询 car_loan_rich_text -->
+	<select id="searchCarLoanRichTextByPaging" parameterType="java.util.Map" resultMap="CarLoanRichTextDTO">
+		select
+		t1.id                             ,
+		t1.relation_number                ,
+		t1.biz_type                       ,
+		t1.content                        ,
+		t1.creation_time
+
+		from car_loan_rich_text 	t1
+		where 1=1
+		<if test="dto.id != null and dto.id != ''">
+			and t1.id =#{dto.id}
+		</if>
+		<if test="dto.relationNumber != null and dto.relationNumber != ''">
+			and t1.RELATION_NUMBER =#{dto.relationNumber}
+		</if>
+		<if test="dto.bizType != null and dto.bizType != ''">
+			and t1.BIZ_TYPE =#{dto.bizType}
+		</if>
+		<if test="dto.content != null and dto.content != ''">
+			and t1.CONTENT =#{dto.content}
+		</if>
+		<if test="dto.creationTime != null and dto.creationTime != ''">
+			and t1.CREATION_TIME =#{dto.creationTime}
+		</if>
+
+		order by t1.id desc
+	</select>
+
+	<!-- 查询列表 car_loan_rich_text  -->
+	<select id="searchCarLoanRichText" parameterType="java.util.Map" resultMap="CarLoanRichTextDTO">
+		select
+		t1.id                             ,
+		t1.relation_number                ,
+		t1.biz_type                       ,
+		t1.content                        ,
+		t1.creation_time
+		from car_loan_rich_text 		t1
+		where 1=1
+		<if test="dto.id != null and dto.id != ''">
+			and t1.id = #{dto.id}
+		</if>
+		<if test="dto.relationNumber != null and dto.relationNumber != ''">
+			and t1.RELATION_NUMBER = #{dto.relationNumber}
+		</if>
+		<if test="dto.bizType != null and dto.bizType != ''">
+			and t1.BIZ_TYPE = #{dto.bizType}
+		</if>
+		<if test="dto.content != null and dto.content != ''">
+			and t1.CONTENT = #{dto.content}
+		</if>
+		<if test="dto.creationTime != null and dto.creationTime != ''">
+			and t1.CREATION_TIME = #{dto.creationTime}
+		</if>
+	</select>
+
+	<!-- 主键查询对象  car_loan_rich_text -->
+	<select id="findCarLoanRichTextByPrimaryKey" parameterType="java.util.Map" resultMap="CarLoanRichTextDTO">
+		select
+		t1.id                             ,
+		t1.relation_number                ,
+		t1.biz_type                       ,
+		t1.content                        ,
+		t1.creation_time
+		from car_loan_rich_text 		t1
+		where
+		t1.id = #{id}
+	</select>
+
+	<!-- 新增对象 car_loan_rich_text -->
+	<insert id="insertCarLoanRichText" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="dto.id">
+		insert into car_loan_rich_text
+		(
+
+		relation_number                ,
+		biz_type                       ,
+		content                        ,
+		creation_time
+		)
+		values(
+
+		#{dto.relationNumber,jdbcType=VARCHAR}
+		,
+		#{dto.bizType,jdbcType=VARCHAR}
+		,
+		#{dto.content,jdbcType=VARCHAR}
+		,
+		#{dto.creationTime,jdbcType=TIMESTAMP}
+
+		)
+	</insert>
+
+	<!-- 更新对象 car_loan_rich_text -->
+	<update id="updateCarLoanRichText" parameterType="java.util.Map">
+		update car_loan_rich_text t1
+		set
+		<if test="dto.bizType != null and dto.bizType != ''">
+			t1.biz_type                       =#{dto.bizType,jdbcType=VARCHAR},
+		</if>
+		<if test="dto.content != null and dto.content != ''">
+			t1.content                        =#{dto.content,jdbcType=VARCHAR},
+		</if>
+		<if test="dto.creationTime != null">
+			t1.creation_time                  =#{dto.creationTime,jdbcType=TIMESTAMP}
+		</if>
+		where t1.id = #{dto.id}
+	</update>
+
+
+
+	<select id="queryLikeCarLoanRichText" parameterType="java.util.Map" resultMap="CarLoanRichTextDTO">
+		select
+		t1.id                             ,
+		t1.relation_number                ,
+		t1.biz_type                       ,
+		t1.content                        ,
+		t1.creation_time
+		from car_loan_rich_text 		t1
+		where 1=1
+		<if test="dto.id != null and dto.id != ''">
+			and t1.id = #{dto.id}
+		</if>
+		<if test="dto.relationNumber != null and dto.relationNumber != ''">
+			and t1.RELATION_NUMBER = #{dto.relationNumber}
+		</if>
+		<if test="dto.bizType != null and dto.bizType != ''">
+			and t1.BIZ_TYPE = #{dto.bizType}
+		</if>
+		<if test="dto.content != null and dto.content != ''">
+			and t1.CONTENT = #{dto.content}
+		</if>
+		<if test="dto.creationTime != null and dto.creationTime != ''">
+			and t1.CREATION_TIME = #{dto.creationTime}
+		</if>
+	</select>
+	<!-- 主键查询对象  car_loan_rich_text -->
+	<select id="findCarLoanRichTextByNum" parameterType="java.util.Map" resultMap="CarLoanRichTextDTO">
+		select
+		t1.id                             ,
+		t1.relation_number                   ,
+		t1.biz_type                       ,
+		t1.content                        ,
+		t1.creation_time
+		from car_loan_rich_text 		t1
+		where
+		t1.relation_number = #{relation_number}
+		 and t1.biz_type = #{biz_type}
+	</select>
+
+</mapper>

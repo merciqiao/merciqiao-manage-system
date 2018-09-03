@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.car.modules.loan.biz.asynjob.dao.BizAsynJobMapper">
+	<resultMap id="BaseResultMap" type="com.car.modules.loan.biz.asynjob.dto.BizAsynJobDO">
+		<id column="ID" jdbcType="BIGINT" property="id"/>
+		<result column="Bean_CLass" jdbcType="VARCHAR" property="beanClass"/>
+		<result column="BIZ_KEY_ID" jdbcType="VARCHAR" property="bizKeyId"/>
+		<result column="JOB_STATE" jdbcType="TINYINT" property="jobState"/>
+		<result column="START_TIME" jdbcType="TIMESTAMP" property="startTime"/>
+		<result column="END_TIME" jdbcType="TIMESTAMP" property="endTime"/>
+		<result column="ERROR_REMARK" jdbcType="VARCHAR" property="errorRemark"/>
+		<result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+		<result column="REMARK" jdbcType="VARCHAR" property="remark"/>
+		<result column="VALIDATE_STATE" jdbcType="TINYINT" property="validateState"/>
+		<result column="JOB_RUN" jdbcType="INTEGER" property="jobRun"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+    ID, Bean_CLass, BIZ_KEY_ID, JOB_STATE, START_TIME, END_TIME, ERROR_REMARK, CREATE_TIME, 
+    REMARK, VALIDATE_STATE, JOB_RUN
+  </sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from biz_asyn_job
+		where ID = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from biz_asyn_job
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+	<insert id="insertSelective" keyProperty="id" parameterType="com.car.modules.loan.biz.asynjob.dto.BizAsynJobDO"
+	        useGeneratedKeys="true">
+		insert into biz_asyn_job
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="beanClass != null">
+				Bean_CLass,
+			</if>
+			<if test="bizKeyId != null">
+				BIZ_KEY_ID,
+			</if>
+			<if test="jobState != null">
+				JOB_STATE,
+			</if>
+			<if test="startTime != null">
+				START_TIME,
+			</if>
+			<if test="endTime != null">
+				END_TIME,
+			</if>
+			<if test="errorRemark != null">
+				ERROR_REMARK,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+			<if test="validateState != null">
+				VALIDATE_STATE,
+			</if>
+			<if test="jobRun != null">
+				JOB_RUN,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="beanClass != null">
+				#{beanClass,jdbcType=VARCHAR},
+			</if>
+			<if test="bizKeyId != null">
+				#{bizKeyId,jdbcType=VARCHAR},
+			</if>
+			<if test="jobState != null">
+				#{jobState,jdbcType=TINYINT},
+			</if>
+			<if test="startTime != null">
+				#{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null">
+				#{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="errorRemark != null">
+				#{errorRemark,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="validateState != null">
+				#{validateState,jdbcType=TINYINT},
+			</if>
+			<if test="jobRun != null">
+				#{jobRun,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.car.modules.loan.biz.asynjob.dto.BizAsynJobDO">
+		update biz_asyn_job
+		<set>
+			<if test="beanClass != null">
+				Bean_CLass = #{beanClass,jdbcType=VARCHAR},
+			</if>
+			<if test="bizKeyId != null">
+				BIZ_KEY_ID = #{bizKeyId,jdbcType=VARCHAR},
+			</if>
+			<if test="jobState != null">
+				JOB_STATE = #{jobState,jdbcType=TINYINT},
+			</if>
+			<if test="startTime != null">
+				START_TIME = #{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null">
+				END_TIME = #{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="errorRemark != null">
+				ERROR_REMARK = #{errorRemark,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="validateState != null">
+				VALIDATE_STATE = #{validateState,jdbcType=TINYINT},
+			</if>
+			<if test="jobRun != null">
+				JOB_RUN = #{jobRun,jdbcType=INTEGER},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=BIGINT}
+	</update>
+	<select id="listByJobState" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from biz_asyn_job
+		where JOB_STATE = #{jobState,jdbcType=BIGINT}
+	</select>
+</mapper>

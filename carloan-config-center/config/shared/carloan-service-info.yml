@@ -1,0 +1,69 @@
+spring:
+  application:
+    name: carloan-service-info
+  profiles:
+    active: dev
+  redis:
+        hostName: 10.0.128.144
+        port: 6379
+        password:
+        pool:
+          maxActive: 200
+          maxWait: -1
+          maxIdle: 8
+          minIdle: 0
+        timeout: 0
+        database: 0
+        sentinel:
+          master: mymaster
+          nodes: 10.0.128.144
+          port: 26379
+server:
+  port: 10007
+
+logging:
+  config: config/logback.xml
+#接口调用超时时间设置
+ribbon:
+  ReadTimeout: 25000
+  ConnectTimeout: 25000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+feign:
+   hystrix:
+     enabled: false #开启feign自带的熔断器,默认不开启的
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 75000
+---
+spring:
+  profiles: dev
+  datasource:
+      type: com.zaxxer.hikari.HikariDataSource
+      url: jdbc:mysql://172.24.132.108:3306/car_loan?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+      username: loan_rm_pro
+      password: loan_rm_pro
+      driver-class-name: com.mysql.jdbc.Driver
+      hikari:
+        idle-timeout: 150000
+mybatis:
+  typeAliasesPackage: com.car.modules.loan.**.dto,com.car.modules.jbpm.**.dto
+  mapperLocations: classpath*:com/car/modules/*/*/dao/*.xml,classpath*:com/car/modules/*/dao/*.xml
+
+#mybatis:
+#  typeAliasesPackage: com.carloan.service.quartzjob.**.dto
+#  mapperLocations: classpath*:com.carloan.service.quartzjob/*/dao/*.xml
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9901/eureka/
+  instance:
+    #是否使用IP定义注册中心的地址
+    preferIpAddress: true
+
+
+

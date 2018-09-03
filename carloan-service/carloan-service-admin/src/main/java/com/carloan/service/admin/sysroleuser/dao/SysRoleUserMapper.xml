@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.carloan.service.admin.sysroleuser.dao.SysRoleUserDao">
+<resultMap id="SysRoleUserDTO" type="com.carloan.service.admin.sysroleuser.dto.SysRoleUserDTO">
+				<result property="id" column="ID" jdbcType="DECIMAL" />
+				<result property="roleId" column="ROLE_ID" jdbcType="DECIMAL" />
+				<result property="targetId" column="TARGET_ID" jdbcType="DECIMAL" />
+				<result property="appId" column="APP_ID" jdbcType="DECIMAL" />
+				<result property="targetType" column="TARGET_TYPE" jdbcType="VARCHAR" />
+				<result property="validateState" column="VALIDATE_STATE" jdbcType="VARCHAR" />
+				<result property="version" column="VERSION" jdbcType="DECIMAL" />
+	            <result property="userName" column="UserName" jdbcType="VARCHAR" />
+				<result property="roleCode" column="roleCode" jdbcType="VARCHAR" />
+				<result property="roleName" column="roleName" jdbcType="VARCHAR" />
+</resultMap>
+				
+<!-- 分页查询 sys_role_user -->	
+<select id="searchSysRoleUserByPaging" parameterType="java.util.Map" resultMap="SysRoleUserDTO">
+    	 		select 
+						t1.id                             ,
+						t1.role_id                        ,
+						t1.target_id                      ,
+						t1.app_id                         ,
+						t1.target_type                    ,
+						t1.validate_state                 ,
+						t1.version                        
+					
+				from sys_role_user 	t1
+				where 1=1
+    			<if test="dto.id != null and dto.id != ''">
+						and t1.ID =#{dto.id}
+    			</if>
+    			<if test="dto.roleId != null and dto.roleId != ''">
+						and t1.ROLE_ID =#{dto.roleId}
+    			</if>
+    			<if test="dto.targetId != null and dto.targetId != ''">
+						and t1.TARGET_ID =#{dto.targetId}
+    			</if>
+    			<if test="dto.appId != null and dto.appId != ''">
+						and t1.APP_ID =#{dto.appId}
+    			</if>
+    			<if test="dto.targetType != null and dto.targetType != ''">
+						and t1.TARGET_TYPE =#{dto.targetType}
+    			</if>
+    			<if test="dto.validateState != null and dto.validateState != ''">
+						and t1.VALIDATE_STATE =#{dto.validateState}
+    			</if>
+    			<if test="dto.version != null and dto.version != ''">
+						and t1.VERSION =#{dto.version}
+    			</if>
+				
+				order by t1.id desc
+</select>
+  
+<!-- 查询列表 sys_role_user  -->
+<select id="searchSysRoleUser" parameterType="java.util.Map" resultMap="SysRoleUserDTO">
+				select
+				t1.id                             ,
+				t1.role_id                        ,
+				t1.target_id                      ,
+				t1.app_id                         ,
+				t1.target_type                    ,
+				t1.validate_state                 ,
+				t1.version  ,
+				u.USER_NAME as UserName,
+				r.ROLE_CODE as roleCode,
+				r.ROLE_NAME as roleName
+				from sys_role_user 		t1
+				join sys_user u on t1.TARGET_ID =u.id
+	            join sys_role r on t1.ROLE_ID=r.id
+				where 1=1
+    			<if test="dto.id != null and dto.id>0">
+						and t1.ID = #{dto.id}
+    			</if>
+    			<if test="dto.roleId != null and dto.roleId>0">
+						and t1.ROLE_ID = #{dto.roleId}
+    			</if>
+    			<if test="dto.targetId != null and dto.targetId >0">
+						and t1.TARGET_ID = #{dto.targetId}
+    			</if>
+    			<if test="dto.appId != null and dto.appId != ''">
+						and t1.APP_ID = #{dto.appId}
+    			</if>
+    			<if test="dto.targetType != null and dto.targetType != ''">
+						and t1.TARGET_TYPE = #{dto.targetType}
+    			</if>
+    			<if test="dto.validateState != null and dto.validateState != ''">
+						and t1.VALIDATE_STATE = #{dto.validateState}
+    			</if>
+    			<if test="dto.version != null and dto.version != ''">
+						and t1.VERSION = #{dto.version}
+    			</if>
+</select>
+  
+<!-- 主键查询对象  sys_role_user -->
+<select id="findSysRoleUserByPrimaryKey" parameterType="java.util.Map" resultMap="SysRoleUserDTO">
+   	 		select 
+					t1.id                             ,
+					t1.role_id                        ,
+					t1.target_id                      ,
+					t1.app_id                         ,
+					t1.target_type                    ,
+					t1.validate_state                 ,
+					t1.version                        
+			from sys_role_user 		t1
+			where 
+				t1.id = #{id}
+</select>
+  
+<!-- 新增对象 sys_role_user -->
+<insert id="insertSysRoleUser" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="dto.id">
+			insert into sys_role_user
+			(   		
+						role_id                        ,
+						target_id                      ,
+						app_id                         ,
+						target_type                    ,
+						validate_state                 ,
+						version                        
+			)
+			values(
+						#{dto.roleId,jdbcType=DECIMAL}
+						,
+						#{dto.targetId,jdbcType=DECIMAL}
+						,
+						#{dto.appId,jdbcType=DECIMAL}
+						,
+						#{dto.targetType,jdbcType=VARCHAR}
+						,
+						'1'
+						,
+						#{dto.version,jdbcType=DECIMAL}
+						
+			)
+</insert>
+    
+<!-- 更新对象 sys_role_user -->
+<update id="updateSysRoleUser" parameterType="java.util.Map">
+	     update sys_role_user t1
+	           set 
+					 <if test="dto.roleId != null and dto.roleId != ''">
+						 t1.role_id                        =#{dto.roleId,jdbcType=DECIMAL},
+					 </if>
+					 <if test="dto.targetId != null and dto.targetId != ''">
+						 t1.target_id                      =#{dto.targetId,jdbcType=DECIMAL},
+					 </if>
+					 <if test="dto.appId != null and dto.appId != ''">
+						 t1.app_id                         =#{dto.appId,jdbcType=DECIMAL},
+					 </if>
+					 <if test="dto.targetType != null and dto.targetType != ''">
+						 t1.target_type                    =#{dto.targetType,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.validateState != null and dto.validateState != ''">
+						 t1.validate_state                 ='1',
+					 </if>
+					 <if test="dto.version != null and dto.version != ''">
+						 t1.version                        =#{dto.version,jdbcType=DECIMAL}
+					 </if>
+	     where t1.id = #{dto.id}
+</update>
+
+
+<select id="queryLikeSysRoleUser" parameterType="java.util.Map" resultMap="SysRoleUserDTO">
+	select
+	t1.id                             ,
+	t1.role_id                        ,
+	t1.target_id                      ,
+	t1.app_id                         ,
+	t1.target_type                    ,
+	t1.validate_state                 ,
+	t1.version                        
+			from sys_role_user 		t1
+			where 1=1
+	<if test="dto.id != null and dto.id != ''">
+	and t1.ID = #{dto.id}
+	</if>
+	<if test="dto.roleId != null and dto.roleId != ''">
+	and t1.ROLE_ID = #{dto.roleId}
+	</if>
+	<if test="dto.targetId != null and dto.targetId != ''">
+	and t1.TARGET_ID = #{dto.targetId}
+	</if>
+	<if test="dto.appId != null and dto.appId != ''">
+	and t1.APP_ID = #{dto.appId}
+	</if>
+	<if test="dto.targetType != null and dto.targetType != ''">
+	and t1.TARGET_TYPE = #{dto.targetType}
+	</if>
+	<if test="dto.validateState != null and dto.validateState != ''">
+	and t1.VALIDATE_STATE = #{dto.validateState}
+	</if>
+	<if test="dto.version != null and dto.version != ''">
+	and t1.VERSION = #{dto.version}
+	</if>
+			</select>
+	<delete id="deleteSysRoleUserbyID"  parameterType="java.util.Map" >
+      delete from sys_role_user where id=#{id}
+	</delete>
+
+</mapper>

@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.carloan.service.admin.sysposition.dao.SysPositionDao">
+<resultMap id="SysPositionDTO" type="com.carloan.service.admin.sysposition.dto.SysPositionDTO">
+				<result property="id" column="ID" jdbcType="DECIMAL" />
+				<result property="positionName" column="POSITION_NAME" jdbcType="VARCHAR" />
+				<result property="positionCode" column="POSITION_CODE" jdbcType="VARCHAR" />
+				<result property="orderBy" column="ORDER_BY" jdbcType="VARCHAR" />
+				<result property="validateState" column="VALIDATE_STATE" jdbcType="VARCHAR" />
+				<result property="version" column="VERSION" jdbcType="DECIMAL" />
+				<result property="createDate" column="CREATE_DATE" jdbcType="TIMESTAMP" />
+				<result property="orgCode" column="ORG_CODE" jdbcType="VARCHAR" />
+				<result property="isResponsible" column="IS_RESPONSIBLE" jdbcType="VARCHAR" />
+				<result property="positionSequence" column="POSITION_SEQUENCE" jdbcType="VARCHAR" />
+				<result property="post" column="POST" jdbcType="VARCHAR" />
+				<result property="effectiveDate" column="EFFECTIVE_DATE" jdbcType="TIMESTAMP" />
+				<result property="parentId" column="PARENT_ID" jdbcType="VARCHAR" />
+</resultMap>
+				
+<!-- 分页查询 sys_position -->	
+<select id="searchSysPositionByPaging" parameterType="java.util.Map" resultMap="SysPositionDTO">
+    	 		select 
+						t1.id                             ,
+						t1.position_name                  ,
+						t1.position_code                  ,
+						t1.order_by                       ,
+						t1.validate_state                 ,
+						t1.version                        ,
+						t1.create_date                    ,
+						t1.org_code                       ,
+						t1.is_responsible                 ,
+						t1.position_sequence              ,
+						t1.post                           ,
+						t1.effective_date                 ,
+						t1.parent_id                      
+					
+				from sys_position 	t1
+				where 1=1
+    			<if test="dto.id != null and dto.id != ''">
+						and t1.ID =#{dto.id}
+    			</if>
+    			<if test="dto.positionName != null and dto.positionName != ''">
+						and t1.POSITION_NAME =#{dto.positionName}
+    			</if>
+    			<if test="dto.positionCode != null and dto.positionCode != ''">
+						and t1.POSITION_CODE =#{dto.positionCode}
+    			</if>
+    			<if test="dto.orderBy != null and dto.orderBy != ''">
+						and t1.ORDER_BY =#{dto.orderBy}
+    			</if>
+    			<if test="dto.validateState != null and dto.validateState != ''">
+						and t1.VALIDATE_STATE =#{dto.validateState}
+    			</if>
+    			<if test="dto.version != null and dto.version != ''">
+						and t1.VERSION =#{dto.version}
+    			</if>
+    			<if test="dto.createDate != null and dto.createDate != ''">
+						and t1.CREATE_DATE =#{dto.createDate}
+    			</if>
+    			<if test="dto.orgCode != null and dto.orgCode != ''">
+						and t1.ORG_CODE =#{dto.orgCode}
+    			</if>
+    			<if test="dto.isResponsible != null and dto.isResponsible != ''">
+						and t1.IS_RESPONSIBLE =#{dto.isResponsible}
+    			</if>
+    			<if test="dto.positionSequence != null and dto.positionSequence != ''">
+						and t1.POSITION_SEQUENCE =#{dto.positionSequence}
+    			</if>
+    			<if test="dto.post != null and dto.post != ''">
+						and t1.POST =#{dto.post}
+    			</if>
+    			<if test="dto.effectiveDate != null and dto.effectiveDate != ''">
+						and t1.EFFECTIVE_DATE =#{dto.effectiveDate}
+    			</if>
+    			<if test="dto.parentId != null and dto.parentId != ''">
+						and t1.PARENT_ID =#{dto.parentId}
+    			</if>
+				
+				order by t1.id desc
+</select>
+  
+<!-- 查询列表 sys_position  -->
+<select id="searchSysPosition" parameterType="java.util.Map" resultMap="SysPositionDTO">
+    	     select 
+						t1.id                             ,
+						t1.position_name                  ,
+						t1.position_code                  ,
+						t1.order_by                       ,
+						t1.validate_state                 ,
+						t1.version                        ,
+						t1.create_date                    ,
+						t1.org_code                       ,
+						t1.is_responsible                 ,
+						t1.position_sequence              ,
+						t1.post                           ,
+						t1.effective_date                 ,
+						t1.parent_id                      
+				from sys_position 		t1
+				where 1=1
+    			<if test="dto.id != null and dto.id != ''">
+						and t1.ID = #{dto.id}
+    			</if>
+    			<if test="dto.positionName != null and dto.positionName != ''">
+						and t1.POSITION_NAME = #{dto.positionName}
+    			</if>
+    			<if test="dto.positionCode != null and dto.positionCode != ''">
+						and t1.POSITION_CODE = #{dto.positionCode}
+    			</if>
+    			<if test="dto.orderBy != null and dto.orderBy != ''">
+						and t1.ORDER_BY = #{dto.orderBy}
+    			</if>
+    			<if test="dto.validateState != null and dto.validateState != ''">
+						and t1.VALIDATE_STATE = #{dto.validateState}
+    			</if>
+    			<if test="dto.version != null and dto.version != ''">
+						and t1.VERSION = #{dto.version}
+    			</if>
+    			<if test="dto.createDate != null and dto.createDate != ''">
+						and t1.CREATE_DATE = #{dto.createDate}
+    			</if>
+    			<if test="dto.orgCode != null and dto.orgCode != ''">
+						and t1.ORG_CODE = #{dto.orgCode}
+    			</if>
+    			<if test="dto.isResponsible != null and dto.isResponsible != ''">
+						and t1.IS_RESPONSIBLE = #{dto.isResponsible}
+    			</if>
+    			<if test="dto.positionSequence != null and dto.positionSequence != ''">
+						and t1.POSITION_SEQUENCE = #{dto.positionSequence}
+    			</if>
+    			<if test="dto.post != null and dto.post != ''">
+						and t1.POST = #{dto.post}
+    			</if>
+    			<if test="dto.effectiveDate != null and dto.effectiveDate != ''">
+						and t1.EFFECTIVE_DATE = #{dto.effectiveDate}
+    			</if>
+    			<if test="dto.parentId != null and dto.parentId != ''">
+						and t1.PARENT_ID = #{dto.parentId}
+    			</if>
+	             and t1.VALIDATE_STATE='1'
+</select>
+  
+<!-- 主键查询对象  sys_position -->
+<select id="findSysPositionByPrimaryKey" parameterType="java.util.Map" resultMap="SysPositionDTO">
+   	 		select 
+					t1.id                             ,
+					t1.position_name                  ,
+					t1.position_code                  ,
+					t1.order_by                       ,
+					t1.validate_state                 ,
+					t1.version                        ,
+					t1.create_date                    ,
+					t1.org_code                       ,
+					t1.is_responsible                 ,
+					t1.position_sequence              ,
+					t1.post                           ,
+					t1.effective_date                 ,
+					t1.parent_id                      
+			from sys_position 		t1
+			where 
+				t1.id = #{id}
+</select>
+  
+<!-- 新增对象 sys_position -->
+<insert id="insertSysPosition" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="dto.id">
+			insert into sys_position
+			(   		
+						position_name                  ,
+						position_code                  ,
+						order_by                       ,
+						validate_state                 ,
+						version                        ,
+						create_date                    ,
+						org_code                       ,
+						is_responsible                 ,
+						position_sequence              ,
+						post                           ,
+						effective_date                 ,
+						parent_id                      
+			)
+			values(
+						#{dto.positionName,jdbcType=VARCHAR}
+						,
+						#{dto.positionCode,jdbcType=VARCHAR}
+						,
+						#{dto.orderBy,jdbcType=VARCHAR}
+						,
+						'1'
+						,
+						#{dto.version,jdbcType=DECIMAL}
+						,
+						now()
+						,
+						#{dto.orgCode,jdbcType=VARCHAR}
+						,
+						#{dto.isResponsible,jdbcType=VARCHAR}
+						,
+						#{dto.positionSequence,jdbcType=VARCHAR}
+						,
+						#{dto.post,jdbcType=VARCHAR}
+						,
+						now()
+						,
+						#{dto.parentId,jdbcType=VARCHAR}
+						
+			)
+</insert>
+    
+<!-- 更新对象 sys_position -->
+<update id="updateSysPosition" parameterType="java.util.Map">
+	     update sys_position t1
+	           set 
+					 <if test="dto.positionName != null and dto.positionName != ''">
+						 t1.position_name                  =#{dto.positionName,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.positionCode != null and dto.positionCode != ''">
+						 t1.position_code                  =#{dto.positionCode,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.orderBy != null and dto.orderBy != ''">
+						 t1.order_by                       =#{dto.orderBy,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.version != null and dto.version != ''">
+						 t1.version                        =#{dto.version,jdbcType=DECIMAL},
+					 </if>
+					 <if test="dto.orgCode != null and dto.orgCode != ''">
+						 t1.org_code                       =#{dto.orgCode,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.isResponsible != null and dto.isResponsible != ''">
+						 t1.is_responsible                 =#{dto.isResponsible,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.positionSequence != null and dto.positionSequence != ''">
+						 t1.position_sequence              =#{dto.positionSequence,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.post != null and dto.post != ''">
+						 t1.post                           =#{dto.post,jdbcType=VARCHAR},
+					 </if>
+					 <if test="dto.parentId != null and dto.parentId != ''">
+						 t1.parent_id                      =#{dto.parentId,jdbcType=VARCHAR},
+					 </if>
+	      t1.validate_state ='1'
+	     where t1.id = #{dto.id}
+</update>
+
+
+<select id="queryLikeSysPosition" parameterType="java.util.Map" resultMap="SysPositionDTO">
+	select
+	t1.id                             ,
+	t1.position_name                  ,
+	t1.position_code                  ,
+	t1.order_by                       ,
+	t1.validate_state                 ,
+	t1.version                        ,
+	t1.create_date                    ,
+	t1.org_code                       ,
+	t1.is_responsible                 ,
+	t1.position_sequence              ,
+	t1.post                           ,
+	t1.effective_date                 ,
+	t1.parent_id                      
+			from sys_position 		t1
+			where 1=1
+	<if test="dto.id != null and dto.id != ''">
+	and t1.ID = #{dto.id}
+	</if>
+	<if test="dto.positionName != null and dto.positionName != ''">
+	and t1.POSITION_NAME = #{dto.positionName}
+	</if>
+	<if test="dto.positionCode != null and dto.positionCode != ''">
+	and t1.POSITION_CODE = #{dto.positionCode}
+	</if>
+	<if test="dto.orderBy != null and dto.orderBy != ''">
+	and t1.ORDER_BY = #{dto.orderBy}
+	</if>
+	<if test="dto.validateState != null and dto.validateState != ''">
+	and t1.VALIDATE_STATE = #{dto.validateState}
+	</if>
+	<if test="dto.version != null and dto.version != ''">
+	and t1.VERSION = #{dto.version}
+	</if>
+	<if test="dto.createDate != null and dto.createDate != ''">
+	and t1.CREATE_DATE = #{dto.createDate}
+	</if>
+	<if test="dto.orgCode != null and dto.orgCode != ''">
+	and t1.ORG_CODE = #{dto.orgCode}
+	</if>
+	<if test="dto.isResponsible != null and dto.isResponsible != ''">
+	and t1.IS_RESPONSIBLE = #{dto.isResponsible}
+	</if>
+	<if test="dto.positionSequence != null and dto.positionSequence != ''">
+	and t1.POSITION_SEQUENCE = #{dto.positionSequence}
+	</if>
+	<if test="dto.post != null and dto.post != ''">
+	and t1.POST = #{dto.post}
+	</if>
+	<if test="dto.effectiveDate != null and dto.effectiveDate != ''">
+	and t1.EFFECTIVE_DATE = #{dto.effectiveDate}
+	</if>
+	<if test="dto.parentId != null and dto.parentId != ''">
+	and t1.PARENT_ID = #{dto.parentId}
+	</if>
+			</select>
+
+	<update id="deleteSysPositionByPrimaryKey" parameterType="java.util.Map">
+		update sys_position  t1
+		set   t1.validate_state='0'
+		where t1.id in( ${ids})
+	</update>
+
+</mapper>

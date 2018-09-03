@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: carloan-service-shiro
+  cloud:
+    config:
+      fail-fast: true
+      uri: http://localhost:8888
+      profile: dev

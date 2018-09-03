@@ -1,0 +1,13 @@
+spring:
+  application:
+      name: carloan-config-center
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: config/shared
+  profiles:
+     active: native
+
+server:
+  port: 8888

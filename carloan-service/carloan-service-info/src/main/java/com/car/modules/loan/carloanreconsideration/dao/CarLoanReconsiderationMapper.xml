@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.car.modules.loan.carloanreconsideration.dao.CarLoanReconsiderationDao">
+<resultMap id="CarLoanReconsiderationDTO" type="com.car.modules.loan.carloanreconsideration.dto.CarLoanReconsiderationDTO">
+				<result property="id" column="id" jdbcType="DECIMAL" />
+				<result property="orderNumber" column="ORDER_NUMBER" jdbcType="VARCHAR" />
+				<result property="contractAmount" column="CONTRACT_AMOUNT" jdbcType="VARCHAR" />
+				<result property="productType" column="PRODUCT_TYPE" jdbcType="VARCHAR" />
+				<result property="repaymentMethod" column="REPAYMENT_METHOD" jdbcType="VARCHAR" />
+				<result property="approvalPeriod" column="APPROVAL_PERIOD" jdbcType="VARCHAR" />
+				<result property="ifTransfer" column="IF_TRANSFER" jdbcType="VARCHAR" />
+				<result property="examineRemarks" column="EXAMINE_REMARKS" jdbcType="VARCHAR" />
+				<result property="fuyiRemarks" column="FUYI_REMARKS" jdbcType="VARCHAR" />
+				<result property="creationTime" column="CREATION_TIME" jdbcType="TIMESTAMP" />
+				<result property="updateTime" column="UPDATE_TIME" jdbcType="TIMESTAMP" />
+				<result property="fuyiAmount" column="FUYI_AMOUNT" jdbcType="VARCHAR" />
+				<result property="fuyiPeriod" column="FUYI_PERIOD" jdbcType="VARCHAR" />
+
+</resultMap>
+				
+<!-- 分页查询 CAR_LOAN_RECONSIDERATION -->	
+<select id="searchCarLoanReconsiderationByPaging" parameterType="java.util.Map" resultMap="CarLoanReconsiderationDTO">
+    	 		select 
+						t1.id                             ,
+						t1.order_number                   ,
+						t1.contract_amount                ,
+						t1.product_type                   ,
+						t1.repayment_method               ,
+						t1.approval_period                ,
+						t1.if_transfer                    ,
+						t1.examine_remarks                ,
+						t1.fuyi_remarks                   ,
+						t1.creation_time                  ,
+						t1.update_time                    
+					
+				from car_loan_reconsideration 	t1
+				where 1=1
+    			<if test="dto.id != null and dto.id != ''">
+						and t1.id =#{dto.id}
+    			</if>
+    			<if test="dto.orderNumber != null and dto.orderNumber != ''">
+						and t1.ORDER_NUMBER =#{dto.orderNumber}
+    			</if>
+    			<if test="dto.contractAmount != null and dto.contractAmount != ''">
+						and t1.CONTRACT_AMOUNT =#{dto.contractAmount}
+    			</if>
+    			<if test="dto.productType != null and dto.productType != ''">
+						and t1.PRODUCT_TYPE =#{dto.productType}
+    			</if>
+    			<if test="dto.repaymentMethod != null and dto.repaymentMethod != ''">
+						and t1.REPAYMENT_METHOD =#{dto.repaymentMethod}
+    			</if>
+    			<if test="dto.approvalPeriod != null and dto.approvalPeriod != ''">
+						and t1.APPROVAL_PERIOD =#{dto.approvalPeriod}
+    			</if>
+    			<if test="dto.ifTransfer != null and dto.ifTransfer != ''">
+						and t1.IF_TRANSFER =#{dto.ifTransfer}
+    			</if>
+    			<if test="dto.examineRemarks != null and dto.examineRemarks != ''">
+						and t1.EXAMINE_REMARKS =#{dto.examineRemarks}
+    			</if>
+    			<if test="dto.fuyiRemarks != null and dto.fuyiRemarks != ''">
+						and t1.FUYI_REMARKS =#{dto.fuyiRemarks}
+    			</if>
+    			<if test="dto.creationTime != null and dto.creationTime != ''">
+						and t1.CREATION_TIME =#{dto.creationTime}
+    			</if>
+    			<if test="dto.updateTime != null and dto.updateTime != ''">
+						and t1.UPDATE_TIME =#{dto.updateTime}
+    			</if>
+				
+				order by t1.id desc
+</select>
+  
+<!-- 查询列表 CAR_LOAN_RECONSIDERATION  -->
+<select id="getCarLoanReconsiderationList" parameterType="java.util.Map" resultMap="CarLoanReconsiderationDTO">
+    	     select 
+						t1.id                             ,
+						t1.order_number                   ,
+						t1.contract_amount                ,
+						t1.product_type                   ,
+						t1.repayment_method               ,
+						t1.approval_period                ,
+						t1.if_transfer                    ,
+						t1.examine_remarks                ,
+						t1.fuyi_remarks                   ,
+						t1.creation_time                  ,
+						t1.update_time    ,
+						t1.FUYI_AMOUNT,
+						t1.FUYI_PERIOD
+				from car_loan_reconsideration 		t1
+				where 1=1
+						and t1.ORDER_NUMBER = #{ordernum}
+
+</select>
+  
+<!-- 主键查询对象  CAR_LOAN_RECONSIDERATION -->
+<select id="findCarLoanReconsiderationByPrimaryKey" parameterType="java.util.Map" resultMap="CarLoanReconsiderationDTO">
+   	 		select 
+					t1.id                             ,
+					t1.order_number                   ,
+					t1.contract_amount                ,
+					t1.product_type                   ,
+					t1.repayment_method               ,
+					t1.approval_period                ,
+					t1.if_transfer                    ,
+					t1.examine_remarks                ,
+					t1.fuyi_remarks                   ,
+					t1.creation_time                  ,
+					t1.update_time                    
+			from car_loan_reconsideration 		t1
+			where 
+				t1.id = #{id}
+</select>
+  
+<!-- 新增对象 CAR_LOAN_RECONSIDERATION -->
+<insert id="insertCarLoanReconsideration" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="dto.id">
+			insert into car_loan_reconsideration
+			(   		
+						order_number                   ,
+						contract_amount                ,
+						product_type                   ,
+						repayment_method               ,
+						approval_period                ,
+						if_transfer                    ,
+						examine_remarks                ,
+						fuyi_remarks                   ,
+						creation_time                  ,
+						update_time                    
+			)
+			values(
+						#{dto.orderNumber,jdbcType=VARCHAR}
+						,
+						#{dto.contractAmount,jdbcType=VARCHAR}
+						,
+						#{dto.productType,jdbcType=VARCHAR}
+						,
+						#{dto.repaymentMethod,jdbcType=VARCHAR}
+						,
+						#{dto.approvalPeriod,jdbcType=VARCHAR}
+						,
+						#{dto.ifTransfer,jdbcType=VARCHAR}
+						,
+						#{dto.examineRemarks,jdbcType=VARCHAR}
+						,
+						#{dto.fuyiRemarks,jdbcType=VARCHAR}
+						,
+						now()
+						,
+						#{dto.updateTime,jdbcType=TIMESTAMP}
+						
+			)
+</insert>
+    
+<!-- 更新对象 CAR_LOAN_RECONSIDERATION -->
+<update id="updateCarLoanReconsideration" parameterType="java.util.Map">
+	     update car_loan_reconsideration t1
+	           set 
+			           t1.id                             =#{dto.id,jdbcType=DECIMAL},
+			           t1.order_number                   =#{dto.orderNumber,jdbcType=VARCHAR},
+			           t1.contract_amount                =#{dto.contractAmount,jdbcType=VARCHAR},
+			           t1.product_type                   =#{dto.productType,jdbcType=VARCHAR},
+			           t1.repayment_method               =#{dto.repaymentMethod,jdbcType=VARCHAR},
+			           t1.approval_period                =#{dto.approvalPeriod,jdbcType=VARCHAR},
+			           t1.if_transfer                    =#{dto.ifTransfer,jdbcType=VARCHAR},
+			           t1.examine_remarks                =#{dto.examineRemarks,jdbcType=VARCHAR},
+			           t1.fuyi_remarks                   =#{dto.fuyiRemarks,jdbcType=VARCHAR},
+			           t1.creation_time                  =#{dto.creationTime,jdbcType=TIMESTAMP},
+			           t1.update_time                    =#{dto.updateTime,jdbcType=TIMESTAMP}
+	     where t1.id = #{dto.id}
+</update>
+   
+<!-- 主键删除 CAR_LOAN_RECONSIDERATION -->
+<delete id="deleteCarLoanReconsiderationByID" parameterType="java.util.Map">
+    	delete from car_loan_reconsideration where id in (${ids} )
+</delete>
+<!-- 主键假删除 CAR_LOAN_RECONSIDERATION -->
+<update id="deleteCarLoanReconsiderationByPrimaryKey" parameterType="java.util.Map">
+	     update car_loan_reconsideration t1
+	           set   t1.valid='0'	
+	     where t1.id in( ${ids})
+</update>
+	<!-- 订单号查询对象  CAR_LOAN_RECONSIDERATION -->
+	<select id="findCarLoanReconsiderationByOrderNum" parameterType="java.util.Map" resultMap="CarLoanReconsiderationDTO">
+		select
+		t1.id                             ,
+		t1.order_number                   ,
+		t1.contract_amount                ,
+		t1.product_type                   ,
+		t1.repayment_method               ,
+		t1.approval_period                ,
+		t1.if_transfer                    ,
+		t1.examine_remarks                ,
+		t1.fuyi_remarks                   ,
+		t1.creation_time                  ,
+		t1.update_time
+		from car_loan_reconsideration 		t1
+		where
+		t1.order_number = #{orderNum}
+	</select>
+	<!-- 更新进件状态 CAR_LOAN_RECONSIDERATION -->
+	<update id="updateCarLoanReconsiderationAuditState" parameterType="java.util.Map">
+		update car_loan_reconsideration t1
+		set
+		t1.AUDITE_STATE                  =#{dto.auditeState,jdbcType=VARCHAR},
+		t1.OPERATE_USER                  =#{dto.operateUser,jdbcType=DECIMAL},
+		t1.update_time                   =CURRENT_TIMESTAMP
+		where t1.id = #{dto.id}
+	</update>
+</mapper>

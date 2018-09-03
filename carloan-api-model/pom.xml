@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>carloan-cloud</artifactId>
+        <groupId>com.yingu.project</groupId>
+        <version>0.0.1</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>carloan-api-model</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>carloan-api-model-quartzjob</module>
+        <module>carloan-api-model-activity</module>
+        <module>carloan-api-model-common</module>
+        <module>carloan-api-model-shiro</module>
+        <module>carloan-api-model-info</module>
+        <module>carloan-api-model-workflow</module>
+        <module>carloan-api-model-master</module>
+        <module>carloan-api-model-admin</module>
+        <module>carloan-api-model-tcc</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.dozer</groupId>
+            <artifactId>dozer</artifactId>
+            <version>5.5.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>1.5.14</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+    </dependencies>
+</project>

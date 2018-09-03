@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.car.modules.loan.carloanopinion.dao.CarLoanOpinionDao">
+	<resultMap id="CarLoanOpinionDTO" type="com.car.modules.loan.carloanopinion.dto.CarLoanOpinionDTO">
+		<result property="id" column="id" jdbcType="DECIMAL" />
+		<result property="orderNumber" column="ORDER_NUMBER" jdbcType="VARCHAR" />
+		<result property="contractAmount" column="CONTRACT_AMOUNT" jdbcType="VARCHAR" />
+		<result property="productType" column="PRODUCT_TYPE" jdbcType="VARCHAR" />
+		<result property="repaymentMethod" column="REPAYMENT_METHOD" jdbcType="VARCHAR" />
+		<result property="approvalPeriod" column="APPROVAL_PERIOD" jdbcType="VARCHAR" />
+		<result property="ifTransfer" column="IF_TRANSFER" jdbcType="VARCHAR" />
+		<result property="examineRemarks" column="EXAMINE_REMARKS" jdbcType="VARCHAR" />
+		<result property="innerRemarks" column="INNER_REMARKS" jdbcType="VARCHAR" />
+		<result property="currentExaminationPost" column="CURRENT_EXAMINATION_POST" jdbcType="VARCHAR" />
+		<result property="currentApprover" column="CURRENT_APPROVER" jdbcType="VARCHAR" />
+		<result property="creationTime" column="CREATION_TIME" jdbcType="TIMESTAMP" />
+		<result property="updateTime" column="UPDATE_TIME" jdbcType="TIMESTAMP" />
+		<result property="bizType" column="BIZ_TYPE" jdbcType="DECIMAL" />
+		<result property="processId" column="PROCESS_ID" jdbcType="VARCHAR" />
+		<result property="auditState" column="AUDIT_STATE" jdbcType="VARCHAR" />
+		<result property="staTus" column="STA_TUS" jdbcType="VARCHAR" />
+		<result property="productSeries" column="PRODUCT_SERIES" jdbcType="VARCHAR" />
+		<result property="carInfoId" column="CAR_INFO_ID" jdbcType="DECIMAL" />
+		<result property="operation" column="OPERATION" jdbcType="SMALLINT" />
+		<result property="transition" column="TRANSITION" jdbcType="SMALLINT" />
+	</resultMap>
+
+	<!-- 分页查询 car_loan_opinion -->
+	<select id="searchCarLoanOpinionByPaging" parameterType="java.util.Map" resultMap="CarLoanOpinionDTO">
+		select
+		t1.id                             ,
+		t1.order_number                   ,
+		t1.contract_amount                ,
+		t1.product_type                   ,
+		t1.repayment_method               ,
+		t1.approval_period                ,
+		t1.if_transfer                    ,
+		t1.examine_remarks                ,
+		t1.inner_remarks                ,
+		t1.current_examination_post       ,
+		t1.current_approver               ,
+		t1.creation_time                  ,
+		t1.update_time                    ,
+		t1.biz_type                       ,
+		t1.process_id                     ,
+		t1.audit_state                    ,
+		t1.sta_tus                        ,
+		t1.product_series                 ,
+		t1.car_info_id                    ,
+		t1.operation,
+		t1.transition
+
+		from car_loan_opinion 	t1
+		where 1=1
+		<if test="dto.id != null and dto.id != ''">
+			and t1.id =#{dto.id}
+		</if>
+		<if test="dto.orderNumber != null and dto.orderNumber != ''">
+			and t1.ORDER_NUMBER =#{dto.orderNumber}
+		</if>
+		<if test="dto.contractAmount != null and dto.contractAmount != ''">
+			and t1.CONTRACT_AMOUNT =#{dto.contractAmount}
+		</if>
+		<if test="dto.productType != null and dto.productType != ''">
+			and t1.PRODUCT_TYPE =#{dto.productType}
+		</if>
+		<if test="dto.repaymentMethod != null and dto.repaymentMethod != ''">
+			and t1.REPAYMENT_METHOD =#{dto.repaymentMethod}
+		</if>
+		<if test="dto.approvalPeriod != null and dto.approvalPeriod != ''">
+			and t1.APPROVAL_PERIOD =#{dto.approvalPeriod}
+		</if>
+		<if test="dto.ifTransfer != null and dto.ifTransfer != ''">
+			and t1.IF_TRANSFER =#{dto.ifTransfer}
+		</if>
+		<if test="dto.examineRemarks != null and dto.examineRemarks != ''">
+			and t1.EXAMINE_REMARKS =#{dto.examineRemarks}
+		</if>
+		<if test="dto.currentExaminationPost != null and dto.currentExaminationPost != ''">
+			and t1.CURRENT_EXAMINATION_POST =#{dto.currentExaminationPost}
+		</if>
+		<if test="dto.currentApprover != null and dto.currentApprover != ''">
+			and t1.CURRENT_APPROVER =#{dto.currentApprover}
+		</if>
+		<if test="dto.creationTime != null and dto.creationTime != ''">
+			and t1.CREATION_TIME =#{dto.creationTime}
+		</if>
+		<if test="dto.updateTime != null and dto.updateTime != ''">
+			and t1.UPDATE_TIME =#{dto.updateTime}
+		</if>
+		<if test="dto.bizType != null and dto.bizType != ''">
+			and t1.BIZ_TYPE =#{dto.bizType}
+		</if>
+		<if test="dto.processId != null and dto.processId != ''">
+			and t1.PROCESS_ID =#{dto.processId}
+		</if>
+		<if test="dto.auditState != null and dto.auditState != ''">
+			and t1.AUDIT_STATE =#{dto.auditState}
+		</if>
+		<if test="dto.staTus != null and dto.staTus != ''">
+			and t1.STA_TUS =#{dto.staTus}
+		</if>
+		<if test="dto.productSeries != null and dto.productSeries != ''">
+			and t1.PRODUCT_SERIES =#{dto.productSeries}
+		</if>
+		<if test="dto.carInfoId != null and dto.carInfoId != ''">
+			and t1.CAR_INFO_ID =#{dto.carInfoId}
+		</if>
+		<if test="dto.operation != null and dto.operation != ''">
+			and t1.OPERATION =#{dto.operation}
+		</if>
+
+		order by t1.id desc
+	</select>
+
+	<!-- 查询列表 car_loan_opinion  -->
+	<select id="searchCarLoanOpinion" parameterType="java.util.Map" resultMap="CarLoanOpinionDTO">
+		select
+		t1.id                             ,
+		t1.order_number                   ,
+		t1.contract_amount                ,
+		t1.product_type                   ,
+		t1.repayment_method               ,
+		t1.approval_period                ,
+		t1.if_transfer                    ,
+		t1.examine_remarks                ,
+		t1.inner_remarks                ,
+		t1.current_examination_post       ,
+		t1.current_approver               ,
+		t1.creation_time                  ,
+		t1.update_time                    ,
+		t1.biz_type                       ,
+		t1.process_id                     ,
+		t1.audit_state                    ,
+		t1.sta_tus                        ,
+		t1.product_series                 ,
+		t1.car_info_id                    ,
+		t1.operation,
+		t1.transition
+		from car_loan_opinion 		t1
+		where 1=1
+		<if test="dto.id != null and dto.id != ''">
+			and t1.id = #{dto.id}
+		</if>
+		<if test="dto.orderNumber != null and dto.orderNumber != ''">
+			and t1.ORDER_NUMBER = #{dto.orderNumber}
+		</if>
+		<if test="dto.contractAmount != null and dto.contractAmount != ''">
+			and t1.CONTRACT_AMOUNT = #{dto.contractAmount}
+		</if>
+		<if test="dto.productType != null and dto.productType != ''">
+			and t1.PRODUCT_TYPE = #{dto.productType}
+		</if>
+		<if test="dto.repaymentMethod != null and dto.repaymentMethod != ''">
+			and t1.REPAYMENT_METHOD = #{dto.repaymentMethod}
+		</if>
+		<if test="dto.approvalPeriod != null and dto.approvalPeriod != ''">
+			and t1.APPROVAL_PERIOD = #{dto.approvalPeriod}
+		</if>
+		<if test="dto.ifTransfer != null and dto.ifTransfer != ''">
+			and t1.IF_TRANSFER = #{dto.ifTransfer}
+		</if>
+		<if test="dto.examineRemarks != null and dto.examineRemarks != ''">
+			and t1.EXAMINE_REMARKS = #{dto.examineRemarks}
+		</if>
+		<if test="dto.currentExaminationPost != null and dto.currentExaminationPost != ''">
+			and t1.CURRENT_EXAMINATION_POST = #{dto.currentExaminationPost}
+		</if>
+		<if test="dto.currentApprover != null and dto.currentApprover != ''">
+			and t1.CURRENT_APPROVER = #{dto.currentApprover}
+		</if>
+		<if test="dto.creationTime != null and dto.creationTime != ''">
+			and t1.CREATION_TIME = #{dto.creationTime}
+		</if>
+		<if test="dto.updateTime != null and dto.updateTime != ''">
+			and t1.UPDATE_TIME = #{dto.updateTime}
+		</if>
+		<if test="dto.bizType != null and dto.bizType != ''">
+			and t1.BIZ_TYPE = #{dto.bizType}
+		</if>
+		<if test="dto.processId != null and dto.processId != ''">
+			and t1.PROCESS_ID = #{dto.processId}
+		</if>
+		<if test="dto.auditState != null and dto.auditState != ''">
+			and t1.AUDIT_STATE = #{dto.auditState}
+		</if>
+		<if test="dto.staTus != null and dto.staTus != ''">
+			and t1.STA_TUS = #{dto.staTus}
+		</if>
+		<if test="dto.productSeries != null and dto.productSeries != ''">
+			and t1.PRODUCT_SERIES = #{dto.productSeries}
+		</if>
+		<if test="dto.carInfoId != null and dto.carInfoId != ''">
+			and t1.CAR_INFO_ID = #{dto.carInfoId}
+		</if>
+		<if test="dto.operation != null and dto.operation != ''">
+			and t1.OPERATION = #{dto.operation}
+		</if>
+	</select>
+
+	<!-- 主键查询对象  car_loan_opinion -->
+	<select id="findCarLoanOpinionByPrimaryKey" parameterType="java.util.Map" resultMap="CarLoanOpinionDTO">
+		select
+		t1.id                             ,
+		t1.order_number                   ,
+		t1.contract_amount                ,
+		t1.product_type                   ,
+		t1.repayment_method               ,
+		t1.approval_period                ,
+		t1.if_transfer                    ,
+		t1.examine_remarks                ,
+		t1.inner_remarks                ,
+		t1.current_examination_post       ,
+		t1.current_approver               ,
+		t1.creation_time                  ,
+		t1.update_time                    ,
+		t1.biz_type                       ,
+		t1.process_id                     ,
+		t1.audit_state                    ,
+		t1.sta_tus                        ,
+		t1.product_series                 ,
+		t1.car_info_id                    ,
+		t1.operation,
+		t1.transition
+		from car_loan_opinion 		t1
+		where
+		t1.id = #{id}
+	</select>
+
+	<!-- 新增对象 car_loan_opinion -->
+	<insert id="insertCarLoanOpinion" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="dto.id">
+		insert into car_loan_opinion
+		(
+		id                             ,
+		order_number                   ,
+		contract_amount                ,
+		product_type                   ,
+		repayment_method               ,
+		approval_period                ,
+		if_transfer                    ,
+		examine_remarks                ,
+		inner_remarks                ,
+		current_examination_post       ,
+		current_approver               ,
+		creation_time                  ,
+		update_time                    ,
+		biz_type                       ,
+		process_id                     ,
+		audit_state                    ,
+		sta_tus                        ,
+		product_series                 ,
+		car_info_id                    ,
+		operation,
+		transition
+		)
+		values(
+		#{dto.id,jdbcType=DECIMAL}
+		,
+		#{dto.orderNumber,jdbcType=VARCHAR}
+		,
+		#{dto.contractAmount,jdbcType=VARCHAR}
+		,
+		#{dto.productType,jdbcType=VARCHAR}
+		,
+		#{dto.repaymentMethod,jdbcType=VARCHAR}
+		,
+		#{dto.approvalPeriod,jdbcType=VARCHAR}
+		,
+		#{dto.ifTransfer,jdbcType=VARCHAR}
+		,
+		#{dto.examineRemarks,jdbcType=VARCHAR}
+		,
+		#{dto.innerRemarks,jdbcType=VARCHAR}
+		,
+		#{dto.currentExaminationPost,jdbcType=VARCHAR}
+		,
+		#{dto.currentApprover,jdbcType=VARCHAR}
+		,
+		now()
+		,
+		now()
+		,
+		#{dto.bizType,jdbcType=DECIMAL}
+		,
+		#{dto.processId,jdbcType=VARCHAR}
+		,
+		#{dto.auditState,jdbcType=VARCHAR}
+		,
+		#{dto.staTus,jdbcType=VARCHAR}
+		,
+		#{dto.productSeries,jdbcType=VARCHAR}
+		,
+		#{dto.carInfoId,jdbcType=DECIMAL}
+		,
+		#{dto.operation,jdbcType=SMALLINT}
+		,
+		#{dto.transition,jdbcType=VARCHAR}
+
+		)
+	</insert>
+
+	<!-- 更新对象 car_loan_opinion -->
+	<update id="updateCarLoanOpinion" parameterType="java.util.Map">
+		update car_loan_opinion t1
+		set
+		<if test="dto.id != null and dto.id != ''">
+			t1.id                             =#{dto.id,jdbcType=DECIMAL},
+		</if>
+		<if test="dto.orderNumber != null and dto.orderNumber != ''">
+			t1.order_number                   =#{dto.orderNumber,jdbcType=VARCHAR},
+		</if>
+		<if test="dto.contractAmount != null and dto.contractAmount != ''">
+			t1.contract_amount                =#{dto.contractAmount,jdbcType=VARCHAR},
+		</if>
+		<if test="dto.productType != null and dto.productType != ''">
+			t1.product_type                   =#{dto.productType,jdbcType=VARCHAR},
+		</if>
+		<if test="dto.repaymentMethod != null and dto.repaymentMethod != ''">
+			t1.repayment_method               =#{dto.repaymentMethod,jdbcType=VARCHAR},
+		</if>
+		<if test="dto.approvalPeriod != null and dto.approvalPeriod != ''">
+			t1.approval_period                =#{dto.approvalPeriod,jdbcType=VARCHAR},
+		</if>
+		<if test="dto.ifTransfer != null and dto.ifTransfer != ''">
+			t1.if_transfer                    =#{dto.ifTransfer,jdbcType=VARCHAR},
+		</if>
+		<if test="dto.examineRemarks != null and dto.examineRemarks != ''">
+			t1.examine_remarks                =#{dto.examineRemarks,jdbcType=VARCHAR},
+		</if>
+		<if test="dto.innerRemarks != null and dto.innerRemarks != ''">
+			t1.inner_remarks                =#{dto.innerRemarks,jdbcType=VARCHAR},
+		</if>
+		<if test="dto.currentExaminationPost != null and dto.currentExaminationPost != ''">
+			t1.current_examination_post       =#{dto.currentExaminationPost,jdbcType=VARCHAR},
+		</if>
+		<if test="dto.currentApprover != null and dto.currentApprover != ''">
+			t1.current_approver               =#{dto.currentApprover,jdbcType=VARCHAR},
+		</if>
+		<if test="dto.updateTime != null">
+			t1.update_time                    =now(),
+		</if>
+		<if test="dto.bizType != null">
+			t1.biz_type                     =#{dto.bizType,jdbcType=VARCHAR},
+		</if>
+		<if test="dto.processId != null and dto.processId != ''">
+			t1.process_id                     =#{dto.processId,jdbcType=VARCHAR},
+		</if>
+		<if test="dto.auditState != null and dto.auditState != ''">
+			t1.audit_state                    =#{dto.auditState,jdbcType=VARCHAR},
+		</if>
+		<if test="dto.staTus != null and dto.staTus != ''">
+			t1.sta_tus                        =#{dto.staTus,jdbcType=VARCHAR},
+		</if>
+		<if test="dto.productSeries != null and dto.productSeries != ''">
+			t1.product_series                 =#{dto.productSeries,jdbcType=VARCHAR},
+		</if>
+		<if test="dto.carInfoId != null and dto.carInfoId != ''">
+			t1.car_info_id                    =#{dto.carInfoId,jdbcType=DECIMAL},
+		</if>
+		<if test="dto.transition != null and dto.transition != ''">
+			t1.transition                    =#{dto.transition,jdbcType=VARCHAR},
+		</if>
+
+			t1.operation                      =#{dto.operation,jdbcType=SMALLINT}
+
+		where t1.id = #{dto.id}
+	</update>
+
+
+	<select id="queryLikeCarLoanOpinion" parameterType="java.util.Map" resultMap="CarLoanOpinionDTO">
+		select
+		t1.id                             ,
+		t1.order_number                   ,
+		t1.contract_amount                ,
+		t1.product_type                   ,
+		t1.repayment_method               ,
+		t1.approval_period                ,
+		t1.if_transfer                    ,
+		t1.examine_remarks                ,
+		t1.inner_Remarks,
+		t1.current_examination_post       ,
+		t1.current_approver               ,
+		t1.creation_time                  ,
+		t1.update_time                    ,
+		t1.biz_type                       ,
+		t1.process_id                     ,
+		t1.audit_state                    ,
+		t1.sta_tus                        ,
+		t1.product_series                 ,
+		t1.car_info_id                    ,
+		t1.operation,
+		t1.transition
+		from car_loan_opinion 		t1
+		where 1=1
+		<if test="dto.id != null and dto.id != ''">
+			and t1.id = #{dto.id}
+		</if>
+		<if test="dto.orderNumber != null and dto.orderNumber != ''">
+			and t1.ORDER_NUMBER = #{dto.orderNumber}
+		</if>
+		<if test="dto.contractAmount != null and dto.contractAmount != ''">
+			and t1.CONTRACT_AMOUNT = #{dto.contractAmount}
+		</if>
+		<if test="dto.productType != null and dto.productType != ''">
+			and t1.PRODUCT_TYPE = #{dto.productType}
+		</if>
+		<if test="dto.repaymentMethod != null and dto.repaymentMethod != ''">
+			and t1.REPAYMENT_METHOD = #{dto.repaymentMethod}
+		</if>
+		<if test="dto.approvalPeriod != null and dto.approvalPeriod != ''">
+			and t1.APPROVAL_PERIOD = #{dto.approvalPeriod}
+		</if>
+		<if test="dto.ifTransfer != null and dto.ifTransfer != ''">
+			and t1.IF_TRANSFER = #{dto.ifTransfer}
+		</if>
+		<if test="dto.examineRemarks != null and dto.examineRemarks != ''">
+			and t1.EXAMINE_REMARKS = #{dto.examineRemarks}
+		</if>
+		<if test="dto.currentExaminationPost != null and dto.currentExaminationPost != ''">
+			and t1.CURRENT_EXAMINATION_POST = #{dto.currentExaminationPost}
+		</if>
+		<if test="dto.currentApprover != null and dto.currentApprover != ''">
+			and t1.CURRENT_APPROVER = #{dto.currentApprover}
+		</if>
+		<if test="dto.creationTime != null and dto.creationTime != ''">
+			and t1.CREATION_TIME = #{dto.creationTime}
+		</if>
+		<if test="dto.updateTime != null and dto.updateTime != ''">
+			and t1.UPDATE_TIME = #{dto.updateTime}
+		</if>
+		<if test="dto.bizType != null and dto.bizType != ''">
+			and t1.BIZ_TYPE = #{dto.bizType}
+		</if>
+		<if test="dto.processId != null and dto.processId != ''">
+			and t1.PROCESS_ID = #{dto.processId}
+		</if>
+		<if test="dto.auditState != null and dto.auditState != ''">
+			and t1.AUDIT_STATE = #{dto.auditState}
+		</if>
+		<if test="dto.staTus != null and dto.staTus != ''">
+			and t1.STA_TUS = #{dto.staTus}
+		</if>
+		<if test="dto.productSeries != null and dto.productSeries != ''">
+			and t1.PRODUCT_SERIES = #{dto.productSeries}
+		</if>
+		<if test="dto.carInfoId != null and dto.carInfoId != ''">
+			and t1.CAR_INFO_ID = #{dto.carInfoId}
+		</if>
+		<if test="dto.operation != null and dto.operation != ''">
+			and t1.OPERATION = #{dto.operation}
+		</if>
+	</select>
+
+
+</mapper>

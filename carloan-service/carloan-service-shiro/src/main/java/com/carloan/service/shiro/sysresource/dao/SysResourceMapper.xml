@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.carloan.service.shiro.sysresource.dao.SysResourceDao">
+<resultMap id="SysResourceDTO" type="com.carloan.service.shiro.sysresource.dto.SysResourceDTO">
+				<result property="id" column="ID" jdbcType="DECIMAL" />
+				<result property="resoureName" column="RESOURE_NAME" jdbcType="VARCHAR" />
+				<result property="resoureType" column="RESOURE_TYPE" jdbcType="VARCHAR" />
+				<result property="resoureUrl" column="RESOURE_URL" jdbcType="VARCHAR" />
+				<result property="permission" column="PERMISSION" jdbcType="VARCHAR" />
+				<result property="parentId" column="PARENT_ID" jdbcType="VARCHAR" />
+				<result property="parentIds" column="PARENT_IDS" jdbcType="VARCHAR" />
+				<result property="appId" column="APP_ID" jdbcType="DECIMAL" />
+				<result property="validateState" column="VALIDATE_STATE" jdbcType="VARCHAR" />
+				<result property="version" column="VERSION" jdbcType="DECIMAL" />
+</resultMap>
+				
+<!-- 分页查询 sys_resource -->	
+<select id="searchSysResourceByPaging" parameterType="java.util.Map" resultMap="SysResourceDTO">
+    	 		select 
+						t1.id                             ,
+						t1.resoure_name                   ,
+						t1.resoure_type                   ,
+						t1.resoure_url                    ,
+						t1.permission                     ,
+						t1.parent_id                      ,
+						t1.parent_ids                     ,
+						t1.app_id                         ,
+						t1.validate_state                 ,
+						t1.version                        
+					
+				from sys_resource 	t1
+				where 1=1
+    			<if test="dto.id != null and dto.id != ''">
+						and t1.ID =#{dto.id}
+    			</if>
+    			<if test="dto.resoureName != null and dto.resoureName != ''">
+						and t1.RESOURE_NAME =#{dto.resoureName}
+    			</if>
+    			<if test="dto.resoureType != null and dto.resoureType != ''">
+						and t1.RESOURE_TYPE =#{dto.resoureType}
+    			</if>
+    			<if test="dto.resoureUrl != null and dto.resoureUrl != ''">
+						and t1.RESOURE_URL =#{dto.resoureUrl}
+    			</if>
+    			<if test="dto.permission != null and dto.permission != ''">
+						and t1.PERMISSION =#{dto.permission}
+    			</if>
+    			<if test="dto.parentId != null and dto.parentId != ''">
+						and t1.PARENT_ID =#{dto.parentId}
+    			</if>
+    			<if test="dto.parentIds != null and dto.parentIds != ''">
+						and t1.PARENT_IDS =#{dto.parentIds}
+    			</if>
+    			<if test="dto.appId != null and dto.appId != ''">
+						and t1.APP_ID =#{dto.appId}
+    			</if>
+    			<if test="dto.validateState != null and dto.validateState != ''">
+						and t1.VALIDATE_STATE =#{dto.validateState}
+    			</if>
+    			<if test="dto.version != null and dto.version != ''">
+						and t1.VERSION =#{dto.version}
+    			</if>
+				
+				order by t1.id desc
+</select>
+  
+<!-- 查询列表 sys_resource  -->
+<select id="searchSysResource" parameterType="java.util.Map" resultMap="SysResourceDTO">
+    	     select 
+						t1.id                             ,
+						t1.resoure_name                   ,
+						t1.resoure_type                   ,
+						t1.resoure_url                    ,
+						t1.permission                     ,
+						t1.parent_id                      ,
+						t1.parent_ids                     ,
+						t1.app_id                         ,
+						t1.validate_state                 ,
+						t1.version                        
+				from sys_resource 		t1
+				where 1=1
+    			<if test="dto.id != null and dto.id != ''">
+						and t1.ID = #{dto.id}
+    			</if>
+    			<if test="dto.resoureName != null and dto.resoureName != ''">
+						and t1.RESOURE_NAME = #{dto.resoureName}
+    			</if>
+    			<if test="dto.resoureType != null and dto.resoureType != ''">
+						and t1.RESOURE_TYPE = #{dto.resoureType}
+    			</if>
+    			<if test="dto.resoureUrl != null and dto.resoureUrl != ''">
+						and t1.RESOURE_URL = #{dto.resoureUrl}
+    			</if>
+    			<if test="dto.permission != null and dto.permission != ''">
+						and t1.PERMISSION = #{dto.permission}
+    			</if>
+    			<if test="dto.parentId != null and dto.parentId != ''">
+						and t1.PARENT_ID = #{dto.parentId}
+    			</if>
+    			<if test="dto.parentIds != null and dto.parentIds != ''">
+						and t1.PARENT_IDS = #{dto.parentIds}
+    			</if>
+    			<if test="dto.appId != null and dto.appId != ''">
+						and t1.APP_ID = #{dto.appId}
+    			</if>
+    			<if test="dto.validateState != null and dto.validateState != ''">
+						and t1.VALIDATE_STATE = #{dto.validateState}
+    			</if>
+    			<if test="dto.version != null and dto.version != ''">
+						and t1.VERSION = #{dto.version}
+    			</if>
+</select>
+  
+<!-- 主键查询对象  sys_resource -->
+<select id="findSysResourceByPrimaryKey" parameterType="java.util.Map" resultMap="SysResourceDTO">
+   	 		select 
+					t1.id                             ,
+					t1.resoure_name                   ,
+					t1.resoure_type                   ,
+					t1.resoure_url                    ,
+					t1.permission                     ,
+					t1.parent_id                      ,
+					t1.parent_ids                     ,
+					t1.app_id                         ,
+					t1.validate_state                 ,
+					t1.version                        
+			from sys_resource 		t1
+			where 
+				t1.id = #{id}
+</select>
+  
+<!-- 新增对象 sys_resource -->
+<insert id="insertSysResource" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="dto.id">
+			insert into sys_resource
+			(   		
+						resoure_name                   ,
+						resoure_type                   ,
+						resoure_url                    ,
+						permission                     ,
+						parent_id                      ,
+						parent_ids                     ,
+						app_id                         ,
+						validate_state                 ,
+						version                        
+			)
+			values(
+						#{dto.resoureName,jdbcType=VARCHAR}
+						,
+						#{dto.resoureType,jdbcType=VARCHAR}
+						,
+						#{dto.resoureUrl,jdbcType=VARCHAR}
+						,
+						#{dto.permission,jdbcType=VARCHAR}
+						,
+						#{dto.parentId,jdbcType=VARCHAR}
+						,
+						#{dto.parentIds,jdbcType=VARCHAR}
+						,
+						#{dto.appId,jdbcType=DECIMAL}
+						,
+						'1'
+						,
+						#{dto.version,jdbcType=DECIMAL}
+						
+			)
+</insert>
+    
+<!-- 更新对象 sys_resource -->
+<update id="updateSysResource" parameterType="java.util.Map">
+	     update sys_resource t1
+	           set 
+			           t1.resoure_name                   =#{dto.resoureName,jdbcType=VARCHAR},
+			           t1.resoure_type                   =#{dto.resoureType,jdbcType=VARCHAR},
+			           t1.resoure_url                    =#{dto.resoureUrl,jdbcType=VARCHAR},
+			           t1.permission                     =#{dto.permission,jdbcType=VARCHAR},
+			           t1.parent_id                      =#{dto.parentId,jdbcType=VARCHAR},
+			           t1.parent_ids                     =#{dto.parentIds,jdbcType=VARCHAR},
+			           t1.app_id                         =#{dto.appId,jdbcType=DECIMAL},
+			           t1.validate_state                 ='1',
+			           t1.version                        =#{dto.version,jdbcType=DECIMAL}
+	     where t1.id = #{dto.id}
+</update>
+   
+<!-- 主键删除 sys_resource -->
+<delete id="deleteSysResourceByID" parameterType="java.util.Map">
+    	delete from sys_resource where id in (${ids} )
+</delete>
+<!-- 主键假删除 sys_resource -->
+<update id="deleteSysResourceByPrimaryKey" parameterType="java.util.Map">
+	     update sys_resource t1
+	           set   t1.valid='0'	
+	     where t1.id in( ${ids})
+</update>
+	<!-- 查询URL->角色  sys_resource -->
+	<select id="selectShiroRolePermission" parameterType="java.util.Map" resultMap="SysResourceDTO">
+		SELECT
+		a.resoure_url,
+		a.resoure_type,
+		c.role_code
+		FROM
+		sys_resource a
+		LEFT JOIN sys_acl b ON b.resoure_id = a.id
+		LEFT JOIN sys_role c ON b.role_id = c.id
+		WHERE
+		a.resoure_url IS NOT NULL
+		AND a.resoure_url != ''
+		<if test="dto.resoureType != null and dto.resoureType != ''">
+			AND a.resoure_type = #{dto.resoureType}
+		</if>
+	</select>
+	<!-- 查询URL->权限  sys_resource -->
+	<select id="selectShiroUrlPermission" parameterType="java.util.Map" resultMap="SysResourceDTO">
+		SELECT DISTINCT
+		a.resoure_url,
+		a.permission
+		FROM
+		sys_resource a
+		LEFT JOIN sys_acl b ON b.resoure_id = a.id
+		LEFT JOIN sys_role c ON b.role_id = c.id
+		WHERE
+		a.resoure_url IS NOT NULL
+		AND a.resoure_url != ''
+		AND a.permission IS NOT NULL
+		AND a.PERMISSION != ''
+		<if test="dto.resoureType != null and dto.resoureType != ''">
+			AND a.resoure_type = #{dto.resoureType}
+		</if>
+	</select>
+	<!-- 查询URL->权限  sys_resource -->
+	<select id="selectShiroUrlPermissionByUserId" parameterType="java.util.Map" resultMap="SysResourceDTO">
+		SELECT DISTINCT
+		a.permission,
+		a.RESOURE_NAME,
+		a.resoure_type
+		FROM
+		sys_resource a
+		LEFT JOIN sys_acl b ON b.resoure_id = a.id
+		LEFT JOIN sys_role c ON b.role_id = c.id
+		left join sys_role_user d on c.id=d.ROLE_ID
+		WHERE
+		a.resoure_url IS NOT NULL
+		AND a.resoure_url != ''
+		AND a.permission IS NOT NULL
+		AND a.PERMISSION != ''
+		<if test="dto.userId != null and dto.userId != ''">
+			and d.TARGET_ID=#{dto.userId}
+		</if>
+		<if test="dto.resoureType != null and dto.resoureType != ''">
+			AND a.resoure_type = #{dto.resoureType}
+		</if>
+	</select>
+</mapper>

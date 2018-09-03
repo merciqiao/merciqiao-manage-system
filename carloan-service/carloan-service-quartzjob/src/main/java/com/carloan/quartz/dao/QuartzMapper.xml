@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.carloan.quartz.dao.QuartzMapper">
+    <select id="listTriggerInfoByPage" resultType="com.carloan.apimodel.quartzjob.TriggerInfoVO">
+        SELECT
+          IFNULL(
+            FROM_UNIXTIME(
+              PREV_FIRE_TIME / 1000,
+              '%Y-%m-%d %H:%i:%s'
+            ),
+            '-1'
+          ) AS prevFireTime,
+          FROM_UNIXTIME(
+            NEXT_FIRE_TIME / 1000,
+            '%Y-%m-%d %H:%i:%s'
+          ) AS nextFireTime,
+          TRIGGER_NAME AS triggerName,
+          JOB_NAME AS jobName,
+          PRIORITY AS priority,
+          TRIGGER_STATE AS triggerState,
+          TRIGGER_TYPE AS triggerType,
+          FROM_UNIXTIME(
+            START_TIME / 1000,
+            '%Y-%m-%d %H:%i:%s'
+          ) AS startTime
+        FROM
+          QRTZ_TRIGGERS
+          WHERE 1=1
+          <if test="jobName != null">
+              AND TRIGGER_NAME=#{jobName,jdbcType=VARCHAR}
+          </if>
+          <if test="triggerState != null">
+              AND TRIGGER_STATE=#{triggerState,jdbcType=VARCHAR}
+          </if>
+    </select>
+    <select id="selectJobInfoByJobName" resultType="com.carloan.apimodel.quartzjob.JobInfoVO" parameterType="java.lang.String">
+        SELECT
+          jd.`JOB_NAME` as jobName,
+          jd.`JOB_CLASS_NAME` as className,
+          ct.`CRON_EXPRESSION` as cron
+        FROM
+          qrtz_job_details jd
+          LEFT JOIN qrtz_cron_triggers ct
+            ON jd.`JOB_NAME` = ct.`TRIGGER_NAME`
+        WHERE jd.`JOB_NAME` = #{jobName,jdbcType=VARCHAR}
+    </select>
+</mapper>

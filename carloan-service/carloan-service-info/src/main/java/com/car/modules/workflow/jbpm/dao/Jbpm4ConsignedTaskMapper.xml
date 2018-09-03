@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.car.modules.workflow.jbpm.dao.Jbpm4ConsignedTaskMapper">
+	<resultMap id="BaseResultMap" type="com.car.modules.workflow.jbpm.entity.Jbpm4ConsignedTask">
+		<id column="ID" jdbcType="BIGINT" property="id"/>
+		<result column="TASK_ID" jdbcType="BIGINT" property="taskId"/>
+		<result column="FROM_USER_ID" jdbcType="VARCHAR" property="fromUserId"/>
+		<result column="TO_USER_ID" jdbcType="VARCHAR" property="toUserId"/>
+		<result column="CREATE_BY" jdbcType="VARCHAR" property="createBy"/>
+		<result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+    ID, TASK_ID, FROM_USER_ID, TO_USER_ID, CREATE_BY, CREATE_TIME
+  </sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from jbpm4_consigned_task
+		where ID = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from jbpm4_consigned_task
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+	<insert id="insertSelective" keyProperty="id"
+	        parameterType="com.car.modules.workflow.jbpm.entity.Jbpm4ConsignedTask" useGeneratedKeys="true">
+		insert into jbpm4_consigned_task
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="taskId != null">
+				TASK_ID,
+			</if>
+			<if test="fromUserId != null">
+				FROM_USER_ID,
+			</if>
+			<if test="toUserId != null">
+				TO_USER_ID,
+			</if>
+			<if test="createBy != null">
+				CREATE_BY,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="taskId != null">
+				#{taskId,jdbcType=BIGINT},
+			</if>
+			<if test="fromUserId != null">
+				#{fromUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="toUserId != null">
+				#{toUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="createBy != null">
+				#{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.car.modules.workflow.jbpm.entity.Jbpm4ConsignedTask">
+		update jbpm4_consigned_task
+		<set>
+			<if test="taskId != null">
+				TASK_ID = #{taskId,jdbcType=BIGINT},
+			</if>
+			<if test="fromUserId != null">
+				FROM_USER_ID = #{fromUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="toUserId != null">
+				TO_USER_ID = #{toUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.car.modules.workflow.jbpm.entity.Jbpm4ConsignedTask">
+    update jbpm4_consigned_task
+    set TASK_ID = #{taskId,jdbcType=BIGINT},
+      FROM_USER_ID = #{fromUserId,jdbcType=VARCHAR},
+      TO_USER_ID = #{toUserId,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

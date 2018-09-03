@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: carloan-service-aliyunoss
+server:
+  port: 8096
+
+
+
+
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9901/eureka/
+  instance:
+    #是否使用IP定义注册中心的地址
+    preferIpAddress: true
+
+
+OSS:
+  endpoint: http://oss-cn-zhangjiakou.aliyuncs.com
+  accessKeyId: LTAIOnQf5f1LbhXa
+  accessKeySecret: PfezCBklJsnNgdvurKgXucl7fRGwsG
+  bucketName: carloan-ygzx-cd-test
+  viedFile: http://carloan-ygzx-cd-test.oss-cn-zhangjiakou-internal.aliyuncs.com/
+  expiration: 36001 * 1000 * 24 * 365 * 10
+  configPath: /data/service/carRiskManagement/oss/config/config.json

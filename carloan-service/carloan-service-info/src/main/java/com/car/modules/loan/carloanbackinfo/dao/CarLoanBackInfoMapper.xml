@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.car.modules.loan.carloanbackinfo.dao.CarLoanBackInfoDao">
+<resultMap id="CarLoanBackInfoDTO" type="com.car.modules.loan.carloanbackinfo.dto.CarLoanBackInfoDTO">
+				<result property="id" column="ID" jdbcType="DECIMAL" />
+				<result property="fkIntoCustRefId" column="FK_INTO_CUST_REF_ID" jdbcType="DECIMAL" />
+				<result property="validateState" column="VALIDATE_STATE" jdbcType="VARCHAR" />
+				<result property="createTime" column="CREATE_TIME" jdbcType="TIMESTAMP" />
+				<result property="modifyTime" column="MODIFY_TIME" jdbcType="TIMESTAMP" />
+				<result property="createBy" column="CREATE_BY" jdbcType="VARCHAR" />
+				<result property="modifyBy" column="MODIFY_BY" jdbcType="VARCHAR" />
+				<result property="status" column="STATUS" jdbcType="VARCHAR" />
+				<result property="ext1" column="EXT1" jdbcType="VARCHAR" />
+				<result property="ext2" column="EXT2" jdbcType="VARCHAR" />
+				<result property="attachNumber" column="ATTACH_NUMBER" jdbcType="VARCHAR" />
+				<result property="ordertypecode" column="OrderTypeCode" jdbcType="DECIMAL" />
+				<result property="ordertypename" column="OrderTypeName" jdbcType="VARCHAR" />
+</resultMap>
+				
+<!-- 分页查询 car_loan_back_info -->	
+<select id="searchCarLoanBackInfoByPaging" parameterType="java.util.Map" resultMap="CarLoanBackInfoDTO">
+    	 		select 
+						t1.id                             ,
+						t1.fk_into_cust_ref_id            ,
+						t1.validate_state                 ,
+						t1.create_time                    ,
+						t1.modify_time                    ,
+						t1.create_by                      ,
+						t1.modify_by                      ,
+						t1.status                         ,
+						t1.ext1                           ,
+						t1.ext2                           ,
+						t1.attach_number                  ,
+						t1.ordertypecode                  ,
+						t1.ordertypename                  
+					
+				from car_loan_back_info 	t1
+				where 1=1
+    			<if test="dto.id != null and dto.id != ''">
+						and t1.ID =#{dto.id}
+    			</if>
+    			<if test="dto.fkIntoCustRefId != null and dto.fkIntoCustRefId != ''">
+						and t1.FK_INTO_CUST_REF_ID =#{dto.fkIntoCustRefId}
+    			</if>
+    			<if test="dto.validateState != null and dto.validateState != ''">
+						and t1.VALIDATE_STATE =#{dto.validateState}
+    			</if>
+    			<if test="dto.createTime != null and dto.createTime != ''">
+						and t1.CREATE_TIME =#{dto.createTime}
+    			</if>
+    			<if test="dto.modifyTime != null and dto.modifyTime != ''">
+						and t1.MODIFY_TIME =#{dto.modifyTime}
+    			</if>
+    			<if test="dto.createBy != null and dto.createBy != ''">
+						and t1.CREATE_BY =#{dto.createBy}
+    			</if>
+    			<if test="dto.modifyBy != null and dto.modifyBy != ''">
+						and t1.MODIFY_BY =#{dto.modifyBy}
+    			</if>
+    			<if test="dto.status != null and dto.status != ''">
+						and t1.STATUS =#{dto.status}
+    			</if>
+    			<if test="dto.ext1 != null and dto.ext1 != ''">
+						and t1.EXT1 =#{dto.ext1}
+    			</if>
+    			<if test="dto.ext2 != null and dto.ext2 != ''">
+						and t1.EXT2 =#{dto.ext2}
+    			</if>
+    			<if test="dto.attachNumber != null and dto.attachNumber != ''">
+						and t1.ATTACH_NUMBER =#{dto.attachNumber}
+    			</if>
+    			<if test="dto.ordertypecode != null and dto.ordertypecode != ''">
+						and t1.OrderTypeCode =#{dto.ordertypecode}
+    			</if>
+    			<if test="dto.ordertypename != null and dto.ordertypename != ''">
+						and t1.OrderTypeName =#{dto.ordertypename}
+    			</if>
+				
+				order by t1.id desc
+</select>
+  
+<!-- 查询列表 car_loan_back_info  -->
+<select id="searchCarLoanBackInfo" parameterType="java.util.Map" resultMap="CarLoanBackInfoDTO">
+    	     select 
+						t1.id                             ,
+						t1.fk_into_cust_ref_id            ,
+						t1.validate_state                 ,
+						t1.create_time                    ,
+						t1.modify_time                    ,
+						t1.create_by                      ,
+						t1.modify_by                      ,
+						t1.status                         ,
+						t1.ext1                           ,
+						t1.ext2                           ,
+						t1.attach_number                  ,
+						t1.ordertypecode                  ,
+						t1.ordertypename                  
+				from car_loan_back_info 		t1
+				where 1=1
+    			<if test="dto.id != null and dto.id != ''">
+						and t1.ID = #{dto.id}
+    			</if>
+    			<if test="dto.fkIntoCustRefId != null and dto.fkIntoCustRefId != ''">
+						and t1.FK_INTO_CUST_REF_ID = #{dto.fkIntoCustRefId}
+    			</if>
+    			<if test="dto.validateState != null and dto.validateState != ''">
+						and t1.VALIDATE_STATE = #{dto.validateState}
+    			</if>
+    			<if test="dto.createTime != null and dto.createTime != ''">
+						and t1.CREATE_TIME = #{dto.createTime}
+    			</if>
+    			<if test="dto.modifyTime != null and dto.modifyTime != ''">
+						and t1.MODIFY_TIME = #{dto.modifyTime}
+    			</if>
+    			<if test="dto.createBy != null and dto.createBy != ''">
+						and t1.CREATE_BY = #{dto.createBy}
+    			</if>
+    			<if test="dto.modifyBy != null and dto.modifyBy != ''">
+						and t1.MODIFY_BY = #{dto.modifyBy}
+    			</if>
+    			<if test="dto.status != null and dto.status != ''">
+						and t1.STATUS = #{dto.status}
+    			</if>
+    			<if test="dto.ext1 != null and dto.ext1 != ''">
+						and t1.EXT1 = #{dto.ext1}
+    			</if>
+    			<if test="dto.ext2 != null and dto.ext2 != ''">
+						and t1.EXT2 = #{dto.ext2}
+    			</if>
+    			<if test="dto.attachNumber != null and dto.attachNumber != ''">
+						and t1.ATTACH_NUMBER = #{dto.attachNumber}
+    			</if>
+    			<if test="dto.ordertypecode != null and dto.ordertypecode != ''">
+						and t1.OrderTypeCode = #{dto.ordertypecode}
+    			</if>
+    			<if test="dto.ordertypename != null and dto.ordertypename != ''">
+						and t1.OrderTypeName = #{dto.ordertypename}
+    			</if>
+</select>
+  
+<!-- 主键查询对象  car_loan_back_info -->
+<select id="findCarLoanBackInfoByOrderId" parameterType="java.util.Map" resultMap="CarLoanBackInfoDTO">
+   	 		select 
+					t1.id                             ,
+					t1.fk_into_cust_ref_id            ,
+					t1.validate_state                 ,
+					t1.create_time                    ,
+					t1.modify_time                    ,
+					t1.create_by                      ,
+					t1.modify_by                      ,
+					t1.status                         ,
+					t1.ext1                           ,
+					t1.ext2                           ,
+					t1.attach_number                  ,
+					t1.ordertypecode                  ,
+					t1.ordertypename                  
+			from car_loan_back_info 		t1
+			where 
+				t1.fk_into_cust_ref_id = #{orderId}
+				and t1.ordertypecode=#{ordertypecode}
+</select>
+  
+<!-- 新增对象 car_loan_back_info -->
+<insert id="insertCarLoanBackInfo" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="dto.id">
+			insert into car_loan_back_info
+			(   		
+						fk_into_cust_ref_id            ,
+						validate_state                 ,
+						create_time                    ,
+						modify_time                    ,
+						create_by                      ,
+						modify_by                      ,
+						status                         ,
+						ext1                           ,
+						ext2                           ,
+						attach_number                  ,
+						ordertypecode                  ,
+						ordertypename                  
+			)
+			values(
+						#{dto.fkIntoCustRefId,jdbcType=DECIMAL}
+						,
+						'1'
+						,
+						#{dto.createTime,jdbcType=TIMESTAMP}
+						,
+						#{dto.modifyTime,jdbcType=TIMESTAMP}
+						,
+						#{dto.createBy,jdbcType=VARCHAR}
+						,
+						#{dto.modifyBy,jdbcType=VARCHAR}
+						,
+						#{dto.status,jdbcType=VARCHAR}
+						,
+						#{dto.ext1,jdbcType=VARCHAR}
+						,
+						#{dto.ext2,jdbcType=VARCHAR}
+						,
+						#{dto.attachNumber,jdbcType=VARCHAR}
+						,
+						#{dto.ordertypecode,jdbcType=DECIMAL}
+						,
+						#{dto.ordertypename,jdbcType=VARCHAR}
+						
+			)
+</insert>
+    
+<!-- 更新对象 car_loan_back_info -->
+<update id="updateCarLoanBackInfo" parameterType="java.util.Map">
+	     update car_loan_back_info t1
+	           set 
+			           t1.fk_into_cust_ref_id            =#{dto.fkIntoCustRefId,jdbcType=DECIMAL},
+			           t1.validate_state                 ='1',
+			           t1.create_time                    =#{dto.createTime,jdbcType=TIMESTAMP},
+			           t1.modify_time                    =#{dto.modifyTime,jdbcType=TIMESTAMP},
+			           t1.create_by                      =#{dto.createBy,jdbcType=VARCHAR},
+			           t1.modify_by                      =#{dto.modifyBy,jdbcType=VARCHAR},
+			           t1.status                         =#{dto.status,jdbcType=VARCHAR},
+			           t1.ext1                           =#{dto.ext1,jdbcType=VARCHAR},
+			           t1.ext2                           =#{dto.ext2,jdbcType=VARCHAR},
+			           t1.attach_number                  =#{dto.attachNumber,jdbcType=VARCHAR},
+			           t1.ordertypecode                  =#{dto.ordertypecode,jdbcType=DECIMAL},
+			           t1.ordertypename                  =#{dto.ordertypename,jdbcType=VARCHAR}
+	     where t1.id = #{dto.id}
+</update>
+   
+<!-- 主键假删除 car_loan_back_info -->
+<update id="deleteCarLoanBackInfoByPrimaryKey" parameterType="java.util.Map">
+	     update car_loan_back_info t1
+	           set   t1.valid='0'	
+	     where t1.id in( ${ids})
+</update>
+</mapper>
