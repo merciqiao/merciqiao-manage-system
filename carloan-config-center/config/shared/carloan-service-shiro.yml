@@ -30,9 +30,9 @@ spring:
   profiles: dev
   datasource:
       type: com.zaxxer.hikari.HikariDataSource
-      url: jdbc:mysql://172.24.132.108:3306/car_loan?autoReconnect=true&useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8
-      username: loan_rm_pro
-      password: loan_rm_pro
+      url: jdbc:mysql://localhost:3306/car_loan?autoReconnect=true&useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8
+      username: root
+      password: 123456
       driver-class-name: com.mysql.jdbc.Driver
       hikari:
         idle-timeout: 150000

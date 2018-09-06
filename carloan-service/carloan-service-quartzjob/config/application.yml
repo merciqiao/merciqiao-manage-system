@@ -1,8 +1,0 @@
-spring:
-  application:
-    name: carloan-service-quartzjob
-  cloud:
-    config:
-      fail-fast: true
-      uri: http://localhost:8888
-      profile: dev
