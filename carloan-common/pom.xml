@@ -13,8 +13,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>carloan-common-utils</module>
-        <module>carloan-common-mq</module>
-        <module>carloan-common-activity</module>
         <module>carloan-common-web</module>
         <module>carloan-common-hystrix</module>
         <module>carloan-common-config</module>

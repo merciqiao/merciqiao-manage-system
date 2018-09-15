@@ -12,18 +12,8 @@
     <artifactId>carloan-service</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>carloan-service-quartzjob</module>
-        <module>carloan-service-activity</module>
         <module>carloan-service-shiro</module>
-        <module>carloan-rabbitmq</module>
-        <module>carloan-service-info</module>
-        <module>carloan-service-workflow</module>
-        <module>carloan-service-master</module>
         <module>carloan-service-admin</module>
-        <module>carloan-service-aliyunoss</module>
-        <module>tcc-service-consumer</module>
-        <module>tcc-service-provider01</module>
-        <module>tcc-service-provider02</module>
     </modules>
 
     <dependencies>
@@ -75,7 +65,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.40</version>
+            <version>8.0.11</version>
         </dependency>
         <dependency>
             <groupId>com.github.pagehelper</groupId>

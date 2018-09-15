@@ -12,11 +12,7 @@
     <artifactId>carloan-api-model-shiro</artifactId>
     <dependencies>
 
-        <dependency>
-            <groupId>com.yingu.project</groupId>
-            <artifactId>carloan-api-model-info</artifactId>
-            <version>0.0.1</version>
-        </dependency>
+
     </dependencies>
 
 

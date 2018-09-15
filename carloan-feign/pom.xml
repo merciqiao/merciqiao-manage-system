@@ -12,14 +12,8 @@
     <artifactId>carloan-feign</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>carloan-feign-quartzjob</module>
-        <module>carloan-feign-workflow</module>
         <module>carloan-feign-shiro</module>
-        <module>carloan-feign-info</module>
-        <module>carloan-feign-activity</module>
         <module>carloan-feign-admin</module>
-        <module>carloan-feign-master</module>
-        <module>carloan-feign-tcc</module>
     </modules>
 
     <dependencies>
@@ -31,12 +25,5 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-feign</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.yingu.project</groupId>
-            <artifactId>carloan-api-model-quartzjob</artifactId>
-            <version>0.0.1</version>
-        </dependency>
-
-
     </dependencies>
 </project>

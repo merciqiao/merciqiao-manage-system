@@ -23,11 +23,6 @@
             <artifactId>logstash-logback-encoder</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.yingu.project</groupId>
-            <artifactId>carloan-feign-quartzjob</artifactId>
-            <version>0.0.1</version>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-config</artifactId>
         </dependency>
@@ -68,11 +63,7 @@
             <artifactId>carloan-common-redis</artifactId>
             <version>0.0.1</version>
         </dependency>
-        <dependency>
-            <groupId>com.yingu.project</groupId>
-            <artifactId>carloan-feign-info</artifactId>
-            <version>0.0.1</version>
-        </dependency>
+
         <dependency>
             <groupId>com.yingu.project</groupId>
             <artifactId>carloan-feign-admin</artifactId>
@@ -83,21 +74,7 @@
             <artifactId>carloan-api-model-admin</artifactId>
             <version>0.0.1</version>
         </dependency>
-        <dependency>
-            <groupId>com.yingu.project</groupId>
-            <artifactId>carloan-api-model-master</artifactId>
-            <version>0.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.yingu.project</groupId>
-            <artifactId>carloan-feign-master</artifactId>
-            <version>0.0.1</version>
-        </dependency>
-       <dependency>
-           <groupId>com.yingu.project</groupId>
-           <artifactId>carloan-feign-workflow</artifactId>
-          <version>0.0.1</version>
-       </dependency>
+
 
     </dependencies>
     <build>

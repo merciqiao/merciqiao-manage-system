@@ -14,7 +14,7 @@
 		<module>carloan-common</module>
 		<module>carloan-register-center</module>
 		<module>carloan-config-center</module>
-		<module>carloan-admin-center</module>
+
 	</modules>
 	<packaging>pom</packaging>
 
@@ -176,18 +176,18 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-	<distributionManagement>
-		<repository>
-			<id>releases</id>
-			<name>releases repository</name>
-			<url>http://nexus.yingu.com/nexus/content/repositories/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>snapshot repository</name>
-			<url>http://nexus.yingu.com/nexus/content/repositories/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
+	<!--<distributionManagement>-->
+		<!--<repository>-->
+			<!--<id>releases</id>-->
+			<!--<name>releases repository</name>-->
+			<!--<url>http://nexus.yingu.com/nexus/content/repositories/releases/</url>-->
+		<!--</repository>-->
+		<!--<snapshotRepository>-->
+			<!--<id>snapshots</id>-->
+			<!--<name>snapshot repository</name>-->
+			<!--<url>http://nexus.yingu.com/nexus/content/repositories/snapshots/</url>-->
+		<!--</snapshotRepository>-->
+	<!--</distributionManagement>-->
 
 
 
