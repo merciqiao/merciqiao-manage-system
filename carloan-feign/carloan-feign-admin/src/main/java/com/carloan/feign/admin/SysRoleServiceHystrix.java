@@ -7,6 +7,7 @@ import com.carloan.api.model.admin.SysRoleVo;
 import com.carloan.apimodel.common.ResponseResult;
 import com.carloan.apimodel.common.GetResponseResult;
 import com.carloan.apimodel.common.Status;
+import com.carloan.apimodel.shiro.SysRole;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -57,6 +58,12 @@ public class  SysRoleServiceHystrix implements  SysRoleServicefeign {
 	{
 		return GetResponseResult.result();
 	};
-
+	@Override
+	public ResponseResult<SysRole> getSysRoleByUserId(com.carloan.apimodel.shiro.SysRoleParam sysRoleParam) {
+		ResponseResult responseResult=new ResponseResult();
+		responseResult.setStatus(Status.HYSTRIX_FAILED);
+		responseResult.setMessage("getSysRoleByUserId.hystrix_failed");
+		return responseResult;
+	}
 
 }

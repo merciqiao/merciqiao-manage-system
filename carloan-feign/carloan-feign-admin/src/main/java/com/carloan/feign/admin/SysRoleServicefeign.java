@@ -5,6 +5,7 @@ import java.util.Map;
 import com.carloan.api.model.admin.SysRoleParam;
 import com.carloan.api.model.admin.SysRoleVo;
 import com.carloan.apimodel.common.ResponseResult;
+import com.carloan.apimodel.shiro.SysRole;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -65,7 +66,13 @@ public interface SysRoleServicefeign {
 	public ResponseResult deleteSysRolebyID(@RequestParam("ID") String ID);
 
 
-
+	/**
+	 * 根据userid查询角色集合
+	 * @param sysRoleParam
+	 * @return
+	 */
+	@RequestMapping(value = "/getSysRoleByUserId", method = RequestMethod.POST)
+	ResponseResult<SysRole> getSysRoleByUserId(@RequestBody com.carloan.apimodel.shiro.SysRoleParam sysRoleParam);
 
 
 

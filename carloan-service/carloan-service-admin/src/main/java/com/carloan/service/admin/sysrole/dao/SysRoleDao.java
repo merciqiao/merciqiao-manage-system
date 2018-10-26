@@ -19,5 +19,10 @@ public interface SysRoleDao {
     public SysRoleDTO queryLikeSysRole(Map<String, Object> paramMap);
     public int deleteSysRoleById(String id);
 
-    
+    /**
+     * 根据userid查询所属角色集合
+     * @param paramMap
+     * @return
+     */
+    List<SysRoleDTO> selectSysRoleByUserId(Map<String, Object> paramMap);
 }

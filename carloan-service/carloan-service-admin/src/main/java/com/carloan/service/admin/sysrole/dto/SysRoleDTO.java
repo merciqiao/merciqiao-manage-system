@@ -43,5 +43,8 @@ public class SysRoleDTO implements Serializable{
 	/**VERSION*/
 	@ApiModelProperty(value="VERSION")
 	private java.lang.Long version;
+	/*----扩展字段-----*/
+
+	private Long target_id;//userid
 
 }

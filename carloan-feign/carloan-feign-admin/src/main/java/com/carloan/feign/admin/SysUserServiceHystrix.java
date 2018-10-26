@@ -7,6 +7,9 @@ import com.carloan.api.model.admin.SysUserVo;
 import com.carloan.apimodel.common.ResponseResult;
 import com.carloan.apimodel.common.GetResponseResult;
 import com.carloan.apimodel.common.Status;
+import com.carloan.apimodel.shiro.LoginInfoVo;
+import com.carloan.apimodel.shiro.UserInfo;
+import com.carloan.apimodel.shiro.UserInfoParam;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -63,6 +66,21 @@ public class  SysUserServiceHystrix implements  SysUserServicefeign {
 	public ResponseResult<Object> checkOldPassWord(@RequestParam("LoginName") String LoginName,@RequestParam("oldPassword") String oldPassword,@RequestParam("newPassword") String newPassword) {
 		return GetResponseResult.result();
 
+	}
+	@Override
+	public ResponseResult<UserInfo> getUserInfoByLoginName(UserInfoParam userInfoParam) {
+		ResponseResult responseResult=new ResponseResult();
+		responseResult.setStatus(Status.HYSTRIX_FAILED);
+		responseResult.setMessage("getUserInfoByLoginName.hystrix_failed");
+		return responseResult;
+	}
+
+	@Override
+	public ResponseResult<LoginInfoVo> getLoginInfoByUserId(String userId) {
+		ResponseResult responseResult=new ResponseResult();
+		responseResult.setStatus(Status.HYSTRIX_FAILED);
+		responseResult.setMessage("getLoginInfoByUserId.hystrix_failed");
+		return responseResult;
 	}
 
 }

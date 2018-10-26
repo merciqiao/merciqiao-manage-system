@@ -55,5 +55,9 @@ public class SysResourceDTO implements Serializable{
 	/**VERSION*/
 	@ApiModelProperty(value="VERSION")
 	private java.lang.Long version;
-
+	/*扩展字段*/
+	/*角色编码*/
+	private String role_code;
+	/*用户id*/
+	private Long userId;
 }

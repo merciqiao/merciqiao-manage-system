@@ -5,6 +5,9 @@ import java.util.Map;
 import com.carloan.api.model.admin.SysUserParam;
 import com.carloan.api.model.admin.SysUserVo;
 import com.carloan.apimodel.common.ResponseResult;
+import com.carloan.apimodel.shiro.LoginInfoVo;
+import com.carloan.apimodel.shiro.UserInfo;
+import com.carloan.apimodel.shiro.UserInfoParam;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -64,6 +67,14 @@ public interface SysUserServicefeign {
 	@RequestMapping(value = "/checkOldPassWord", method = RequestMethod.POST)
 	public ResponseResult<Object> checkOldPassWord(@RequestParam("LoginName") String LoginName,@RequestParam("oldPassword") String oldPassword,@RequestParam("newPassword") String newPassword);
 
-
+	/**
+	 * 根据username查询用户信息
+	 * @param userInfoParam
+	 * @return
+	 */
+	@RequestMapping(value = "/getUserInfoByLoginName", method = RequestMethod.POST)
+	ResponseResult<UserInfo> getUserInfoByLoginName(@RequestBody UserInfoParam userInfoParam);
+	@RequestMapping(value = "/getLoginInfoByUserId",method = RequestMethod.POST)
+	ResponseResult<LoginInfoVo> getLoginInfoByUserId(@RequestParam("userId") String userId);
 
 }

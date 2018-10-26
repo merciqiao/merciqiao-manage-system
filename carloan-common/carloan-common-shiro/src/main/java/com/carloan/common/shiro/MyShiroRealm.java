@@ -5,6 +5,8 @@ import com.carloan.apimodel.common.Status;
 import com.carloan.apimodel.shiro.*;
 import com.carloan.common.utils.DateUtil;
 import com.carloan.common.utils.ListUtil;
+import com.carloan.feign.admin.SysRoleServicefeign;
+import com.carloan.feign.admin.SysUserServicefeign;
 import com.carloan.feign.shiro.SysResourceServiceFeign;
 import com.carloan.feign.shiro.SysRoleServiceFeign;
 import com.carloan.feign.shiro.SysUserServiceFeign;
@@ -33,9 +35,9 @@ import java.util.Set;
 @Slf4j
 public class MyShiroRealm extends AuthorizingRealm {
     @Autowired
-    SysUserServiceFeign sysUserServiceFeign;
+    SysUserServicefeign sysUserServiceFeign;
     @Autowired
-    SysRoleServiceFeign sysRoleServiceFeign;
+    SysRoleServicefeign sysRoleServiceFeign;
     @Autowired
     SysResourceServiceFeign sysResourceServiceFeign;
     @Override

@@ -6,6 +6,8 @@ import java.util.Map;
 import com.carloan.api.model.admin.SysResourceParam;
 import com.carloan.api.model.admin.SysResourceVo;
 import com.carloan.apimodel.common.ResponseResult;
+import com.carloan.apimodel.shiro.RolePermission;
+import com.carloan.apimodel.shiro.RolePermissionParam;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -65,7 +67,8 @@ public interface SysResourceServicefeign {
 	public ResponseResult deleteResourceByID(@RequestParam("id") String id);
 
 
-
+	@RequestMapping(value = "/selectShiroUrlPermissionByUserId", method = RequestMethod.POST)
+	public ResponseResult<RolePermission> selectShiroUrlPermissionByUserId(RolePermissionParam rolePermissionParam);
 
 
 }

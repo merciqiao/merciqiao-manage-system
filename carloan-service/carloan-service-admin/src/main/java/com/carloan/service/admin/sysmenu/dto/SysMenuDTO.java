@@ -64,5 +64,12 @@ public class SysMenuDTO implements Serializable{
 	/**菜单是否显示*/
 	@ApiModelProperty(value="IS_SHOW")
 	private int isShow;
+	/*扩展字段*/
+	/* 资源url */
+	private String resoure_url;
+	/* 资源类型 */
+	private String resoure_type;
+	/* 资源标示 */
+	private String permission;
 
 }

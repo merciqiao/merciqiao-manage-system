@@ -248,5 +248,27 @@
 	<delete id="deleteResourceByID" parameterType="java.util.Map">
 	  delete from sys_resource where id=#{id};
     </delete>
-
+	<!-- 查询URL->权限  sys_resource -->
+	<select id="selectShiroUrlPermissionByUserId" parameterType="java.util.Map" resultMap="SysResourceDTO">
+		SELECT DISTINCT
+		a.permission,
+		a.RESOURE_NAME,
+		a.resoure_type
+		FROM
+		sys_resource a
+		LEFT JOIN sys_acl b ON b.resoure_id = a.id
+		LEFT JOIN sys_role c ON b.role_id = c.id
+		left join sys_role_user d on c.id=d.ROLE_ID
+		WHERE
+		a.resoure_url IS NOT NULL
+		AND a.resoure_url != ''
+		AND a.permission IS NOT NULL
+		AND a.PERMISSION != ''
+		<if test="dto.userId != null and dto.userId != ''">
+			and d.TARGET_ID=#{dto.userId}
+		</if>
+		<if test="dto.resoureType != null and dto.resoureType != ''">
+			AND a.resoure_type = #{dto.resoureType}
+		</if>
+	</select>
 </mapper>

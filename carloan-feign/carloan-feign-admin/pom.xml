@@ -16,8 +16,13 @@
 			<artifactId>carloan-api-model-admin</artifactId>
 			<version>0.0.1</version>
 		</dependency>
+        <dependency>
+            <groupId>com.yingu.project</groupId>
+            <artifactId>carloan-api-model-shiro</artifactId>
+            <version>0.0.1</version>
+        </dependency>
 
-	</dependencies>
+    </dependencies>
 
 
 </project>

@@ -19,5 +19,10 @@ public interface SysUserDao {
 
     public SysUserDTO queryLikeSysUser(Map<String, Object> paramMap);
 
-    
+    /**
+     * 根据username查userinfo
+     * @param paramMap
+     * @return
+     */
+    public SysUserDTO getUserInfoByLoginName(Map<String, Object> paramMap);
 }

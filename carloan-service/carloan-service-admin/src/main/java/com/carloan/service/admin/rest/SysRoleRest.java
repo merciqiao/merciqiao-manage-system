@@ -1,9 +1,12 @@
 package com.carloan.service.admin.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 import com.carloan.api.model.admin.SysRoleParam;
+import com.carloan.apimodel.shiro.SysRole;
+import com.carloan.common.utils.MapperUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.carloan.apimodel.common.ResponseResult;
@@ -24,6 +27,8 @@ public class SysRoleRest {
 
 	@Autowired
 	private SysRoleService service;
+	@Autowired
+	MapperUtil mapperUtil;
 
 	/**
 	 * 取得单个业务对象
@@ -163,6 +168,30 @@ public class SysRoleRest {
 			return result;
 		}
 	}
+	@ApiOperation(value="根据userid查询角色集合",notes="返回结果,SUCCESS:200,FAILED:500",httpMethod = "POST")
+	@RequestMapping(value = "/getSysRoleByUserId",method = RequestMethod.POST)
+	public ResponseResult<SysRole> getSysRoleByUserId(@RequestBody com.carloan.apimodel.shiro.SysRoleParam sysRoleParam) throws Exception {
+		ResponseResult<SysRole> result = new ResponseResult<>();
+		try {
+			List<SysRole> sysRoleList=new ArrayList<>();
 
+			SysRoleDTO sysRoleDTO=new SysRoleDTO();
+			sysRoleDTO.setTarget_id(sysRoleParam.getUserId());
+			List<SysRoleDTO> sysRoleDTOList= service.selectSysRoleByUserId(sysRoleDTO);
+			sysRoleList= mapperUtil.map(sysRoleDTOList,SysRole.class);
+			result.setStatus(Status.SUCCESS);
+			result.setDataList(sysRoleList);
+			result.setMessage("查询成功");
+
+			return result;
+		}
+		catch (Exception ex){
+			log.error(ex.getMessage(),ex);
+			result.setStatus(Status.FAILED);
+			result.setMessage("执行异常,请重试");
+			return result;
+		}
+
+	}
 
 }

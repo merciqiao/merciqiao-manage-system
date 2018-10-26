@@ -1,9 +1,13 @@
 package com.carloan.service.admin.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 import com.carloan.api.model.admin.SysResourceParam;
+import com.carloan.apimodel.shiro.RolePermission;
+import com.carloan.apimodel.shiro.RolePermissionParam;
+import com.carloan.common.utils.MapperUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.carloan.apimodel.common.ResponseResult;
@@ -27,6 +31,8 @@ public class SysResourceRest {
 
 	@Autowired
 	private SysResourceService service;
+	@Autowired
+	MapperUtil mapperUtil;
 
 	/**
 	 * 取得单个业务对象
@@ -170,6 +176,35 @@ public class SysResourceRest {
 		}
 
 	}
+	/**
+	 * 根据userid查询shiro的权限
+	 * @param rolePermissionParam
+	 * @return
+	 */
+	@ApiOperation(value="根据userid查询shiro的权限",notes="返回结果,SUCCESS:200,FAILED:500",httpMethod = "POST")
+	@RequestMapping(value = "/selectShiroUrlPermissionByUserId",method = RequestMethod.POST)
+	public ResponseResult<RolePermission> selectShiroUrlPermissionByUserId(@RequestBody RolePermissionParam rolePermissionParam) throws Exception {
+		ResponseResult<RolePermission> result = new ResponseResult<>();
+		try {
+			List<RolePermission> rolePermissionList=new ArrayList<>();
 
+			SysResourceDTO sysResourceDTO=new SysResourceDTO();
+			sysResourceDTO.setUserId(rolePermissionParam.getUserId());
+			sysResourceDTO.setResoureType(rolePermissionParam.getResoureType());
+			List<SysResourceDTO> sysRoleDTOList= service.selectShiroUrlPermissionByUserId(sysResourceDTO);
+			rolePermissionList=mapperUtil.map(sysRoleDTOList,RolePermission.class);
+			result.setStatus(Status.SUCCESS);
+			result.setDataList(rolePermissionList);
+			result.setMessage("查询成功");
+
+			return result;
+		}
+		catch (Exception ex){
+			log.error(ex.getMessage(),ex);
+			result.setStatus(Status.FAILED);
+			result.setMessage("执行异常,请重试");
+			return result;
+		}
+	}
 
 }

@@ -7,10 +7,8 @@ import com.carloan.apimodel.common.Status;
 import com.carloan.apimodel.shiro.*;
 import com.carloan.common.utils.EncryptUtil;
 import com.carloan.common.utils.MapperUtil;
-import com.carloan.feign.shiro.SysMenuServicefeign;
-import com.carloan.feign.shiro.SysResourceServiceFeign;
-import com.carloan.feign.shiro.SysRoleServiceFeign;
-import com.carloan.feign.shiro.SysUserServiceFeign;
+import com.carloan.feign.admin.SysUserServicefeign;
+//import com.carloan.feign.shiro.SysUserServiceFeign;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -35,14 +33,10 @@ import java.text.MessageFormat;
 @Slf4j
 @Api(tags = {"登录接口-qiaolixue"})
 public class ShiroController {
+//    @Autowired
+//    SysUserServiceFeign sysUserServiceFeign;
     @Autowired
-    SysRoleServiceFeign sysRoleServiceFeign;
-    @Autowired
-    SysResourceServiceFeign sysResourceServiceFeign;
-    @Autowired
-    SysMenuServicefeign sysMenuServicefeign;
-    @Autowired
-    SysUserServiceFeign sysUserServiceFeign;
+    private SysUserServicefeign sysUserServiceFeign;
     @Autowired
     MapperUtil mapperUtil;
     @ApiOperation(value="登陆",notes="测试账户:PC0002952,密码:123456,返回结果,SUCCESS:100,FAILED:200",httpMethod = "POST")

@@ -266,5 +266,20 @@
 		DELETE from  sys_menu   where id in( ${ids})
 
 	</delete>
+	<select id="querySysMenuByUserId" parameterType="java.util.Map" resultMap="SysMenuDTO">
+		SELECT DISTINCT e.*,a.resoure_url,a.resoure_type,a.permission
+		FROM
+		sys_resource a
+		LEFT JOIN sys_acl b ON b.resoure_id = a.id
+		LEFT JOIN sys_role c ON b.role_id = c.id
+		left join sys_role_user d on c.id=d.ROLE_ID
+		left join sys_menu e on e.RESOURCE_ID=a.id
+		where 1=1
+		and d.TARGET_ID=#{userId}
 
+		and (a.RESOURE_Type='url' or a.RESOURE_Type='module')
+
+		AND e.ID IS NOT NULL
+		AND e.VALIDATE_STATE='1'
+	</select>
 </mapper>

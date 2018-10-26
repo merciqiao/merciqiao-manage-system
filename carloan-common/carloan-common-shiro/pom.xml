@@ -50,5 +50,10 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.yingu.project</groupId>
+            <artifactId>carloan-feign-admin</artifactId>
+            <version>0.0.1</version>
+        </dependency>
     </dependencies>
 </project>

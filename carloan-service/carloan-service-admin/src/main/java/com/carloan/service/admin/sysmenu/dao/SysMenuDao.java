@@ -20,5 +20,5 @@ public interface SysMenuDao {
 
     public void deleteSysMenu(Map<String, Object> paramMap);
 
-    
+    public List<SysMenuDTO> querySysMenuByUserId(String userId);
 }
