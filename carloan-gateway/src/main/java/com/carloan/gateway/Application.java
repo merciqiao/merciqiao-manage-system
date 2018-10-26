@@ -21,7 +21,7 @@ import org.springframework.context.annotation.ComponentScan;
         "com.carloan.common.config",
         "com.carloan.api.model.admin",
         "com.carloan.common.restTemplate",
-        "com.carloan.common.redisTemplate",
+//        "com.carloan.common.redisTemplate",
         "com.carloan.common.utils"
 })
 @EnableEurekaClient

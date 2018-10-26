@@ -110,7 +110,8 @@ public class ShiroConfig {
     @Bean
     public RedisCacheManager cacheManager() {
         RedisCacheManager redisCacheManager = new RedisCacheManager();
-        redisCacheManager.setRedisManager(redisSentinelManager());
+//        redisCacheManager.setRedisManager(redisSentinelManager());
+        redisCacheManager.setRedisManager(redisManager());
         redisCacheManager.setExpire(shiroRedis.getPermissionxpiretime()/1000);//权限缓存时间,非滑动缓存,要/1000
         return redisCacheManager;
     }
@@ -123,7 +124,8 @@ public class ShiroConfig {
     @Bean
     public RedisSessionDAO redisSessionDAO() {
         RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
-        redisSessionDAO.setRedisManager(redisSentinelManager());
+//        redisSessionDAO.setRedisManager(redisSentinelManager());
+        redisSessionDAO.setRedisManager(redisManager());
         return redisSessionDAO;
     }
     /**

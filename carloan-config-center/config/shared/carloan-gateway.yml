@@ -1,29 +1,29 @@
 spring:
   application:
     name: carloan-web
-  redis:
-        hostName: localhost
-        port: 26379
-        password:
-        pool:
-          maxActive: 200
-          maxWait: -1
-          maxIdle: 8
-          minIdle: 0
-        timeout: 0
-        database: 0
-        sentinel:
-          master: mymaster
-          nodes: localhost
-          port: 26379
+#  redis:
+#        hostName: localhost
+#        port: 26379
+#        password:
+#        pool:
+#          maxActive: 200
+#          maxWait: -1
+#          maxIdle: 8
+#          minIdle: 0
+#        timeout: 0
+#        database: 0
+#        sentinel:
+#          master: mymaster
+#          nodes: localhost
+#          port: 26379
 server:
   port: 9060
 
 
 shiro-redis:
-  host: localhost:26379,localhost:26379 #哨兵模式
-  #host: localhost
-  port: 26379
+  #host: localhost:26379,localhost:26379 #哨兵模式
+  host: localhost
+  port: 6379
   password:
   timeout: 30000 #超时时间30秒
   sessionexpiretime: 1800000 #过期时间30分钟

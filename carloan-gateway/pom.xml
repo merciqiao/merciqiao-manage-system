@@ -58,11 +58,11 @@
             <artifactId>carloan-common-utils</artifactId>
             <version>0.0.1</version>
         </dependency>
-        <dependency>
-            <groupId>com.yingu.project</groupId>
-            <artifactId>carloan-common-redis</artifactId>
-            <version>0.0.1</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.yingu.project</groupId>-->
+            <!--<artifactId>carloan-common-redis</artifactId>-->
+            <!--<version>0.0.1</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>com.yingu.project</groupId>
