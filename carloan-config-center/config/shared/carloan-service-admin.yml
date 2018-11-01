@@ -9,6 +9,17 @@ server:
 
 logging:
   config: config/logback.xml
+
+shiro-redis:
+  #host: localhost:26379,localhost:26379 #哨兵模式
+  host: localhost
+  port: 6379
+  password:
+  timeout: 30000 #超时时间30秒
+  sessionexpiretime: 1800000 #过期时间30分钟
+  permissionxpiretime: 1800000 #过期时间30分钟
+  mastername: mymaster
+
 #接口调用超时时间设置
 ribbon:
   ReadTimeout: 25000

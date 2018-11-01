@@ -78,32 +78,30 @@ public class SysRoleController {
     }
     @ApiOperation(value="删除角色对象",notes="返回结果,SUCCESS:100,FAILED:200",httpMethod = "POST")
     @RequestMapping(value = "/deleteSysRoleByid",method = RequestMethod.POST)
-    public ResponseResult<Object> deleteSysRoleByid(@RequestParam("id") String id)throws Exception {
-        ResponseResult<Object> result = new ResponseResult<>();
+    public Object deleteSysRoleByid(@RequestParam("id") String id)throws Exception {
+        Object result = new ResponseResult<>();
         try {
             result=sysRolefeignservice.deleteSysRolebyID(id);
             return result;
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
-            result.setStatus(Status.FAILED);
-            result.setMessage("执行异常,请重试");
+//            result.setStatus(Status.FAILED);
+//            result.setMessage("执行异常,请重试");
             return result;
 
         }
     }
     @ApiOperation(value="获取角色列表",notes="返回结果,SUCCESS:100,FAILED:200",httpMethod = "POST")
     @RequestMapping(value = "/querySysRoleList",method = RequestMethod.POST)
-    public ResponseResult<Object> querySysRoleList(@RequestBody SysRoleParam vo)throws Exception {
-        ResponseResult<Object> result = new ResponseResult<>();
+    public Object querySysRoleList(@RequestBody SysRoleParam vo)throws Exception {
+        Object result = new ResponseResult<>();
         try {
 
-            Object list =sysRolefeignservice.querySysRoleList(vo);
-            result.setData(list);
+            result =sysRolefeignservice.querySysRoleList(vo);
+
             return result;
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
-            result.setStatus(Status.FAILED);
-            result.setMessage("执行异常,请重试");
             return result;
 
         }
@@ -136,16 +134,15 @@ public class SysRoleController {
     }
     @ApiOperation(value="获取角色用户列表",notes="返回结果,SUCCESS:100,FAILED:200",httpMethod = "POST")
     @RequestMapping(value = "/queryRoleUserList",method = RequestMethod.POST)
-    public ResponseResult<Object> queryRoleUserList(@RequestBody SysRoleUserParam vo)throws Exception {
-        ResponseResult<Object> result = new ResponseResult<>();
+    public Object queryRoleUserList(@RequestBody SysRoleUserParam vo)throws Exception {
+        Object result = new ResponseResult<>();
         try {
-            Object list =sysRoleUserfeignservice.querySysRoleUserList(vo);
-            result.setData(list);
+            result =sysRoleUserfeignservice.querySysRoleUserList(vo);
+
             return result;
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
-            result.setStatus(Status.FAILED);
-            result.setMessage("执行异常,请重试");
+
             return result;
 
         }

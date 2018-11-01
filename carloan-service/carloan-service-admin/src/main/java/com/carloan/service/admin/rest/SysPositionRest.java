@@ -144,7 +144,7 @@ private SysPositionService service;
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/deleteSysPositionById", method = RequestMethod.POST)
+//	@RequestMapping(value = "/deleteSysPositionById", method = RequestMethod.POST)
 	@ApiOperation(value = "删除岗位列表中岗位", notes = "返回结果,SUCCESS:200,FAILED:500", httpMethod = "POST")
 	public ResponseResult deleteSysPositionById(@RequestParam("ids") String ids)throws Exception{
 		ResponseResult result=new ResponseResult();

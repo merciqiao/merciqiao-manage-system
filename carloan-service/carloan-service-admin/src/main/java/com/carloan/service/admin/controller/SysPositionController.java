@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value="/api/sysPosition")
 @Slf4j
-@Component
 @Api(tags="岗位管理")
 public class SysPositionController {
     @Autowired
@@ -49,16 +48,15 @@ public class SysPositionController {
     @ResponseBody
     @RequestMapping(value = "/Web/getSysPositionList", method = RequestMethod.POST)
     @ApiOperation(value = "根据ID 查询返回对象", notes = "返回结果,SUCCESS:200,FAILED:500", httpMethod = "POST")
-    public ResponseResult<Object> querySysPositionList(@RequestBody SysPositionParam obj)throws Exception{
-            ResponseResult<Object>result=new ResponseResult<>();
+    public Object querySysPositionList(@RequestBody SysPositionParam obj)throws Exception{
+        Object result=new ResponseResult<>();
         try{
-            Object list= sysPositionServicefeign.querySysPositionList(obj);
-            result.setData(list);
+            result= sysPositionServicefeign.querySysPositionList(obj);
+
             return result;
         }catch (Exception ex) {
             log.error(ex.getMessage(), ex);
-            result.setStatus(Status.FAILED);
-            result.setMessage("执行异常,请重试");
+
             return result;
 
         }
@@ -127,7 +125,7 @@ public class SysPositionController {
 
     @ApiOperation(value="删除用户列表中用户",notes="返回结果,SUCCESS:100,FAILED:200",httpMethod = "POST")
     @RequestMapping(value = "/deleteSysPositionById",method = RequestMethod.POST)
-    public ResponseResult<Object> delSysUserByUserId(@RequestParam("ids") String ids)throws Exception {
+    public ResponseResult<Object> deleteSysPositionById2(@RequestParam("ids") String ids)throws Exception {
         ResponseResult<Object> result = new ResponseResult<>();
         try {
 

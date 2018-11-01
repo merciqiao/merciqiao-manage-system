@@ -77,17 +77,15 @@ public class SysUserController {
     }
     @ApiOperation(value="查询用户列表",notes="返回结果,SUCCESS:100,FAILED:200",httpMethod = "POST")
     @RequestMapping(value = "/querySysUserList",method = RequestMethod.POST)
-    public ResponseResult<Object> querySysUserList(@RequestBody SysUserParam vo)throws Exception {
-        ResponseResult<Object> result = new ResponseResult<>();
+    public Object querySysUserList(@RequestBody SysUserParam vo)throws Exception {
+        Object result = new ResponseResult<>();
         try {
 
-            Object list =sysUserfeignservice.querySysUserList(vo);
-            result.setData(list);
+            result =sysUserfeignservice.querySysUserList(vo);
+
             return result;
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
-            result.setStatus(Status.FAILED);
-            result.setMessage("执行异常,请重试");
             return result;
 
         }
