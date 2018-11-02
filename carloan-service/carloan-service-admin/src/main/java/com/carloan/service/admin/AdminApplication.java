@@ -7,7 +7,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@EnableEurekaClient
+//@EnableEurekaClient
 @ComponentScan(basePackages = {
 		"com.carloan.service.admin",
 		"com.carloan.common.web",

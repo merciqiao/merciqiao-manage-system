@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.carloan.service.admin.loginlog.dao.LoginlogDao">
+
+
+
+	<select id="queryObject" resultType="com.carloan.service.admin.loginlog.dto.LoginlogEntity">
+		select * from loginlog where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.carloan.service.admin.loginlog.dto.LoginlogEntity">
+		select * from loginlog
+    	order by id desc
+		limit  #{first}, #{rows}
+	</select>
+
+	 
+	<insert id="save" parameterType="com.carloan.service.admin.loginlog.dto.LoginlogEntity">
+		insert into loginlog
+		(
+			`city`, 
+			`ip`
+			,`createtime`
+		)
+		values
+		(
+			#{city}, 
+			#{ip},
+			CURRENT_TIMESTAMP
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.carloan.service.admin.loginlog.dto.LoginlogEntity">
+		update loginlog 
+		<set>
+			<if test="city != null">`city` = #{city}, </if>
+			<if test="ip != null">`ip` = #{ip}, </if>
+			<if test="createtime != null">`createtime` = #{createtime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from loginlog where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from loginlog where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
