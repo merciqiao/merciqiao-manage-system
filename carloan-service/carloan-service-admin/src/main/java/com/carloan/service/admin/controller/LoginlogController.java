@@ -50,7 +50,24 @@ public class LoginlogController {
 		}
 
 	}
-	
+	/**
+	 * 还原
+	 */
+	@RequestMapping(value = "/rollBackTables",method = RequestMethod.POST)
+	public Response rollBackTables(){
+		Response result = new Response();
+		try {
+			loginlogService.rollBackTables();
+			return result;
+		} catch (Exception ex) {
+			log.error(ex.getMessage(), ex);
+			result.setStatus(Status.FAILED);
+			result.setMessage("执行异常,请重试");
+			return result;
+
+		}
+
+	}
 
 	
 }

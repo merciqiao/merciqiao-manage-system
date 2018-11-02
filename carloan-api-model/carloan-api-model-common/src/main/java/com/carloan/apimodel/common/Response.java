@@ -9,7 +9,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Response {
-    public Status status;
+    public Status status=Status.SUCCESS;
     public String message="执行成功";
 
     /**

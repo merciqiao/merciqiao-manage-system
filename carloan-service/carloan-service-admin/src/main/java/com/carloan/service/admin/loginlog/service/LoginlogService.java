@@ -19,6 +19,9 @@ public class LoginlogService {
 		loginlogDao.save(loginlog);
 
 	}
+	public void rollBackTables(){
+		loginlogDao.rollBackTables();
+	}
 
 	
 }

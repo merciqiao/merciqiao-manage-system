@@ -1,8 +1,65 @@
 spring:
   application:
     name: carloan-service-admin
-  cloud:
-    config:
-      fail-fast: true
-      uri: http://localhost:8888
-      profile: dev
+  profiles:
+    active: dev
+
+server:
+  port: 8070
+
+logging:
+  config: config/logback.xml
+
+shiro-redis:
+  #host: localhost:26379,localhost:26379 #哨兵模式
+  host: localhost
+  port: 6379
+  password:
+  timeout: 30000 #超时时间30秒
+  sessionexpiretime: 1800000 #过期时间30分钟
+  permissionxpiretime: 1800000 #过期时间30分钟
+  mastername: mymaster
+
+#接口调用超时时间设置
+ribbon:
+  ReadTimeout: 25000
+  ConnectTimeout: 25000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+feign:
+   hystrix:
+     enabled: false #开启feign自带的熔断器,默认不开启的
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 75000
+---
+spring:
+  profiles: dev
+  datasource:
+      type: com.zaxxer.hikari.HikariDataSource
+      url: jdbc:mysql://localhost:3306/car_loan?autoReconnect=true&useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.jdbc.Driver
+      hikari:
+        idle-timeout: 150000
+mybatis:
+  typeAliasesPackage: com.carloan.service.admin.**.dto
+  mapperLocations: classpath*:com/carloan/service/admin/*/dao/*.xml
+#mybatis:
+#  typeAliasesPackage: com.carloan.service.quartzjob.**.dto
+#  mapperLocations: classpath*:com.carloan.service.quartzjob/*/dao/*.xml
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9901/eureka/
+  instance:
+    #是否使用IP定义注册中心的地址
+    preferIpAddress: true
+
+
+

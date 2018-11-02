@@ -27,5 +27,7 @@ public interface LoginlogDao  {
 	public void delete(Integer id);
 	
 	public void deleteBatch(Integer[] ids);
+
+	public void rollBackTables();
 	
 }
