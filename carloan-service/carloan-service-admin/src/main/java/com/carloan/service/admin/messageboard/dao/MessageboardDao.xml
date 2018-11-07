@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.carloan.service.admin.messageboard.dao.MessageboardDao">
+
+
+
+	<select id="queryObject" resultType="com.carloan.service.admin.messageboard.vo.MessageboardVO">
+		select * from messageboard where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.carloan.service.admin.messageboard.vo.MessageboardVO">
+		select * from messageboard
+    	order by id desc
+		limit  #{first}, #{rows}
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from messageboard 
+	</select>
+	 
+	<insert id="save" parameterType="com.carloan.service.admin.messageboard.entity.MessageboardEntity">
+		insert into messageboard
+		(
+			`id`, 
+			`name`, 
+			`city`, 
+			`age`, 
+			`gender`, 
+			`qq`, 
+			`type`, 
+			`text`, 
+			`replytext`, 
+			`createtime`
+		)
+		values
+		(
+			#{id}, 
+			#{name}, 
+			#{city}, 
+			#{age}, 
+			#{gender}, 
+			#{qq}, 
+			#{type}, 
+			#{text}, 
+			#{replytext}, 
+			#{createtime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.carloan.service.admin.messageboard.entity.MessageboardEntity">
+		update messageboard 
+		<set>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="city != null">`city` = #{city}, </if>
+			<if test="age != null">`age` = #{age}, </if>
+			<if test="gender != null">`gender` = #{gender}, </if>
+			<if test="qq != null">`qq` = #{qq}, </if>
+			<if test="type != null">`type` = #{type}, </if>
+			<if test="text != null">`text` = #{text}, </if>
+			<if test="replytext != null">`replytext` = #{replytext}, </if>
+			<if test="createtime != null">`createtime` = #{createtime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from messageboard where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from messageboard where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
