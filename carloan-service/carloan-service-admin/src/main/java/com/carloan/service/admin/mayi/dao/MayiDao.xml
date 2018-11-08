@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.carloan.service.admin.mayi.dao.MayiDao">
+
+
+
+	<select id="queryObject" resultType="com.carloan.service.admin.mayi.vo.MayiVO">
+		select * from mayi where ip = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.carloan.service.admin.mayi.vo.MayiVO">
+		select * from mayi
+    	order by id desc
+		limit  #{first}, #{rows}
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from mayi 
+	</select>
+	 
+	<insert id="save" parameterType="com.carloan.service.admin.mayi.entity.MayiEntity">
+		insert into mayi
+		(
+			`id`, 
+			`ip`, 
+			`city`, 
+			`createtime`, 
+			`weight`, 
+			`copycount`, 
+			`updatecount`, 
+			`updatetime`, 
+			`code`
+		)
+		values
+		(
+			#{id}, 
+			#{ip}, 
+			#{city}, 
+			CURRENT_TIMESTAMP,
+			#{weight}, 
+			#{copycount}, 
+			#{updatecount}, 
+			CURRENT_TIMESTAMP,
+			#{code}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.carloan.service.admin.mayi.entity.MayiEntity">
+		update mayi 
+		<set>
+			<if test="ip != null">`ip` = #{ip}, </if>
+			<if test="city != null">`city` = #{city}, </if>
+			<if test="createtime != null">`createtime` = #{createtime}, </if>
+			<if test="weight != null">`weight` = #{weight}, </if>
+			<if test="copycount != null">`copycount` = #{copycount}, </if>
+			<if test="updatecount != null">`updatecount` = #{updatecount}, </if>
+			<if test="updatetime != null">`updatetime` = CURRENT_TIMESTAMP, </if>
+			<if test="code != null">`code` = #{code}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from mayi where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from mayi where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
