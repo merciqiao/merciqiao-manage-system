@@ -3,6 +3,7 @@ package com.carloan.service.admin.mayi.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.carloan.apimodel.common.PageInfoExt;
 import com.carloan.service.admin.mayi.groups.MayiAddGroup;
 import com.carloan.service.admin.mayi.groups.MayiUpdateGroup;
 import javax.validation.constraints.NotNull;
@@ -13,35 +14,26 @@ import javax.validation.constraints.NotNull;
  * @email qiaolixue@yingu.com
  * @date 2018-11-08 19:39:19
  */
-public class MayiEntity implements Serializable {
+public class MayiEntity extends PageInfoExt implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	//
-	@NotNull(groups = { MayiUpdateGroup.class,MayiAddGroup.class }, message = "id不能为空") 
 	private Integer id;
 	//
-	@NotNull(groups = { MayiUpdateGroup.class,MayiAddGroup.class }, message = "ip不能为空") 
 	private String ip;
 	//
-	@NotNull(groups = { MayiUpdateGroup.class,MayiAddGroup.class }, message = "city不能为空") 
 	private String city;
 	//
-	@NotNull(groups = { MayiUpdateGroup.class,MayiAddGroup.class }, message = "createtime不能为空") 
 	private Date createtime;
 	//
-	@NotNull(groups = { MayiUpdateGroup.class,MayiAddGroup.class }, message = "weight不能为空") 
 	private Integer weight=0;
 	//
-	@NotNull(groups = { MayiUpdateGroup.class,MayiAddGroup.class }, message = "copycount不能为空") 
 	private Integer copycount=0;
 	//
-	@NotNull(groups = { MayiUpdateGroup.class,MayiAddGroup.class }, message = "updatecount不能为空") 
 	private Integer updatecount=0;
 	//
-	@NotNull(groups = { MayiUpdateGroup.class,MayiAddGroup.class }, message = "updatetime不能为空") 
 	private Date updatetime;
 	//
-	@NotNull(groups = { MayiUpdateGroup.class,MayiAddGroup.class }, message = "code不能为空") 
 	private String code;
 
 	/**

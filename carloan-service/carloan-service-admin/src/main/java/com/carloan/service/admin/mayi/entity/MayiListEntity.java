@@ -1,5 +1,7 @@
 package com.carloan.service.admin.mayi.entity;
 
+import com.carloan.apimodel.common.PageInfoExt;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,7 +13,7 @@ import java.util.Date;
  * @email qiaolixue@yingu.com
  * @date 2018-11-08 19:39:19
  */
-public class MayiListEntity implements Serializable {
+public class MayiListEntity extends PageInfoExt implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int page;
     private int rows;

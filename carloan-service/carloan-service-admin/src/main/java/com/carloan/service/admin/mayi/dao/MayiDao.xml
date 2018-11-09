@@ -10,10 +10,24 @@
 	</select>
 
 	<select id="queryList" resultType="com.carloan.service.admin.mayi.vo.MayiVO">
-		select * from mayi
-    	order by id desc
-		limit  #{first}, #{rows}
+		SELECT
+            a.*
+        FROM
+            mayi a
+        WHERE
+            a.id NOT IN (
+                SELECT
+                    addid
+                FROM
+                    mayirecord b
+                WHERE
+                    b.ip = #{ip}
+                AND a.id = b.addid
+            )
+            order by weight desc,updatetime desc
 	</select>
+
+
 	
  	<select id="queryTotal" resultType="int">
 		select count(*) from mayi 

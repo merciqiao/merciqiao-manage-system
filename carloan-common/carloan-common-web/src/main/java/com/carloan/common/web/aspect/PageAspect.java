@@ -42,7 +42,7 @@ public class PageAspect {
             PageHelper.startPage(json.getInteger("currentPage"), json.getInteger("pageSize"));
             object = joinPoint.proceed();
             PageInfo<Object> pageInfo = new PageInfo((List) object);
-            result.setData(pageInfo.getList());
+            result.setDataList(pageInfo.getList());
             result.setCount((int) pageInfo.getTotal());
             result.setMessage("执行成功");
             logger.info("分页结束---方法名称：{}",joinPoint.getSignature().getName());

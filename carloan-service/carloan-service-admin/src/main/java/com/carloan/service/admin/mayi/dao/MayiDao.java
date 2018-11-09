@@ -3,6 +3,7 @@ package com.carloan.service.admin.mayi.dao;
 import com.carloan.service.admin.mayi.entity.MayiEntity;
 import com.carloan.service.admin.mayi.entity.MayiListEntity;
 import com.carloan.service.admin.mayi.vo.MayiVO;
+
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public interface MayiDao  {
 
 	public MayiVO queryObject(String ip);
 
-	public List<MayiVO> queryList(MayiListEntity mayi);
+	public List<MayiVO> queryList(MayiEntity mayi);
 	
 	public int queryTotal(MayiListEntity mayi);
 	

@@ -1,25 +1,36 @@
 package com.carloan.service.admin.mayi.service;
 
+import com.carloan.common.web.annotation.Page;
+import com.carloan.service.admin.mayi.dao.MayiDao;
 import com.carloan.service.admin.mayi.entity.MayiEntity;
-import com.carloan.service.admin.mayi.entity.MayiListEntity;
 import com.carloan.service.admin.mayi.vo.MayiVO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-/**
- * 
- * 
- * @author qlx
- * @email qiaolixue@yingu.com
- * @date 2018-11-08 18:35:17
- */
-public interface MayiService {
+@Service("mayiService")
+public class MayiService{
+	@Autowired
+	private MayiDao mayiDao;
 
-	MayiVO queryObject(String ip);
+	public MayiVO queryObject(String ip){
+	 	MayiVO vo=mayiDao.queryObject(ip);
+		return vo;
+	}
 
-	Boolean queryList(MayiListEntity mayi);
+	@Page
+	public Object queryList(MayiEntity mayi){
 
-	Boolean save(MayiEntity mayi);
+		return mayiDao.queryList(mayi);
+	}
 
-	Boolean update(MayiEntity mayi);
+	public Boolean save(MayiEntity mayi){
+		mayiDao.save(mayi);
+		return true;
+	}
+	public Boolean update(MayiEntity mayi){
+		mayiDao.update(mayi);
+		return true;
+	}
+
 	
-
 }

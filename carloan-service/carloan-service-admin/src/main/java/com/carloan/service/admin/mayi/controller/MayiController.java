@@ -50,5 +50,19 @@ public class MayiController {
 
 		}
 	}
-	
+	@RequestMapping(value = "/queryList",method = RequestMethod.POST)
+	public ResponseResult<MayiVO> queryList(@RequestBody MayiEntity vo)throws Exception{
+		ResponseResult<MayiVO> result=new ResponseResult<>();
+		try{
+			result= (ResponseResult<MayiVO>)mayiService.queryList(vo);
+
+			return result;
+		}catch (Exception ex) {
+			log.error(ex.getMessage(), ex);
+			result.setStatus(Status.FAILED);
+			result.setMessage("执行异常,请重试");
+			return result;
+
+		}
+	}
 }

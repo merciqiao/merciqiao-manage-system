@@ -32,7 +32,7 @@
 			#{id}, 
 			#{ip}, 
 			#{addid}, 
-			#{createtime}
+			CURRENT_TIMESTAMP
 		)
 	</insert>
 	 

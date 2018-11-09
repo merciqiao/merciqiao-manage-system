@@ -9,7 +9,7 @@ import java.util.Date;
  * 
  * @author qlx
  * @email qiaolixue@yingu.com
- * @date 2018-11-08 18:35:17
+ * @date 2018-11-08 19:39:19
  */
 public class MayiVO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -30,6 +30,8 @@ public class MayiVO implements Serializable {
 	private Integer updatecount;
 	//
 	private Date updatetime;
+	//
+	private String code;
 
 	/**
 	 * 设置：
@@ -126,5 +128,17 @@ public class MayiVO implements Serializable {
 	 */
 	public Date getUpdatetime() {
 		return updatetime;
+	}
+	/**
+	 * 设置：
+	 */
+	public void setCode(String code) {
+		this.code = code;
+	}
+	/**
+	 * 获取：
+	 */
+	public String getCode() {
+		return code;
 	}
 }
