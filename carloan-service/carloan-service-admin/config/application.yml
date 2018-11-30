@@ -12,13 +12,13 @@ logging:
 
 shiro-redis:
   #host: localhost:26379,localhost:26379 #哨兵模式
-  host: localhost
+  host: 139.199.113.64
   port: 6379
   password:
   timeout: 30000 #超时时间30秒
   sessionexpiretime: 1800000 #过期时间30分钟
   permissionxpiretime: 1800000 #过期时间30分钟
-  mastername: mymaster
+  mastername: master1
 
 #接口调用超时时间设置
 ribbon:
@@ -41,9 +41,9 @@ spring:
   profiles: dev
   datasource:
       type: com.zaxxer.hikari.HikariDataSource
-      url: jdbc:mysql://localhost:3306/car_loan?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false&allowMultiQueries=true
-      username: root
-      password: root
+      url: jdbc:mysql://139.199.113.64:3306/merciqiao?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false&allowMultiQueries=true
+      username: merciqiao
+      password: merciqiao
       driver-class-name: com.mysql.jdbc.Driver
       hikari:
         idle-timeout: 150000
@@ -53,13 +53,13 @@ mybatis:
 #mybatis:
 #  typeAliasesPackage: com.carloan.service.quartzjob.**.dto
 #  mapperLocations: classpath*:com.carloan.service.quartzjob/*/dao/*.xml
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:9901/eureka/
-  instance:
-    #是否使用IP定义注册中心的地址
-    preferIpAddress: true
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:9901/eureka/
+#  instance:
+#    #是否使用IP定义注册中心的地址
+#    preferIpAddress: true
 
 
 
