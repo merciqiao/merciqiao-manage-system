@@ -10,15 +10,15 @@ server:
 logging:
   config: config/logback.xml
 
-shiro-redis:
-  #host: localhost:26379,localhost:26379 #哨兵模式
-  host: 139.199.113.64
-  port: 6379
-  password:
-  timeout: 30000 #超时时间30秒
-  sessionexpiretime: 1800000 #过期时间30分钟
-  permissionxpiretime: 1800000 #过期时间30分钟
-  mastername: master1
+#shiro-redis:
+#  #host: localhost:26379,localhost:26379 #哨兵模式
+#  host: 139.199.113.64
+#  port: 6379
+#  password:
+#  timeout: 30000 #超时时间30秒
+#  sessionexpiretime: 1800000 #过期时间30分钟
+#  permissionxpiretime: 1800000 #过期时间30分钟
+#  mastername: master1
 
 #接口调用超时时间设置
 ribbon:
@@ -41,7 +41,7 @@ spring:
   profiles: dev
   datasource:
       type: com.zaxxer.hikari.HikariDataSource
-      url: jdbc:mysql://139.199.113.64:3306/merciqiao?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false&allowMultiQueries=true
+      url: jdbc:mysql://139.199.113.64:3306/merciqiao?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false&allowMultiQueries=true&serverTimezone=GMT%2b8
       username: merciqiao
       password: merciqiao
       driver-class-name: com.mysql.jdbc.Driver

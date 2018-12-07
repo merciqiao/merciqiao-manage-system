@@ -2,18 +2,12 @@ package com.carloan.service.admin.shiro;
 
 import com.carloan.common.config.ShiroRedis;
 import org.apache.shiro.mgt.SecurityManager;
-import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.crazycake.shiro.RedisCacheManager;
-import org.crazycake.shiro.RedisManager;
-import org.crazycake.shiro.RedisSentinelManager;
-import org.crazycake.shiro.RedisSessionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.StringUtils;
 
 import javax.servlet.Filter;
 import java.util.LinkedHashMap;
@@ -83,87 +77,11 @@ public class ShiroConfig {
     public SecurityManager securityManager(){
         DefaultWebSecurityManager securityManager =  new DefaultWebSecurityManager();
         securityManager.setRealm(myShiroRealm());//设置myrealm
-        // 自定义session管理 使用redis
-        securityManager.setSessionManager(sessionManager());//设置mysessionmanager
-        // 自定义缓存实现 使用redis,权限缓存
-        securityManager.setCacheManager(cacheManager());
+
         return securityManager;
     }
 
-    //自定义sessionManager
-    @Bean
-    public SessionManager sessionManager() {
-        MySessionManager mySessionManager = new MySessionManager();
-        mySessionManager.setSessionDAO(redisSessionDAO());
-        mySessionManager.setGlobalSessionTimeout(shiroRedis.getSessionexpiretime());//session缓存时间,滑动缓存
-        return mySessionManager;
-    }
-    /**
-     * cacheManager 缓存 redis实现
-     * <p>
-     * 使用的是shiro-redis开源插件
-     *
-     * @return
-     */
-    @Bean
-    public RedisCacheManager cacheManager() {
-        RedisCacheManager redisCacheManager = new RedisCacheManager();
-//        redisCacheManager.setRedisManager(redisSentinelManager());
-        redisCacheManager.setRedisManager(redisManager());
-        redisCacheManager.setExpire(shiroRedis.getPermissionxpiretime()/1000);//权限缓存时间,非滑动缓存,要/1000
-        return redisCacheManager;
-    }
 
-    /**
-     * RedisSessionDAO shiro sessionDao层的实现 通过redis
-     * <p>
-     * 使用的是shiro-redis开源插件
-     */
-    @Bean
-    public RedisSessionDAO redisSessionDAO() {
-        RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
-//        redisSessionDAO.setRedisManager(redisSentinelManager());
-        redisSessionDAO.setRedisManager(redisManager());
-        return redisSessionDAO;
-    }
-    /**
-     * 配置shiro redisManager
-     * <p>
-     * 使用的是shiro-redis开源插件 单点时使用
-     *
-     * @return
-     */
-    //@Bean
-    public RedisManager redisManager() {
-
-        RedisManager redisManager = new RedisManager();
-        redisManager.setHost(shiroRedis.getHost());
-        redisManager.setPort(shiroRedis.getPort());
-        redisManager.setExpire(shiroRedis.getSessionexpiretime());// 配置缓存过期时间
-        if(!StringUtils.isEmpty(shiroRedis.getPassword())){
-            redisManager.setPassword(shiroRedis.getPassword());
-        }
-        redisManager.setTimeout(shiroRedis.getTimeout());
-
-        return redisManager;
-    }
-    /**
-     * 配置shiro redisSentinelManager   哨兵模式
-     * 使用的是shiro-redis开源插件
-     * @return
-     */
-    //@Bean
-    public RedisSentinelManager redisSentinelManager(){
-        RedisSentinelManager redisSentinelManager = new RedisSentinelManager();
-        redisSentinelManager.setMasterName(shiroRedis.getMastername());
-        redisSentinelManager.setHost(shiroRedis.getHost());
-        if(!StringUtils.isEmpty(shiroRedis.getPassword())){
-            redisSentinelManager.setPassword(shiroRedis.getPassword());
-        }
-        redisSentinelManager.setTimeout(shiroRedis.getTimeout());
-        redisSentinelManager.setExpire(shiroRedis.getSessionexpiretime());
-        return redisSentinelManager;
-    }
     /**
      * 开启shiro aop注解支持.
      * 使用代理方式;所以需要开启代码支持;
