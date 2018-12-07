@@ -49,7 +49,7 @@ public class ShiroConfig {
         //自定义授权 end
 
 
-        //filterChainDefinitionMap.put("/**", "authc");//
+        filterChainDefinitionMap.put("/**", "authc");//
 
 
         // 未登录
