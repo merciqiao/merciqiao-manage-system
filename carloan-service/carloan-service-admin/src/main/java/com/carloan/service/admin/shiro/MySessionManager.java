@@ -1,5 +1,6 @@
 package com.carloan.service.admin.shiro;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.apache.shiro.web.util.WebUtils;
@@ -12,6 +13,7 @@ import java.io.Serializable;
 /**
  * 重写session获取方式,改成取请求头
  */
+@Slf4j
 public class MySessionManager extends DefaultWebSessionManager {
     private static final String AUTHORIZATION = "token";
 
@@ -23,7 +25,6 @@ public class MySessionManager extends DefaultWebSessionManager {
 
     @Override
     protected Serializable getSessionId(ServletRequest request, ServletResponse response) {
-
         String id = WebUtils.toHttp(request).getHeader(AUTHORIZATION);
         //如果请求头中有 Authorization 则其值为sessionId
         if (!StringUtils.isEmpty(id)) {

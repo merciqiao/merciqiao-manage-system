@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.carloan.service.admin.msg.dao.MsgDao">
+
+
+
+	<select id="queryObject" resultType="com.carloan.service.admin.msg.vo.MsgVO">
+		select * from msg where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.carloan.service.admin.msg.vo.MsgVO">
+		select * from msg
+    	order by id desc
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from msg 
+	</select>
+	 
+	<insert id="save" parameterType="com.carloan.service.admin.msg.entity.MsgEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into msg
+		(
+			`name`, 
+			`city`, 
+			`type`, 
+			`age`, 
+			`gender`, 
+			`qq`, 
+			`createtime`, 
+			`updatetime`,
+			`isdelte`
+		)
+		values
+		(
+			#{name}, 
+			#{city}, 
+			#{type}, 
+			#{age}, 
+			#{gender}, 
+			#{qq}, 
+			CURRENT_TIMESTAMP,
+			CURRENT_TIMESTAMP,
+			0
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.carloan.service.admin.msg.entity.MsgEntity">
+		update msg 
+		<set>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="city != null">`city` = #{city}, </if>
+			<if test="type != null">`type` = #{type}, </if>
+			<if test="age != null">`age` = #{age}, </if>
+			<if test="gender != null">`gender` = #{gender}, </if>
+			<if test="qq != null">`qq` = #{qq}, </if>
+			<if test="createtime != null">`createtime` = #{createtime}, </if>
+			<if test="updatetime != null">`updatetime` = #{updatetime}, </if>
+			<if test="isdelte != null">`isdelte` = #{isdelte}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from msg where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from msg where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
