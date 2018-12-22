@@ -24,7 +24,7 @@
                     b.ip = #{ip}
                 AND a.id = b.addid
             )
-            order by weight desc,updatetime desc
+            order by updatetime desc
 	</select>
 
 
@@ -69,7 +69,7 @@
 			<if test="weight != null">`weight` = #{weight}, </if>
 			<if test="copycount != null">`copycount` = #{copycount}, </if>
 			<if test="updatecount != null">`updatecount` = #{updatecount}, </if>
-			<if test="updatetime != null">`updatetime` = CURRENT_TIMESTAMP, </if>
+			`updatetime` = CURRENT_TIMESTAMP,
 			<if test="code != null">`code` = #{code}</if>
 		</set>
 		where id = #{id}
