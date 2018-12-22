@@ -43,4 +43,12 @@ public class MsgService {
 		msgDao.update(mayi);
 		return true;
 	}
+	public Boolean delete(MsgEntity mayi){
+		msgDao.delete(mayi.getId());
+		return true;
+	}
+	public Boolean deleteBatch(MsgEntity mayi){
+		msgDao.deleteBatch(mayi.getIds());
+		return true;
+	}
 }

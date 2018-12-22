@@ -9,8 +9,16 @@
 		select * from msg where id = #{value}
 	</select>
 
-	<select id="queryList" resultType="com.carloan.service.admin.msg.vo.MsgVO">
-		select * from msg
+	<select id="queryList" parameterType="com.carloan.service.admin.msg.entity.MsgEntity" resultType="com.carloan.service.admin.msg.vo.MsgVO">
+		select * from msg where isdelte=0
+		<if test="name != null and name != ''">and `name` like "%"#{name}"%"</if>
+		<if test="city != null and city != ''">and `city` = #{city} </if>
+		<if test="type != null and type != ''">and `type` = #{type} </if>
+		<if test="age != null and age != ''">and `age` = #{age} </if>
+		<if test="gender != null and gender != ''">and `gender` = #{gender}</if>
+		<if test="qq != null and qq != ''">and `qq` = #{qq}</if>
+		<if test="startdate != null ">AND createtime <![CDATA[>=]]> #{startdate}</if>
+		<if test="enddate != null">AND createtime <![CDATA[<]]>#{enddate}</if>
     	order by id desc
 	</select>
 	
@@ -54,19 +62,17 @@
 			<if test="age != null">`age` = #{age}, </if>
 			<if test="gender != null">`gender` = #{gender}, </if>
 			<if test="qq != null">`qq` = #{qq}, </if>
-			<if test="createtime != null">`createtime` = #{createtime}, </if>
-			<if test="updatetime != null">`updatetime` = #{updatetime}, </if>
-			<if test="isdelte != null">`isdelte` = #{isdelte}</if>
+			`updatetime` = CURRENT_TIMESTAMP
 		</set>
 		where id = #{id}
 	</update>
 	
 	<delete id="delete">
-		delete from msg where id = #{value}
+		update msg set isdelte=1 where id = #{value}
 	</delete>
 	
 	<delete id="deleteBatch">
-		delete from msg where id in 
+		update msg set isdelte=1 where id in
 		<foreach item="id" collection="array" open="(" separator="," close=")">
 			#{id}
 		</foreach>

@@ -45,6 +45,36 @@ public class MsgEntity extends PageInfoExt implements Serializable {
 	//@NotNull(groups = { MsgUpdateGroup.class,MsgAddGroup.class }, message = "isdelte不能为空")
 	private Integer isdelte;
 
+	private Integer[] ids;
+	public Integer[] getIds() {
+		return ids;
+	}
+
+	public void setIds(Integer[] ids) {
+		this.ids = ids;
+	}
+	private Date startdate;
+
+	private Date enddate;
+
+	public Date getStartdate() {
+		return startdate;
+	}
+
+	public void setStartdate(Date startdate) {
+		this.startdate = startdate;
+	}
+
+	public Date getEnddate() {
+		return enddate;
+	}
+
+	public void setEnddate(Date enddate) {
+		this.enddate = enddate;
+	}
+
+
+
 	/**
 	 * 设置：
 	 */

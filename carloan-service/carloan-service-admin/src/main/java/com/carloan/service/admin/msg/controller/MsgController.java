@@ -3,6 +3,7 @@ package com.carloan.service.admin.msg.controller;
 import com.carloan.apimodel.common.Response;
 import com.carloan.apimodel.common.ResponseResult;
 import com.carloan.apimodel.common.Status;
+import com.carloan.common.utils.DateUtil;
 import com.carloan.service.admin.msg.entity.MsgEntity;
 import com.carloan.service.admin.msg.entity.MsgListEntity;
 import com.carloan.service.admin.msg.groups.MsgAddGroup;
@@ -47,10 +48,52 @@ public class MsgController {
 			return result;
 		}
 	}
+	@RequestMapping(value = "/update",method = RequestMethod.POST)
+	public Response update(@RequestBody MsgEntity vo)throws Exception{
+		Response result=new Response();
+		try{
+			msgService.update(vo);
+			return result;
+		}catch (Exception ex) {
+			log.error(ex.getMessage(), ex);
+			result.setStatus(Status.FAILED);
+			result.setMessage("执行异常,请重试");
+			return result;
+		}
+	}
+	@RequestMapping(value = "/delete",method = RequestMethod.POST)
+	public Response delete(@RequestBody MsgEntity vo)throws Exception{
+		Response result=new Response();
+		try{
+			msgService.delete(vo);
+			return result;
+		}catch (Exception ex) {
+			log.error(ex.getMessage(), ex);
+			result.setStatus(Status.FAILED);
+			result.setMessage("执行异常,请重试");
+			return result;
+		}
+	}
+	@RequestMapping(value = "/deleteBatch",method = RequestMethod.POST)
+	public Response deleteBatch(@RequestBody MsgEntity vo)throws Exception{
+		Response result=new Response();
+		try{
+			msgService.deleteBatch(vo);
+			return result;
+		}catch (Exception ex) {
+			log.error(ex.getMessage(), ex);
+			result.setStatus(Status.FAILED);
+			result.setMessage("执行异常,请重试");
+			return result;
+		}
+	}
 	@RequestMapping(value = "/queryList",method = RequestMethod.POST)
 	public ResponseResult<MsgVO> queryList(@RequestBody MsgEntity vo)throws Exception{
 		ResponseResult<MsgVO> result=new ResponseResult<>();
 		try{
+			if(vo.getEnddate()!=null){
+				vo.setEnddate(DateUtil.getDayNext(vo.getEnddate()));
+			}
 			result= (ResponseResult<MsgVO>)msgService.queryList(vo);
 			return result;
 		}catch (Exception ex) {

@@ -35,6 +35,10 @@ public class MsgVO implements Serializable {
 	//
 	private Integer isdelte;
 
+
+
+
+
 	/**
 	 * 设置：
 	 */

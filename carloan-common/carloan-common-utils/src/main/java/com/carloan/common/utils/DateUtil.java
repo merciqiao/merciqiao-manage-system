@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * Created by MMM on 2017/08/22.
@@ -163,5 +164,20 @@ public class DateUtil {
         date = calendar.getTime();
         String strDate= sdf.format(date);
         return strDate;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static Date getDayNext(Date date){
+        Calendar   calendar   =   new GregorianCalendar();
+        calendar.setTime(date);
+//        calendar.add(calendar.YEAR, 1);//把日期往后增加一年.整数往后推,负数往前移动
+//        calendar.add(calendar.DAY_OF_MONTH, 1);//把日期往后增加一个月.整数往后推,负数往前移动
+        calendar.add(calendar.DATE,1);//把日期往后增加一天.整数往后推,负数往前移动
+//        calendar.add(calendar.WEEK_OF_MONTH, 1);//把日期往后增加一个月.整数往后推,负数往前移动
+        date=calendar.getTime();   //这个时间就是日期往后推一天的结果
+        return date;
     }
 }
