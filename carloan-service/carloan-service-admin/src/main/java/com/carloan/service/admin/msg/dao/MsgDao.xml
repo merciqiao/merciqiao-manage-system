@@ -19,7 +19,7 @@
 		<if test="qq != null and qq != ''">and `qq` = #{qq}</if>
 		<if test="startdate != null ">AND createtime <![CDATA[>=]]> #{startdate}</if>
 		<if test="enddate != null">AND createtime <![CDATA[<]]>#{enddate}</if>
-    	order by id desc
+    	order by createtime desc
 	</select>
 	
  	<select id="queryTotal" resultType="int">
