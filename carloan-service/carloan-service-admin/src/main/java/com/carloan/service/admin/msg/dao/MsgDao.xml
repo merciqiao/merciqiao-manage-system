@@ -34,7 +34,8 @@
 			`type`, 
 			`age`, 
 			`gender`, 
-			`qq`, 
+			`qq`,
+			`text`,
 			`createtime`, 
 			`updatetime`,
 			`isdelte`
@@ -46,7 +47,8 @@
 			#{type}, 
 			#{age}, 
 			#{gender}, 
-			#{qq}, 
+			#{qq},
+			#{text},
 			CURRENT_TIMESTAMP,
 			CURRENT_TIMESTAMP,
 			0
@@ -62,6 +64,7 @@
 			<if test="age != null">`age` = #{age}, </if>
 			<if test="gender != null">`gender` = #{gender}, </if>
 			<if test="qq != null">`qq` = #{qq}, </if>
+			<if test="text != null">`text` = #{text}, </if>
 			`updatetime` = CURRENT_TIMESTAMP
 		</set>
 		where id = #{id}

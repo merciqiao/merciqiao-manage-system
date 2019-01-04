@@ -46,6 +46,21 @@ public class MsgEntity extends PageInfoExt implements Serializable {
 	private Integer isdelte;
 
 	private Integer[] ids;
+
+	private String text;
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+
+
+
+
 	public Integer[] getIds() {
 		return ids;
 	}

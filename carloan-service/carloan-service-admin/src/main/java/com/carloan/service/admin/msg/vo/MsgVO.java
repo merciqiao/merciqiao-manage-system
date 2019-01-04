@@ -35,6 +35,16 @@ public class MsgVO implements Serializable {
 	//
 	private Integer isdelte;
 
+	private String text;
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
 
 
 
