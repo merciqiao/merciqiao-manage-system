@@ -36,7 +36,12 @@ public class ShiroConfig {
         //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
         //登陆不需要认证
         filterChainDefinitionMap.put("/shiro-api/login/**", "anon");
-
+        //上传图片不需要认证 start
+        filterChainDefinitionMap.put("/img-api/upload", "anon");
+        filterChainDefinitionMap.put("/img-api/uploadFile", "anon");
+        filterChainDefinitionMap.put("/uploadFile/**", "anon");
+        filterChainDefinitionMap.put("/uploadImage/**", "anon");
+        //上传图片不需要认证 end
         //swagger start
         filterChainDefinitionMap.put("/swagger-ui.html"," anon");
         filterChainDefinitionMap.put("/swagger-resources/**", "anon");
