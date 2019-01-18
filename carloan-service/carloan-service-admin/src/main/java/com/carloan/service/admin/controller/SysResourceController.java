@@ -25,7 +25,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "sysResource_api")
 @Slf4j
-@Api(tags = {"资源管理接口-hanxiaoyan"})
+@Api(tags = {"资源管理接口"})
 public class SysResourceController {
 
 

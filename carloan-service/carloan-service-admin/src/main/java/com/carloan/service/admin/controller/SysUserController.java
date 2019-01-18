@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value="/sysuser-api")
 @Slf4j
-@Api(tags = {"用户信息接口-hanxiaoyan"})
+@Api(tags = {"用户信息接口"})
 public class SysUserController {
     @Autowired
     private SysUserRest sysUserfeignservice;

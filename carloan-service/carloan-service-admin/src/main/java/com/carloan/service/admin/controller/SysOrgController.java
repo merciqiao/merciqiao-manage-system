@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value="/sysorg-api")
 @Slf4j
-@Api(tags = {"组织机构接口-hanxiaoyan"})
+@Api(tags = {"组织机构接口"})
 public class SysOrgController {
     @Autowired
     private SysOrgRest sysOrgfeignservice;

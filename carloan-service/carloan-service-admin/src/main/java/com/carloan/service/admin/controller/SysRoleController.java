@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value="/sysrole-api")
 @Slf4j
-@Api(tags = {"用户角色接口-hanxiaoyan"})
+@Api(tags = {"用户角色接口"})
 public class SysRoleController {
     @Autowired
     private SysRoleRest sysRolefeignservice;
