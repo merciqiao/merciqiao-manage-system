@@ -35,7 +35,7 @@ import java.text.MessageFormat;
 @RestController
 @RequestMapping(value="/shiro-api")
 @Slf4j
-@Api(tags = {"登录接口-qiaolixue"})
+@Api(tags = {"登录接口"})
 public class ShiroController {
 //    @Autowired
 //    SysUserServiceFeign sysUserServiceFeign;
