@@ -1,8 +1,10 @@
 package com.carloan.service.admin.rest;
 
 import com.alibaba.fastjson.JSON;
+import com.carloan.common.utils.DateUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -35,7 +37,7 @@ public class CkEditorController {
     @RequestMapping(value = "/upload",method = RequestMethod.POST)
     @ApiOperation(value = "上传图片", notes = "返回结果,SUCCESS:200,FAILED:500", httpMethod = "POST")
     public Map<String, String> uploadImg(@RequestPart("upload") MultipartFile file, HttpServletRequest request)throws Exception{
-        String packageName=CK_IMAGE_PATH;
+        String packageName=  CK_IMAGE_PATH + File.separator+DateUtil.GetDateShortNow();
         return this.upload(file,request,packageName);
     }
 
@@ -49,7 +51,7 @@ public class CkEditorController {
     @RequestMapping(value = "/uploadFile",method = RequestMethod.POST)
     @ApiOperation(value = "上传文件", notes = "返回结果,SUCCESS:200,FAILED:500", httpMethod = "POST")
     public Map<String, String> uploadFile(@RequestPart("upload") MultipartFile file ,HttpServletRequest request)throws Exception{
-        String packageName=CK_FILE_PATH;
+        String packageName=CK_FILE_PATH + File.separator+DateUtil.GetDateShortNow();;
 
         return this.upload(file,request,packageName);
     }

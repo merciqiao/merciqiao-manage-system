@@ -45,6 +45,13 @@ public class DateUtil {
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
     }
     /**
+     * 获取当前时间
+     * @return
+     */
+    public static String GetDateShortNow(){
+        return new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+    }
+    /**
      * 计算得到MongoDB存储的日期，（默认情况下mongo中存储的是标准的时间，中国时间是东八区，存在mongo中少8小时，所以增加8小时）
      * http://www.iteye.com/problems/88507
      *

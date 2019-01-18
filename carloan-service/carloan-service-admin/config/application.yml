@@ -5,7 +5,7 @@ spring:
     active: dev
 
 server:
-  port: 8070
+  port: 8001
 
 logging:
   config: config/logback.xml
@@ -41,9 +41,9 @@ spring:
   profiles: dev
   datasource:
       type: com.zaxxer.hikari.HikariDataSource
-      url: jdbc:mysql://139.199.113.64:3306/merciqiao?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false&allowMultiQueries=true&serverTimezone=GMT%2b8
-      username: merciqiao
-      password: merciqiao
+      url: jdbc:mysql://localhost:3306/car_loan?useSSL=false&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&allowMultiQueries=true&serverTimezone=GMT%2b8
+      username: root
+      password: root
       driver-class-name: com.mysql.jdbc.Driver
       hikari:
         idle-timeout: 150000
