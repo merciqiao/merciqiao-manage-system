@@ -93,7 +93,7 @@ public class CkEditorController {
             e.printStackTrace();
             // log here
         }
-        String imageContextPath = "/api/"+request.getContextPath() + packageName.replace("\\","") + "/" + localFileName;
+        String imageContextPath = "/api/"+request.getContextPath() + packageName + "/" + localFileName;
         // log here +
         log.info("received file original name: " + originalName);
         log.info("stored local file name: " + localFileName);
