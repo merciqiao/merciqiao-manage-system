@@ -80,6 +80,22 @@ public class YcyscoreController {
 
 		}
 	}
+	@RequestMapping(value = "/queryScore",method = RequestMethod.POST)
+	public ResponseResult<Integer> queryOne(@RequestBody YcyscoreEntity vo)throws Exception{
+		ResponseResult<Integer> result=new ResponseResult<>();
+		try{
+			YcyscoreVO ycyscoreVO= ycyscoreService.queryObject(vo.getIp());
+			int score=ycyscoreVO==null?0:ycyscoreVO.getScore();
+			result.setData(score);
+			return result;
+		}catch (Exception ex) {
+			log.error(ex.getMessage(), ex);
+			result.setStatus(Status.FAILED);
+			result.setMessage("执行异常,请重试");
+			return result;
+
+		}
+	}
 
 	/**
 	 * 查询个人排名
@@ -91,7 +107,14 @@ public class YcyscoreController {
 	public ResponseResult<Integer> queryRank(@RequestBody YcyscoreEntity vo)throws Exception{
 		ResponseResult<Integer> result=new ResponseResult<>();
 		try{
-			Integer rank= ycyscoreService.queryRank(vo);
+			Integer rank=0;
+			YcyscoreVO mayiVO= ycyscoreService.queryObject(vo.getIp());
+			if(mayiVO==null){
+				rank=ycyscoreService.queryTotal();
+			}
+			else{
+				rank= ycyscoreService.queryRank(vo);
+			}
 			result.setData(rank);
 			return result;
 		}catch (Exception ex) {

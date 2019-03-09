@@ -20,4 +20,5 @@ public interface YcyscoreService {
 
 	public Object queryList(YcyscoreEntity ycyscore);
 	public int queryRank(YcyscoreEntity ycyscore);
+	public Integer queryTotal();
 }

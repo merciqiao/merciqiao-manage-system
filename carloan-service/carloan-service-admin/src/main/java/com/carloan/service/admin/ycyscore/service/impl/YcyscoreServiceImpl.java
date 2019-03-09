@@ -41,5 +41,9 @@ public class YcyscoreServiceImpl implements YcyscoreService {
 	public int queryRank(YcyscoreEntity ycyscore){
 		return ycyscoreDao.queryRank(ycyscore);
 	}
+	@Override
+	public Integer queryTotal(){
+		return ycyscoreDao.queryTotal();
+	}
 
 }
