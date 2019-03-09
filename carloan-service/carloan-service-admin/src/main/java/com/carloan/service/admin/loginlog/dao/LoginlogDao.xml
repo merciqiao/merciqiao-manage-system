@@ -19,13 +19,15 @@
 	<insert id="save" parameterType="com.carloan.service.admin.loginlog.dto.LoginlogEntity">
 		insert into loginlog
 		(
-			`city`, 
+			`city`,
+			`type`,
 			`ip`
 			,`createtime`
 		)
 		values
 		(
-			#{city}, 
+			#{city},
+			#{type},
 			#{ip},
 			CURRENT_TIMESTAMP
 		)

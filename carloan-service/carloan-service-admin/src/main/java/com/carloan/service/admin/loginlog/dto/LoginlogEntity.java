@@ -30,5 +30,7 @@ public class LoginlogEntity implements Serializable {
 
 	private Date createtime;
 
+	private String type;
+
 
 }

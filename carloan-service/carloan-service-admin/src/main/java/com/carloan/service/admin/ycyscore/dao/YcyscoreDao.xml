@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.carloan.service.admin.ycyscore.dao.YcyscoreDao">
+
+
+
+	<select id="queryObject" resultType="com.carloan.service.admin.ycyscore.vo.YcyscoreVO">
+		select * from ycyscore where ip = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.carloan.service.admin.ycyscore.vo.YcyscoreVO">
+		select * from ycyscore
+    	order by score desc
+
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from ycyscore
+	</select>
+	<select id="queryRank" resultType="int" parameterType="com.carloan.service.admin.ycyscore.entity.YcyscoreEntity">
+		select count(*)+1 from ycyscore where  score> (select score from ycyscore where ip=#{ip})
+	</select>
+	 
+	<insert id="save" parameterType="com.carloan.service.admin.ycyscore.entity.YcyscoreEntity">
+		insert into ycyscore
+		(
+			`city`, 
+			`ip`, 
+			`name`, 
+			`score`, 
+			`wxname`, 
+			`createtime`, 
+			`updatetime`, 
+			`times`
+		)
+		values
+		(
+			#{city}, 
+			#{ip}, 
+			#{name}, 
+			#{score}, 
+			#{wxname}, 
+			CURRENT_TIMESTAMP,
+			CURRENT_TIMESTAMP,
+			1
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.carloan.service.admin.ycyscore.entity.YcyscoreEntity">
+		update ycyscore 
+		<set>
+			<if test="city != null">`city` = #{city}, </if>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="score != null">`score` = #{score}, </if>
+			<if test="wxname != null">`wxname` = #{wxname}, </if>
+			<if test="updatetime != null">`updatetime` = CURRENT_TIMESTAMP, </if>
+			<if test="times != null">`times` = #{times}</if>
+		</set>
+		where ip = #{ip}
+	</update>
+	
+	<delete id="delete">
+		delete from ycyscore where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from ycyscore where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
