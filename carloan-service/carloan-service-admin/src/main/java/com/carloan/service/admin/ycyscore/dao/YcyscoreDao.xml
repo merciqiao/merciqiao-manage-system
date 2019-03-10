@@ -10,8 +10,7 @@
 	</select>
 
 	<select id="queryList" resultType="com.carloan.service.admin.ycyscore.vo.YcyscoreVO">
-		select * from ycyscore
-    	order by score desc
+		select * from ycyscore order by score desc,updatetime asc
 
 	</select>
 	
@@ -19,7 +18,27 @@
 		select count(*) from ycyscore
 	</select>
 	<select id="queryRank" resultType="int" parameterType="com.carloan.service.admin.ycyscore.entity.YcyscoreEntity">
-		select count(*)+1 from ycyscore where  score> (select score from ycyscore where ip=#{ip})
+		SELECT
+			*
+		FROM
+			(
+				SELECT
+					@rownum := @rownum + 1 AS rownum,
+					t.*
+				FROM
+					(SELECT @rownum := 0) r,
+					(
+						SELECT
+							*
+						FROM
+							ycyscore
+						ORDER BY
+							score DESC,
+							updatetime asc
+					) AS t
+			) f
+		WHERE
+			f.ip = #{ip}
 	</select>
 	 
 	<insert id="save" parameterType="com.carloan.service.admin.ycyscore.entity.YcyscoreEntity">
