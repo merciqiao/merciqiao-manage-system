@@ -45,6 +45,10 @@ public class YcyscoreEntity extends PageInfoExt implements Serializable {
 	//@NotNull(groups = { YcyscoreUpdateGroup.class,YcyscoreAddGroup.class }, message = "times不能为空")
 	private Integer times;
 
+	private Integer mintime;
+
+	private Date	todaytime;
+
 	/**
 	 * 设置：
 	 */
@@ -152,5 +156,21 @@ public class YcyscoreEntity extends PageInfoExt implements Serializable {
 	 */
 	public Integer getTimes() {
 		return times;
+	}
+
+	public Integer getMintime() {
+		return mintime;
+	}
+
+	public void setMintime(Integer mintime) {
+		this.mintime = mintime;
+	}
+
+	public Date getTodaytime() {
+		return todaytime;
+	}
+
+	public void setTodaytime(Date todaytime) {
+		this.todaytime = todaytime;
 	}
 }

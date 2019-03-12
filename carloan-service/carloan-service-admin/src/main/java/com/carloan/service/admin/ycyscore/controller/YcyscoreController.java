@@ -3,6 +3,7 @@ package com.carloan.service.admin.ycyscore.controller;
 import com.carloan.apimodel.common.Response;
 import com.carloan.apimodel.common.ResponseResult;
 import com.carloan.apimodel.common.Status;
+import com.carloan.common.utils.DateUtil;
 import com.carloan.service.admin.ycyscore.entity.YcyscoreEntity;
 import com.carloan.service.admin.ycyscore.service.YcyscoreService;
 import com.carloan.service.admin.ycyscore.vo.YcyscoreVO;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Date;
 
 
 /**
@@ -44,6 +47,22 @@ public class YcyscoreController {
 				if(vo.getScore()<mayiVO.getScore()){
 					vo.setScore(null);
 				}
+				String nowTime= DateUtil.GetDateDay(new Date());
+				String todayTime= DateUtil.GetDateDay(mayiVO.getUpdatetime());
+				if(nowTime.equals(todayTime)){
+					//就是今天的数据,且时间更短
+                    if(vo.getMintime()!=null&&mayiVO.getMintime()!=null){
+                            if(vo.getMintime()>=mayiVO.getMintime()){
+                                vo.setMintime(null);
+                            }
+                    }
+
+				}
+				else{
+					//没更新为今天,则更新为今天,同时更新用时
+					vo.setTodaytime(new Date());
+				}
+
 				vo.setTimes(mayiVO.getTimes()+1);
 				ycyscoreService.update(vo);
 			}

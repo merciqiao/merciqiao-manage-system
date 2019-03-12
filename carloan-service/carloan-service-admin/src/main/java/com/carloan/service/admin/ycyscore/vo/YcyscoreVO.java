@@ -33,6 +33,10 @@ public class YcyscoreVO implements Serializable {
 	//次数
 	private Integer times;
 
+	private Integer mintime;
+
+	private Date	todaytime;
+
 	/**
 	 * 设置：
 	 */
@@ -140,5 +144,21 @@ public class YcyscoreVO implements Serializable {
 	 */
 	public Integer getTimes() {
 		return times;
+	}
+
+	public Integer getMintime() {
+		return mintime;
+	}
+
+	public void setMintime(Integer mintime) {
+		this.mintime = mintime;
+	}
+
+	public Date getTodaytime() {
+		return todaytime;
+	}
+
+	public void setTodaytime(Date todaytime) {
+		this.todaytime = todaytime;
 	}
 }

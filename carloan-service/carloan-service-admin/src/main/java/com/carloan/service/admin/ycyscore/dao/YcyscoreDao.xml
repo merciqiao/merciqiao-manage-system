@@ -50,7 +50,9 @@
 			`score`, 
 			`wxname`, 
 			`createtime`, 
-			`updatetime`, 
+			`updatetime`,
+			`todaytime`,
+			`mintime`,
 			`times`
 		)
 		values
@@ -62,6 +64,8 @@
 			#{wxname}, 
 			CURRENT_TIMESTAMP,
 			CURRENT_TIMESTAMP,
+			CURRENT_TIMESTAMP,
+			#{mintime},
 			1
 		)
 	</insert>
@@ -74,7 +78,10 @@
 			<if test="score != null">`score` = #{score}, </if>
 			<if test="wxname != null">`wxname` = #{wxname}, </if>
 			<if test="updatetime != null">`updatetime` = CURRENT_TIMESTAMP, </if>
+			<if test="mintime != null">`mintime` = #{mintime},</if>
+			<if test="todaytime != null">`todaytime` = #{todaytime},</if>
 			<if test="times != null">`times` = #{times}</if>
+
 		</set>
 		where ip = #{ip}
 	</update>

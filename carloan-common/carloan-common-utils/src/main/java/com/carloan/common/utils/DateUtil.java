@@ -172,6 +172,16 @@ public class DateUtil {
         String strDate= sdf.format(date);
         return strDate;
     }
+    /**
+     * 获取天数偏差的日期
+     * @param diffDay
+     * @return
+     */
+    public static String GetDateDay(Date date){
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        String strDate= sdf.format(date);
+        return strDate;
+    }
 
     /**
      *
