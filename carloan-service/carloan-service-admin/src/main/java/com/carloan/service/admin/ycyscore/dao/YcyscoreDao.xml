@@ -15,7 +15,7 @@
 	</select>
 
 	<select id="querySpeedList" resultType="com.carloan.service.admin.ycyscore.vo.YcyscoreVO">
-		select * from ycyscore where score>=100 and TO_DAYS(todaytime)=TO_DAYS(now()) order by mintime asc
+		select * from ycyscore where score>=100 and to_days(todaytime) = to_days(now()) and mintime is not null order by mintime asc
 
 	</select>
 	
