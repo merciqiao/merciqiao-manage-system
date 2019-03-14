@@ -19,6 +19,12 @@ public interface YcyscoreService {
 	boolean update(YcyscoreEntity ycyscore);
 
 	public Object queryList(YcyscoreEntity ycyscore);
+
+	public Object querySpeedList(YcyscoreEntity ycyscore);
+
 	public int queryRank(YcyscoreEntity ycyscore);
+
+	public YcyscoreVO querySpeedRank(YcyscoreEntity ycyscore);
+
 	public Integer queryTotal();
 }

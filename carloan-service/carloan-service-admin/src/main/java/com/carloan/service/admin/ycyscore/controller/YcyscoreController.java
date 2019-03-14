@@ -99,12 +99,49 @@ public class YcyscoreController {
 
 		}
 	}
+	/**
+	 * 查询速度排名
+	 * @param vo
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/querySpeedList",method = RequestMethod.POST)
+	public ResponseResult<YcyscoreVO> querySpeedList(@RequestBody YcyscoreEntity vo)throws Exception{
+		ResponseResult<YcyscoreVO> result=new ResponseResult<>();
+		try{
+			result= (ResponseResult<YcyscoreVO>)ycyscoreService.querySpeedList(vo);
+			return result;
+		}catch (Exception ex) {
+			log.error(ex.getMessage(), ex);
+			result.setStatus(Status.FAILED);
+			result.setMessage("执行异常,请重试");
+			return result;
+
+		}
+	}
+
 	@RequestMapping(value = "/queryScore",method = RequestMethod.POST)
 	public ResponseResult<Integer> queryOne(@RequestBody YcyscoreEntity vo)throws Exception{
 		ResponseResult<Integer> result=new ResponseResult<>();
 		try{
 			YcyscoreVO ycyscoreVO= ycyscoreService.queryObject(vo.getIp());
 			int score=ycyscoreVO==null?0:ycyscoreVO.getScore();
+			result.setData(score);
+			return result;
+		}catch (Exception ex) {
+			log.error(ex.getMessage(), ex);
+			result.setStatus(Status.FAILED);
+			result.setMessage("执行异常,请重试");
+			return result;
+
+		}
+	}
+	@RequestMapping(value = "/queryMinTime",method = RequestMethod.POST)
+	public ResponseResult<Integer> queryMinTime(@RequestBody YcyscoreEntity vo)throws Exception{
+		ResponseResult<Integer> result=new ResponseResult<>();
+		try{
+			YcyscoreVO ycyscoreVO= ycyscoreService.queryObject(vo.getIp());
+			int score=ycyscoreVO==null?-1:(ycyscoreVO.getMintime()==null?-1:ycyscoreVO.getMintime());
 			result.setData(score);
 			return result;
 		}catch (Exception ex) {
@@ -133,6 +170,32 @@ public class YcyscoreController {
 			}
 			else{
 				rank= ycyscoreService.queryRank(vo);
+			}
+			result.setData(rank);
+			return result;
+		}catch (Exception ex) {
+			log.error(ex.getMessage(), ex);
+			result.setStatus(Status.FAILED);
+			result.setMessage("执行异常,请重试");
+			return result;
+
+		}
+	}
+	/**
+	 * 查询个人排名
+	 * @param vo
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/querySpeedRank",method = RequestMethod.POST)
+	public ResponseResult<Integer> querySpeedRank(@RequestBody YcyscoreEntity vo)throws Exception{
+		ResponseResult<Integer> result=new ResponseResult<>();
+		try{
+			Integer rank=-1;
+
+			YcyscoreVO ycyscoreVO= ycyscoreService.querySpeedRank(vo);
+			if(ycyscoreVO!=null){
+				rank=ycyscoreVO.getRank();
 			}
 			result.setData(rank);
 			return result;

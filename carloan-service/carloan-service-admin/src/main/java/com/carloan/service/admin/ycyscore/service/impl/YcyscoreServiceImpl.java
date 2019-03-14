@@ -33,6 +33,11 @@ public class YcyscoreServiceImpl implements YcyscoreService {
 
 	}
 	@Page
+	public Object querySpeedList(YcyscoreEntity ycyscore){
+		return ycyscoreDao.querySpeedList(ycyscore);
+	}
+
+	@Page
 	public Object queryList(YcyscoreEntity ycyscore){
 
 		return ycyscoreDao.queryList(ycyscore);
@@ -40,6 +45,10 @@ public class YcyscoreServiceImpl implements YcyscoreService {
 	@Override
 	public int queryRank(YcyscoreEntity ycyscore){
 		return ycyscoreDao.queryRank(ycyscore);
+	}
+	@Override
+	public YcyscoreVO querySpeedRank(YcyscoreEntity ycyscore){
+		return ycyscoreDao.querySpeedRank(ycyscore);
 	}
 	@Override
 	public Integer queryTotal(){

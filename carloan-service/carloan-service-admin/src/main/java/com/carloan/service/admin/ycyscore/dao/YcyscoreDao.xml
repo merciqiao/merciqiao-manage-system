@@ -13,6 +13,11 @@
 		select * from ycyscore order by score desc,updatetime asc
 
 	</select>
+
+	<select id="querySpeedList" resultType="com.carloan.service.admin.ycyscore.vo.YcyscoreVO">
+		select * from ycyscore where score>=100 and TO_DAYS(todaytime)=TO_DAYS(now()) order by mintime asc
+
+	</select>
 	
  	<select id="queryTotal" resultType="int">
 		select count(*) from ycyscore
@@ -23,7 +28,7 @@
 		FROM
 			(
 				SELECT
-					@rownum := @rownum + 1 AS rownum,
+					@rownum := @rownum + 1 AS rank,
 					t.*
 				FROM
 					(SELECT @rownum := 0) r,
@@ -39,6 +44,31 @@
 			) f
 		WHERE
 			f.ip = #{ip}
+	</select>
+	<select id="querySpeedRank" resultType="com.carloan.service.admin.ycyscore.vo.YcyscoreVO" parameterType="com.carloan.service.admin.ycyscore.entity.YcyscoreEntity">
+		SELECT
+	*
+FROM
+	(
+		SELECT
+			@rownum := @rownum + 1 AS rank,
+			t.*
+		FROM
+			(SELECT @rownum := 0) r,
+			(
+				SELECT
+					*
+				FROM
+					ycyscore
+				WHERE
+					score >= 100
+				AND TO_DAYS(todaytime) = TO_DAYS(now())
+				ORDER BY
+					mintime ASC
+			) AS t
+	) f
+WHERE
+		f.ip = #{ip}
 	</select>
 	 
 	<insert id="save" parameterType="com.carloan.service.admin.ycyscore.entity.YcyscoreEntity">

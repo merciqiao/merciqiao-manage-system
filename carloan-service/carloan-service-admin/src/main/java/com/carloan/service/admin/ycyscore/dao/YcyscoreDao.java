@@ -20,8 +20,12 @@ public interface YcyscoreDao  {
 	public YcyscoreVO queryObject( String ip);
 
 	public List<YcyscoreVO> queryList(YcyscoreEntity ycyscore);
+
+	public List<YcyscoreVO> querySpeedList(YcyscoreEntity ycyscore);
 	
 	public int queryRank(YcyscoreEntity ycyscore);
+
+	public YcyscoreVO querySpeedRank(YcyscoreEntity ycyscore);
 	
 	public void save(YcyscoreEntity ycyscore);
 	

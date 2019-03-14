@@ -37,6 +37,8 @@ public class YcyscoreVO implements Serializable {
 
 	private Date	todaytime;
 
+	private  Integer rank;
+
 	/**
 	 * 设置：
 	 */
@@ -160,5 +162,13 @@ public class YcyscoreVO implements Serializable {
 
 	public void setTodaytime(Date todaytime) {
 		this.todaytime = todaytime;
+	}
+
+	public Integer getRank() {
+		return rank;
+	}
+
+	public void setRank(Integer rank) {
+		this.rank = rank;
 	}
 }
