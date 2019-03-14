@@ -39,6 +39,7 @@ public class ShiroConfig {
         //吸越接口不需要认证
         filterChainDefinitionMap.put("/ycyscore-api/**", "anon");
         filterChainDefinitionMap.put("/loginlog-api/**", "anon");
+        filterChainDefinitionMap.put("/msg-api/**", "anon");
         //上传图片不需要认证 start
         filterChainDefinitionMap.put("/img-api/upload", "anon");
         filterChainDefinitionMap.put("/img-api/uploadFile", "anon");
