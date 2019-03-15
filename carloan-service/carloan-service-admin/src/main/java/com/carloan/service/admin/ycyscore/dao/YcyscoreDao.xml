@@ -65,7 +65,7 @@ FROM
 					ycyscore
 				WHERE
 					score >= 100
-				AND TO_DAYS(todaytime) = TO_DAYS(now())
+				AND TO_DAYS(todaytime) = TO_DAYS(now()) and mintime is not null
 				ORDER BY
 					mintime ASC
 			) AS t
