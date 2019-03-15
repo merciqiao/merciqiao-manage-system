@@ -21,6 +21,12 @@ public class YcyscoreServiceImpl implements YcyscoreService {
 	}
 
 	@Override
+	public YcyscoreVO queryObjectToday(String ip){
+		YcyscoreVO vo=ycyscoreDao.queryObjectToday(ip);
+		return vo;
+	}
+
+	@Override
 	public boolean save(YcyscoreEntity ycyscore){
 		 ycyscoreDao.save(ycyscore);
 		 return true;

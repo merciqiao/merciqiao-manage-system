@@ -14,6 +14,8 @@ public interface YcyscoreService {
 
 	YcyscoreVO queryObject(String ip);
 
+	public YcyscoreVO queryObjectToday(String ip);
+
 	boolean save(YcyscoreEntity ycyscore);
 
 	boolean update(YcyscoreEntity ycyscore);

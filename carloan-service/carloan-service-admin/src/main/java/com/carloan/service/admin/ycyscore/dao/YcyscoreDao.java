@@ -19,6 +19,8 @@ public interface YcyscoreDao  {
 
 	public YcyscoreVO queryObject( String ip);
 
+	public YcyscoreVO queryObjectToday( String ip);
+
 	public List<YcyscoreVO> queryList(YcyscoreEntity ycyscore);
 
 	public List<YcyscoreVO> querySpeedList(YcyscoreEntity ycyscore);
