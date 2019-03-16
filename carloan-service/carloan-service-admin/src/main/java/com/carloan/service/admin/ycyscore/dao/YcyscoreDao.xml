@@ -9,7 +9,29 @@
 		select * from ycyscore where ip = #{value}
 	</select>
 	<select id="queryObjectToday" resultType="com.carloan.service.admin.ycyscore.vo.YcyscoreVO">
-		select * from ycyscore where ip = #{value} and to_days(todaytime) = to_days(now())
+	select * from ycyscore where ip = #{value} and to_days(todaytime) = to_days(now())
+</select>
+
+	<select id="queryToday" resultType="com.carloan.service.admin.ycyscore.vo.YcyscoreVO">
+		select * from ycyscore  where todayscore is not null and to_days(todaytime) = to_days(now()) order by todayscore desc
+	</select>
+
+	<select id="queryRankToday" resultType="com.carloan.service.admin.ycyscore.vo.YcyscoreVO">
+		SELECT
+			*
+		FROM
+			(
+				SELECT
+					@rownum := @rownum + 1 AS rank,
+					t.*
+				FROM
+					(SELECT @rownum := 0) r,
+					(
+						select * from ycyscore  where todayscore is not null and to_days(todaytime) = to_days(now()) order by todayscore desc
+					) AS t
+			) f
+		WHERE
+			f.ip = #{ip}
 	</select>
 
 	<select id="queryList" resultType="com.carloan.service.admin.ycyscore.vo.YcyscoreVO">
@@ -19,7 +41,6 @@
 
 	<select id="querySpeedList" resultType="com.carloan.service.admin.ycyscore.vo.YcyscoreVO">
 		select * from ycyscore where score>=100 and to_days(todaytime) = to_days(now()) and mintime is not null order by mintime asc
-
 	</select>
 	
  	<select id="queryTotal" resultType="int">

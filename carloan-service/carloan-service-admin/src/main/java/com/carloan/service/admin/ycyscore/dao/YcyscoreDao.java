@@ -24,10 +24,14 @@ public interface YcyscoreDao  {
 	public List<YcyscoreVO> queryList(YcyscoreEntity ycyscore);
 
 	public List<YcyscoreVO> querySpeedList(YcyscoreEntity ycyscore);
-	
+
+	public List<YcyscoreVO> queryToday(YcyscoreEntity ycyscore);
+
 	public int queryRank(YcyscoreEntity ycyscore);
 
 	public YcyscoreVO querySpeedRank(YcyscoreEntity ycyscore);
+
+	public YcyscoreVO queryRankToday(YcyscoreEntity ycyscore);
 	
 	public void save(YcyscoreEntity ycyscore);
 	

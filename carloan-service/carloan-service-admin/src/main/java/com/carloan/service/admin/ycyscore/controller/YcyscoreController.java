@@ -126,6 +126,27 @@ public class YcyscoreController {
 		}
 	}
 
+	/**
+	 * 查询今日排名
+	 * @param vo
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/queryToday",method = RequestMethod.POST)
+	public ResponseResult<YcyscoreVO> queryToday(@RequestBody YcyscoreEntity vo)throws Exception{
+		ResponseResult<YcyscoreVO> result=new ResponseResult<>();
+		try{
+			result= (ResponseResult<YcyscoreVO>)ycyscoreService.queryToday(vo);
+			return result;
+		}catch (Exception ex) {
+			log.error(ex.getMessage(), ex);
+			result.setStatus(Status.FAILED);
+			result.setMessage("执行异常,请重试");
+			return result;
+
+		}
+	}
+
 	@RequestMapping(value = "/queryScore",method = RequestMethod.POST)
 	public ResponseResult<Integer> queryOne(@RequestBody YcyscoreEntity vo)throws Exception{
 		ResponseResult<Integer> result=new ResponseResult<>();
@@ -158,6 +179,28 @@ public class YcyscoreController {
 
 		}
 	}
+	@RequestMapping(value = "/queryTodayScore",method = RequestMethod.POST)
+	public ResponseResult<Integer> queryTodayScore(@RequestBody YcyscoreEntity vo)throws Exception{
+		ResponseResult<Integer> result=new ResponseResult<>();
+		try{
+			YcyscoreVO ycyscoreVO= ycyscoreService.queryObjectToday(vo.getIp());
+			int score;
+			if(ycyscoreVO==null){
+				score=0;
+			}
+			else{
+				score=ycyscoreVO.getTodayscore()==null?0:ycyscoreVO.getTodayscore();
+			}
+			result.setData(score);
+			return result;
+		}catch (Exception ex) {
+			log.error(ex.getMessage(), ex);
+			result.setStatus(Status.FAILED);
+			result.setMessage("执行异常,请重试");
+			return result;
+
+		}
+	}
 
 	/**
 	 * 查询个人排名
@@ -176,6 +219,32 @@ public class YcyscoreController {
 			}
 			else{
 				rank= ycyscoreService.queryRank(vo);
+			}
+			result.setData(rank);
+			return result;
+		}catch (Exception ex) {
+			log.error(ex.getMessage(), ex);
+			result.setStatus(Status.FAILED);
+			result.setMessage("执行异常,请重试");
+			return result;
+
+		}
+	}
+	/**
+	 * 查询当日个人排名
+	 * @param vo
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/queryRankToday",method = RequestMethod.POST)
+	public ResponseResult<Integer> queryRankToday(@RequestBody YcyscoreEntity vo)throws Exception{
+		ResponseResult<Integer> result=new ResponseResult<>();
+		try{
+			Integer rank=0;
+
+			YcyscoreVO ycyscoreVO= ycyscoreService.queryRankToday(vo);
+			if(ycyscoreVO!=null){
+				rank=ycyscoreVO.getRank();
 			}
 			result.setData(rank);
 			return result;

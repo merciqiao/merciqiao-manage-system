@@ -9,6 +9,8 @@ import com.carloan.service.admin.ycyscore.vo.YcyscoreVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("ycyscoreService")
 public class YcyscoreServiceImpl implements YcyscoreService {
 	@Autowired
@@ -44,6 +46,11 @@ public class YcyscoreServiceImpl implements YcyscoreService {
 	}
 
 	@Page
+	public Object queryToday(YcyscoreEntity ycyscore){
+		return ycyscoreDao.queryToday(ycyscore);
+	}
+
+	@Page
 	public Object queryList(YcyscoreEntity ycyscore){
 
 		return ycyscoreDao.queryList(ycyscore);
@@ -55,6 +62,10 @@ public class YcyscoreServiceImpl implements YcyscoreService {
 	@Override
 	public YcyscoreVO querySpeedRank(YcyscoreEntity ycyscore){
 		return ycyscoreDao.querySpeedRank(ycyscore);
+	}
+	@Override
+	public YcyscoreVO queryRankToday(YcyscoreEntity ycyscore){
+		return ycyscoreDao.queryRankToday(ycyscore);
 	}
 	@Override
 	public Integer queryTotal(){

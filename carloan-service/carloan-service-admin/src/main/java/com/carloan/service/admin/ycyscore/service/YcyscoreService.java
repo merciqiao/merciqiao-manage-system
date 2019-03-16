@@ -3,6 +3,9 @@ package com.carloan.service.admin.ycyscore.service;
 import com.carloan.service.admin.ycyscore.entity.YcyscoreEntity;
 import com.carloan.service.admin.ycyscore.entity.YcyscoreListEntity;
 import com.carloan.service.admin.ycyscore.vo.YcyscoreVO;
+
+import java.util.List;
+
 /**
  * 
  * 
@@ -24,9 +27,13 @@ public interface YcyscoreService {
 
 	public Object querySpeedList(YcyscoreEntity ycyscore);
 
+	public Object queryToday(YcyscoreEntity ycyscore);
+
 	public int queryRank(YcyscoreEntity ycyscore);
 
 	public YcyscoreVO querySpeedRank(YcyscoreEntity ycyscore);
+
+	public YcyscoreVO queryRankToday(YcyscoreEntity ycyscore);
 
 	public Integer queryTotal();
 }
