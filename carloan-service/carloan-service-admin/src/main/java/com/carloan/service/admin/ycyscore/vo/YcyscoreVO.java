@@ -39,6 +39,8 @@ public class YcyscoreVO implements Serializable {
 
 	private  Integer rank;
 
+	private Integer todayscore;
+
 	/**
 	 * 设置：
 	 */
@@ -170,5 +172,13 @@ public class YcyscoreVO implements Serializable {
 
 	public void setRank(Integer rank) {
 		this.rank = rank;
+	}
+
+	public Integer getTodayscore() {
+		return todayscore==null?0:todayscore;
+	}
+
+	public void setTodayscore(Integer todayscore) {
+		this.todayscore = todayscore;
 	}
 }

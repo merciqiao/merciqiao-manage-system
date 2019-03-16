@@ -86,6 +86,7 @@ WHERE
 			`updatetime`,
 			`todaytime`,
 			`mintime`,
+			`todayscore`,
 			`times`
 		)
 		values
@@ -99,6 +100,7 @@ WHERE
 			CURRENT_TIMESTAMP,
 			CURRENT_TIMESTAMP,
 			#{mintime},
+			#{todayscore},
 			1
 		)
 	</insert>
@@ -113,6 +115,7 @@ WHERE
 			<if test="updatetime != null">`updatetime` = CURRENT_TIMESTAMP, </if>
 			<if test="mintime != null">`mintime` = #{mintime},</if>
 			<if test="todaytime != null">`todaytime` = #{todaytime},</if>
+			<if test="todayscore != null">`todayscore` = #{todayscore},</if>
 			<if test="times != null">`times` = #{times}</if>
 
 		</set>

@@ -43,30 +43,36 @@ public class YcyscoreController {
 		try{
 			YcyscoreVO mayiVO= ycyscoreService.queryObject(vo.getIp());
 			if(mayiVO!=null){
-				//如果分数比历史分低,则不更新分
-				if(vo.getScore()<mayiVO.getScore()){
-					vo.setScore(null);
-				}
+
 				String nowTime= DateUtil.GetDateDay(new Date());
 				String todayTime= DateUtil.GetDateDay(mayiVO.getUpdatetime());
 				if(nowTime.equals(todayTime)){
+					//今天
 					//就是今天的数据,且时间更短
                     if(vo.getMintime()!=null&&mayiVO.getMintime()!=null){
                             if(vo.getMintime()>=mayiVO.getMintime()){
                                 vo.setMintime(null);
                             }
                     }
-
+                    if(vo.getScore()> mayiVO.getTodayscore()){
+						vo.setTodayscore(vo.getScore());
+					}
 				}
 				else{
+					//新的一天
 					//没更新为今天,则更新为今天,同时更新用时
 					vo.setTodaytime(new Date());
+					vo.setTodayscore(vo.getScore());
 				}
-
+				//如果分数比历史分低,则不更新最高分
+				if(vo.getScore()<mayiVO.getScore()){
+					vo.setScore(null);
+				}
 				vo.setTimes(mayiVO.getTimes()+1);
 				ycyscoreService.update(vo);
 			}
 			else{
+				vo.setTodayscore(vo.getScore());
 				ycyscoreService.save(vo);
 			}
 			return result;

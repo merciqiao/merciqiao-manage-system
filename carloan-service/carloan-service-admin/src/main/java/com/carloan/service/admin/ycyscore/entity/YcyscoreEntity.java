@@ -49,6 +49,8 @@ public class YcyscoreEntity extends PageInfoExt implements Serializable {
 
 	private Date	todaytime;
 
+	private Integer todayscore;
+
 	/**
 	 * 设置：
 	 */
@@ -172,5 +174,13 @@ public class YcyscoreEntity extends PageInfoExt implements Serializable {
 
 	public void setTodaytime(Date todaytime) {
 		this.todaytime = todaytime;
+	}
+
+	public Integer getTodayscore() {
+		return todayscore;
+	}
+
+	public void setTodayscore(Integer todayscore) {
+		this.todayscore = todayscore;
 	}
 }
