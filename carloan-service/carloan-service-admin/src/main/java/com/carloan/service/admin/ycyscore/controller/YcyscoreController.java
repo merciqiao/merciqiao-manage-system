@@ -141,7 +141,7 @@ public class YcyscoreController {
 		ResponseResult<Integer> result=new ResponseResult<>();
 		try{
 			YcyscoreVO ycyscoreVO= ycyscoreService.queryObject(vo.getIp());
-			int score=ycyscoreVO==null?-1:(ycyscoreVO.getMintime()==null?-1:ycyscoreVO.getMintime());
+			int score=ycyscoreVO==null?0:(ycyscoreVO.getMintime()==null?0:ycyscoreVO.getMintime());
 			result.setData(score);
 			return result;
 		}catch (Exception ex) {
@@ -191,7 +191,7 @@ public class YcyscoreController {
 	public ResponseResult<Integer> querySpeedRank(@RequestBody YcyscoreEntity vo)throws Exception{
 		ResponseResult<Integer> result=new ResponseResult<>();
 		try{
-			Integer rank=-1;
+			Integer rank=0;
 
 			YcyscoreVO ycyscoreVO= ycyscoreService.querySpeedRank(vo);
 			if(ycyscoreVO!=null){
