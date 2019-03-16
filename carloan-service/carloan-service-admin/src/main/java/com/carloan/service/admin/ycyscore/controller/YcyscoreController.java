@@ -140,7 +140,7 @@ public class YcyscoreController {
 	public ResponseResult<Integer> queryMinTime(@RequestBody YcyscoreEntity vo)throws Exception{
 		ResponseResult<Integer> result=new ResponseResult<>();
 		try{
-			YcyscoreVO ycyscoreVO= ycyscoreService.queryObject(vo.getIp());
+			YcyscoreVO ycyscoreVO= ycyscoreService.queryObjectToday(vo.getIp());
 			int score=ycyscoreVO==null?0:(ycyscoreVO.getMintime()==null?0:ycyscoreVO.getMintime());
 			result.setData(score);
 			return result;
