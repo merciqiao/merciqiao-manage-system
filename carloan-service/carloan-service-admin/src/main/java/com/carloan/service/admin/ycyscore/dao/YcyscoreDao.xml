@@ -8,6 +8,9 @@
 	<select id="queryObject" resultType="com.carloan.service.admin.ycyscore.vo.YcyscoreVO">
 		select * from ycyscore where ip = #{value}
 	</select>
+	<select id="queryObjectToday" resultType="com.carloan.service.admin.ycyscore.vo.YcyscoreVO">
+		select * from ycyscore where ip = #{value} and to_days(todaytime) = to_days(now())
+	</select>
 
 	<select id="queryList" resultType="com.carloan.service.admin.ycyscore.vo.YcyscoreVO">
 		select * from ycyscore order by score desc,updatetime asc
@@ -62,7 +65,7 @@ FROM
 					ycyscore
 				WHERE
 					score >= 100
-				AND TO_DAYS(todaytime) = TO_DAYS(now())
+				AND TO_DAYS(todaytime) = TO_DAYS(now()) and mintime is not null
 				ORDER BY
 					mintime ASC
 			) AS t
