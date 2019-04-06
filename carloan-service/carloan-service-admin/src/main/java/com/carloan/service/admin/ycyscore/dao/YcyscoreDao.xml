@@ -8,6 +8,10 @@
 	<select id="queryObject" resultType="com.carloan.service.admin.ycyscore.vo.YcyscoreVO">
 		select * from ycyscore where ip = #{value}
 	</select>
+	<!--查询总分数-->
+	<select id="queryObjectTotal" resultType="com.carloan.service.admin.ycyscore.vo.YcyscoretotalVO">
+		select * from ycyscoretotal where ip = #{value}
+	</select>
 	<select id="queryObjectToday" resultType="com.carloan.service.admin.ycyscore.vo.YcyscoreVO">
 	select * from ycyscore where ip = #{value} and to_days(todaytime) = to_days(now())
 </select>
@@ -38,6 +42,10 @@
 		select * from ycyscore order by score desc,updatetime asc
 
 	</select>
+	<!--查询总分榜-->
+	<select id="queryListTotal" resultType="com.carloan.service.admin.ycyscore.vo.YcyscoretotalVO">
+		select * from ycyscoretotal order by score desc,updatetime asc
+	</select>
 
 	<select id="querySpeedList" resultType="com.carloan.service.admin.ycyscore.vo.YcyscoreVO">
 		select * from ycyscore where score>=100 and to_days(todaytime) = to_days(now()) and mintime is not null order by mintime asc
@@ -45,6 +53,10 @@
 	
  	<select id="queryTotal" resultType="int">
 		select count(*) from ycyscore
+	</select>
+	<!--总排名数-->
+	<select id="queryTotalTotal" resultType="int">
+		select count(*) from ycyscoretotal
 	</select>
 	<select id="queryRank" resultType="int" parameterType="com.carloan.service.admin.ycyscore.entity.YcyscoreEntity">
 		SELECT
@@ -69,6 +81,31 @@
 		WHERE
 			f.ip = #{ip}
 	</select>
+	<!--总分排名-->
+	<select id="queryRankTotal" resultType="int" parameterType="com.carloan.service.admin.ycyscore.entity.YcyscoretotalEntity">
+		SELECT
+		*
+		FROM
+		(
+		SELECT
+		@rownum := @rownum + 1 AS rank,
+		t.*
+		FROM
+		(SELECT @rownum := 0) r,
+		(
+		SELECT
+		*
+		FROM
+		ycyscoretotal
+		ORDER BY
+		score DESC,
+		updatetime asc
+		) AS t
+		) f
+		WHERE
+		f.ip = #{ip}
+	</select>
+
 	<select id="querySpeedRank" resultType="com.carloan.service.admin.ycyscore.vo.YcyscoreVO" parameterType="com.carloan.service.admin.ycyscore.entity.YcyscoreEntity">
 		SELECT
 	*
@@ -125,7 +162,25 @@ WHERE
 			1
 		)
 	</insert>
-	 
+	<!--保存总分数-->
+	<insert id="saveTotal" parameterType="com.carloan.service.admin.ycyscore.entity.YcyscoretotalEntity">
+		insert into ycyscoretotal
+		(
+		`ip`,
+		`city`,
+		`score`,
+		`createtime`,
+		`updatetime`
+		)
+		values
+		(
+		#{ip},
+		#{city},
+		#{score},
+		CURRENT_TIMESTAMP,
+		CURRENT_TIMESTAMP
+		)
+	</insert>
 	<update id="update" parameterType="com.carloan.service.admin.ycyscore.entity.YcyscoreEntity">
 		update ycyscore 
 		<set>
@@ -142,7 +197,18 @@ WHERE
 		</set>
 		where ip = #{ip}
 	</update>
-	
+	<!--更新总分-->
+    <update id="updateTotal" parameterType="com.carloan.service.admin.ycyscore.entity.YcyscoretotalEntity">
+        update ycyscoretotal
+        <set>
+
+            <if test="score != null">`score` = #{score} ,</if>
+            <if test="city != null">`city` = #{city} </if>
+
+        </set>
+        where ip = #{ip}
+    </update>
+
 	<delete id="delete">
 		delete from ycyscore where id = #{value}
 	</delete>

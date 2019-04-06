@@ -5,8 +5,10 @@ import com.carloan.apimodel.common.ResponseResult;
 import com.carloan.apimodel.common.Status;
 import com.carloan.common.utils.DateUtil;
 import com.carloan.service.admin.ycyscore.entity.YcyscoreEntity;
+import com.carloan.service.admin.ycyscore.entity.YcyscoretotalEntity;
 import com.carloan.service.admin.ycyscore.service.YcyscoreService;
 import com.carloan.service.admin.ycyscore.vo.YcyscoreVO;
+import com.carloan.service.admin.ycyscore.vo.YcyscoretotalVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,6 +43,23 @@ public class YcyscoreController {
 	public Response add(@RequestBody YcyscoreEntity vo)throws Exception{
 		Response result=new Response();
 		try{
+			//保存总分 start
+			YcyscoretotalVO ycyscoretotalVO= ycyscoreService.queryObjectTotal(vo.getIp());
+			YcyscoretotalEntity ycyscoretotalEntity=new YcyscoretotalEntity();
+			ycyscoretotalEntity.setIp(vo.getIp());
+			ycyscoretotalEntity.setScore(vo.getScore());
+			ycyscoretotalEntity.setCity(vo.getCity());
+			if(ycyscoretotalVO==null){
+				ycyscoreService.saveTotal(ycyscoretotalEntity);
+			}
+			else{
+				int score= ycyscoretotalVO.getScore()+vo.getScore();
+				ycyscoretotalEntity.setScore(score);
+				ycyscoreService.updateTotal(ycyscoretotalEntity);
+			}
+			//保存总分 end
+
+
 			YcyscoreVO mayiVO= ycyscoreService.queryObject(vo.getIp());
 			if(mayiVO!=null){
 
@@ -61,6 +80,9 @@ public class YcyscoreController {
 				else{
 					//新的一天
 					//没更新为今天,则更新为今天,同时更新用时
+					if(vo.getMintime()==null){
+						vo.setMintime(0);
+					}
 					vo.setTodaytime(new Date());
 					vo.setTodayscore(vo.getScore());
 				}
@@ -75,6 +97,7 @@ public class YcyscoreController {
 				vo.setTodayscore(vo.getScore());
 				ycyscoreService.save(vo);
 			}
+
 			return result;
 		}catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
@@ -96,6 +119,26 @@ public class YcyscoreController {
 		ResponseResult<YcyscoreVO> result=new ResponseResult<>();
 		try{
 			result= (ResponseResult<YcyscoreVO>)ycyscoreService.queryList(vo);
+			return result;
+		}catch (Exception ex) {
+			log.error(ex.getMessage(), ex);
+			result.setStatus(Status.FAILED);
+			result.setMessage("执行异常,请重试");
+			return result;
+
+		}
+	}
+	/**
+	 * 查询前30名总排名
+	 * @param vo
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/queryListTotal",method = RequestMethod.POST)
+	public ResponseResult<YcyscoretotalVO> queryListTotal(@RequestBody YcyscoretotalEntity vo)throws Exception{
+		ResponseResult<YcyscoretotalVO> result=new ResponseResult<>();
+		try{
+			result= (ResponseResult<YcyscoretotalVO>)ycyscoreService.queryListTotal(vo);
 			return result;
 		}catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
@@ -163,6 +206,29 @@ public class YcyscoreController {
 
 		}
 	}
+
+	/**
+	 * 查询总分个人分数
+	 * @param vo
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/queryScoreTotal",method = RequestMethod.POST)
+	public ResponseResult<Integer> queryScoreTotal(@RequestBody YcyscoretotalEntity vo)throws Exception{
+		ResponseResult<Integer> result=new ResponseResult<>();
+		try{
+			YcyscoretotalVO ycyscoreVO= ycyscoreService.queryObjectTotal(vo.getIp());
+			int score=ycyscoreVO==null?0:ycyscoreVO.getScore();
+			result.setData(score);
+			return result;
+		}catch (Exception ex) {
+			log.error(ex.getMessage(), ex);
+			result.setStatus(Status.FAILED);
+			result.setMessage("执行异常,请重试");
+			return result;
+
+		}
+	}
 	@RequestMapping(value = "/queryMinTime",method = RequestMethod.POST)
 	public ResponseResult<Integer> queryMinTime(@RequestBody YcyscoreEntity vo)throws Exception{
 		ResponseResult<Integer> result=new ResponseResult<>();
@@ -219,6 +285,34 @@ public class YcyscoreController {
 			}
 			else{
 				rank= ycyscoreService.queryRank(vo);
+			}
+			result.setData(rank);
+			return result;
+		}catch (Exception ex) {
+			log.error(ex.getMessage(), ex);
+			result.setStatus(Status.FAILED);
+			result.setMessage("执行异常,请重试");
+			return result;
+
+		}
+	}
+	/**
+	 * 查询个人总分排名
+	 * @param vo
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/queryRankTotal",method = RequestMethod.POST)
+	public ResponseResult<Integer> queryRankTotal(@RequestBody YcyscoretotalEntity vo)throws Exception{
+		ResponseResult<Integer> result=new ResponseResult<>();
+		try{
+			Integer rank=0;
+			YcyscoretotalVO mayiVO= ycyscoreService.queryObjectTotal(vo.getIp());
+			if(mayiVO==null){
+				rank=ycyscoreService.queryTotalTotal();
+			}
+			else{
+				rank= ycyscoreService.queryRankTotal(vo);
 			}
 			result.setData(rank);
 			return result;
