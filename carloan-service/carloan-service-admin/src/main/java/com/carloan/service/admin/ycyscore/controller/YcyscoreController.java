@@ -64,7 +64,7 @@ public class YcyscoreController {
 			if(mayiVO!=null){
 
 				String nowTime= DateUtil.GetDateDay(new Date());
-				String todayTime= DateUtil.GetDateDay(mayiVO.getUpdatetime());
+				String todayTime= DateUtil.GetDateDay(mayiVO.getTodaytime());
 				if(nowTime.equals(todayTime)){
 					//今天
 					//就是今天的数据,且时间更短
