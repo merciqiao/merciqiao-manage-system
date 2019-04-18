@@ -48,7 +48,7 @@
 	</select>
 
 	<select id="querySpeedList" resultType="com.carloan.service.admin.ycyscore.vo.YcyscoreVO">
-		select * from ycyscore where todayscore>=100 and to_days(todaytime) = to_days(now()) and mintime is not null order by mintime asc
+		select * from ycyscore where todayscore>=50 and to_days(todaytime) = to_days(now()) and mintime is not null order by mintime asc
 	</select>
 	
  	<select id="queryTotal" resultType="int">
@@ -122,7 +122,7 @@ FROM
 				FROM
 					ycyscore
 				WHERE
-					score >= 100
+					score >= 50
 				AND TO_DAYS(todaytime) = TO_DAYS(now()) and mintime is not null
 				ORDER BY
 					mintime ASC
