@@ -16,6 +16,11 @@
             <artifactId>dozer</artifactId>
             <version>RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
+            <version>RELEASE</version>
+        </dependency>
     </dependencies>
 
 

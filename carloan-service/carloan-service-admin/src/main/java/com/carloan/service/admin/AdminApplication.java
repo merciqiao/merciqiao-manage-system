@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
 
 @SpringBootApplication
 //@EnableEurekaClient
@@ -16,6 +17,7 @@ import org.springframework.context.annotation.ComponentScan;
 })
 
 @MapperScan("com.carloan.service.admin.*.dao")
+@EnableWebSocket
 public class AdminApplication {
 
 	public static void main(String[] args) {

@@ -46,8 +46,9 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/uploadFile/**", "anon");
         filterChainDefinitionMap.put("/uploadImage/**", "anon");
         //上传图片不需要认证 end
-
-
+        //socket暂时不需要认证 start
+        filterChainDefinitionMap.put("/websocket/**", "anon");
+        //socket暂时不需要认证 end
         //swagger start
         filterChainDefinitionMap.put("/swagger-ui.html"," anon");
         filterChainDefinitionMap.put("/swagger-resources/**", "anon");
