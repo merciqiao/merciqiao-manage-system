@@ -17,6 +17,9 @@ public class SocketMsg {
     /* 消息数据 */
     public String data;
 
+    /* 房主sid */
+    public Boolean isHomer;
+
 
 
     public String state="true";
@@ -28,6 +31,6 @@ public class SocketMsg {
     public static String INTO_PREPARE="INTO_PREPARE";//进入准备中
     public static String INTO_GAME="INTO_GAME";//进入游戏
     public static String FRESH_TARGET_SCORE="FRESH_TARGET_SCORE";//刷新对方分数
-
+    public static String GAME_OVER="GAME_OVER";//结束游戏
 }
 

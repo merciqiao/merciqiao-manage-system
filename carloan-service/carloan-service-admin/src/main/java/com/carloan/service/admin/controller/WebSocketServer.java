@@ -107,7 +107,7 @@ public class WebSocketServer {
                 else{
                     //有准备的则开始游戏
                     dicList.put(prePareUser.sid,this.sid);
-                    this.freshPkState(prePareUser.sid,this.sid);
+                    this.freshPkState(prePareUser.sid,this.sid);//刷新PK状态
                     this.freshIntoGameAll();//刷新游戏中数量
                     this.freshQueueStateAll();//群刷新队列状态
                     this.pkGameStart(prePareUser.sid,this.sid);//双方开始游戏
@@ -116,6 +116,9 @@ public class WebSocketServer {
             }
             else if(socketMsg.getType().equals(SocketMsg.FRESH_TARGET_SCORE)){
                 this.sendMessageTo(socketMsg);
+            }
+            else if(socketMsg.getType().equals(SocketMsg.GAME_OVER)){//游戏结束
+                dicList.remove(this.sid);
             }
         }
         catch (Exception e){
@@ -327,6 +330,7 @@ public class WebSocketServer {
         for (WebSocketServer item : webSocketSet){
             if(item.sid.equals(oneSID)){
                 socketMsg.toSID=twoSID;
+                socketMsg.isHomer=true;//房主
                 item.sendMessage(socketMsg);
             }
             else if(item.sid.equals(twoSID)){
