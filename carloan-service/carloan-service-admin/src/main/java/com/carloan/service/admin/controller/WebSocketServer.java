@@ -165,20 +165,34 @@ public class WebSocketServer {
     @OnError
     public void onError(Session session, Throwable error) {
         log.error("发生错误");
-        //error.printStackTrace();
+//        error.printStackTrace();
     }
     /**
      * 实现服务器主动推送
      */
     public void sendMessage(String message) throws IOException {
-        this.session.getBasicRemote().sendText(message);
+        try {
+            if (this.session.isOpen()) {
+                this.session.getBasicRemote().sendText(message);
+            }
+        }
+        catch (Exception e){
+            log.error("sendMessage");
+        }
     }
     /**
      * 实现服务器主动推送
      */
     public void sendMessage(SocketMsg message) throws IOException {
-        String msg=JSON.toJSONString(message);
-        this.session.getBasicRemote().sendText(msg);
+        try {
+            String msg = JSON.toJSONString(message);
+            if (this.session.isOpen()) {
+                this.session.getBasicRemote().sendText(msg);
+            }
+        }
+        catch (Exception e){
+            log.error("sendMessage");
+        }
     }
     /**
      * 实现服务器主动推送，群发
