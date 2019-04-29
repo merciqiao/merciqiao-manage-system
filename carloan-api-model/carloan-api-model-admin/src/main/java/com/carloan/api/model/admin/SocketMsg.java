@@ -32,5 +32,7 @@ public class SocketMsg {
     public static String INTO_GAME="INTO_GAME";//进入游戏
     public static String FRESH_TARGET_SCORE="FRESH_TARGET_SCORE";//刷新对方分数
     public static String GAME_OVER="GAME_OVER";//结束游戏
+    public static String OUT_GAME="OUT_GAME";//退出游戏
+    public static String CLOSE="CLOSE";//退出页面
 }
 

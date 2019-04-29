@@ -43,28 +43,33 @@ public class WebSocketServer {
      * 连接建立成功调用的方法*/
     @OnOpen
     public void onOpen(Session session,@PathParam("sid") String sid) {
-        SocketMsg socketMsg=new SocketMsg();
-        socketMsg.setFromSID(sid);
-        if(this.checkExist(sid)){
-            try {
-                socketMsg.setType(SocketMsg.ALL_COUNT);
-                socketMsg.setMsg("已经连接成功");
-                Integer allCount=this.getOnlineCount();
-                socketMsg.setData(allCount.toString());
-                sendMessage(socketMsg);
-            }
-            catch (IOException e){
-                log.error("websocket IO异常");
+        try {
+            SocketMsg socketMsg = new SocketMsg();
+            socketMsg.setFromSID(sid);
+            if (this.checkExist(sid)) {
+                try {
+                    socketMsg.setType(SocketMsg.ALL_COUNT);
+                    socketMsg.setMsg("已经连接成功");
+                    Integer allCount = this.getOnlineCount();
+                    socketMsg.setData(allCount.toString());
+                    sendMessage(socketMsg);
+                } catch (IOException e) {
+                    log.error("websocket IO异常");
+                }
+            } else {
+
+                this.sid = sid;
+                this.session = session;
+                webSocketSet.add(this);     //加入set中
+                addOnlineCount();           //在线数加1
+                this.freshCountAll();//刷新总人数
+                this.freshIntoGameAll();//刷新游戏中数量
+                this.freshQueueStateAll();//群刷新队列状态
+                log.info("有新窗口开始监听:" + sid + ",当前在线人数为" + getOnlineCount());
             }
         }
-        else{
-
-            this.sid=sid;
-            this.session = session;
-            webSocketSet.add(this);     //加入set中
-            addOnlineCount();           //在线数加1
-            this.freshCountAll();
-            log.info("有新窗口开始监听:"+sid+",当前在线人数为" + getOnlineCount());
+        catch (Exception e){
+            log.error("onOpen.error");
         }
 
 
@@ -75,15 +80,22 @@ public class WebSocketServer {
      */
     @OnClose
     public void onClose() throws Exception{
-        webSocketSet.remove(this);  //从set中删除
-        subOnlineCount();           //在线数减1
-        SocketMsg socketMsg=new SocketMsg();
-        socketMsg.setType(SocketMsg.ALL_COUNT);
-        socketMsg.setMsg("下线成功");
-        Integer allCount=this.getOnlineCount();
-        socketMsg.setData(allCount.toString());
-        sendMessageAll(socketMsg);
-        log.info("有一连接关闭:{},当前在线人数为" + getOnlineCount(),this.sid);
+        try {
+            if(webSocketSet.contains(this)) {
+                webSocketSet.remove(this);  //从set中删除
+            }
+            if (dicList.contains(this.sid)) {
+                dicList.remove(this.sid);
+            }
+            subOnlineCount();           //在线数减1
+            this.freshCountAll();//刷新所有人数
+            this.freshIntoGameAll();//刷新游戏中数量
+            this.freshQueueStateAll();//群刷新队列状态
+            log.info("有一连接关闭:{},当前在线人数为" + getOnlineCount(), this.sid);
+        }
+        catch (Exception e){
+            log.error("onClose error");
+        }
     }
 
     /**
@@ -118,7 +130,17 @@ public class WebSocketServer {
                 this.sendMessageTo(socketMsg);
             }
             else if(socketMsg.getType().equals(SocketMsg.GAME_OVER)){//游戏结束
+                String targetSID= dicList.get(this.sid);
                 dicList.remove(this.sid);
+                this.freshPkState(this.sid,targetSID);//重置PK状态
+                this.freshIntoGameAll();//刷新游戏中数量
+                this.freshQueueStateAll();//群刷新队列状态
+                this.pkGameOut(this.sid,targetSID);
+
+            }
+            else if(socketMsg.getType().equals(SocketMsg.CLOSE)){//游戏结束
+                this.onClose();
+
             }
         }
         catch (Exception e){
@@ -143,7 +165,7 @@ public class WebSocketServer {
     @OnError
     public void onError(Session session, Throwable error) {
         log.error("发生错误");
-        error.printStackTrace();
+        //error.printStackTrace();
     }
     /**
      * 实现服务器主动推送
@@ -220,6 +242,9 @@ public class WebSocketServer {
 
     public static synchronized void subOnlineCount() {
         WebSocketServer.onlineCount--;
+        if(webSocketSet.size()==0||WebSocketServer.onlineCount<0){
+            WebSocketServer.onlineCount=0;
+        }
     }
     private Boolean checkExist(String sid){
         boolean result=false;
@@ -319,7 +344,17 @@ public class WebSocketServer {
                    item.gameState="2";
                }
             }
+    }
+    /**
+     * 重置pk的人员状态
+     */
+    private void resetPkState(String oneSID,String twoSID){
 
+        for (WebSocketServer item : webSocketSet){
+            if(item.sid.equals(oneSID)||item.sid.equals(twoSID)){
+                item.gameState="0";
+            }
+        }
     }
     /**
      * 双方开始游戏
@@ -335,6 +370,21 @@ public class WebSocketServer {
             }
             else if(item.sid.equals(twoSID)){
                 socketMsg.toSID=oneSID;
+                item.sendMessage(socketMsg);
+            }
+        }
+    }
+    /**
+     * 双方退出游戏
+     */
+    private void pkGameOut(String oneSID,String twoSID) throws Exception{
+        SocketMsg socketMsg=new SocketMsg();
+        socketMsg.type=SocketMsg.OUT_GAME;
+        for (WebSocketServer item : webSocketSet){
+            if(item.sid.equals(oneSID)){
+                item.sendMessage(socketMsg);
+            }
+            else if(item.sid.equals(twoSID)){
                 item.sendMessage(socketMsg);
             }
         }
