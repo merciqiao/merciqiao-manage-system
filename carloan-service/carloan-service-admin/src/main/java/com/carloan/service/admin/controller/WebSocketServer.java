@@ -84,7 +84,7 @@ public class WebSocketServer {
             if(webSocketSet.contains(this)) {
                 webSocketSet.remove(this);  //从set中删除
             }
-            if (dicList.contains(this.sid)) {
+            if (dicList.containsKey(this.sid)) {
                 dicList.remove(this.sid);
             }
             subOnlineCount();           //在线数减1
@@ -132,7 +132,7 @@ public class WebSocketServer {
             else if(socketMsg.getType().equals(SocketMsg.GAME_OVER)){//游戏结束
                 String targetSID= dicList.get(this.sid);
                 dicList.remove(this.sid);
-                this.freshPkState(this.sid,targetSID);//重置PK状态
+                this.resetPkState(this.sid,targetSID);//重置PK状态
                 this.freshIntoGameAll();//刷新游戏中数量
                 this.freshQueueStateAll();//群刷新队列状态
                 this.pkGameOut(this.sid,targetSID);
@@ -294,7 +294,8 @@ public class WebSocketServer {
         try {
             socketMsg.setType(SocketMsg.ALL_COUNT);
             socketMsg.setMsg("连接成功");
-            Integer allCount=this.getOnlineCount();
+//            Integer allCount=this.getOnlineCount();
+            Integer allCount=webSocketSet.size();
             socketMsg.setData(allCount.toString());
             sendMessageAll(socketMsg);
         } catch (IOException e) {
