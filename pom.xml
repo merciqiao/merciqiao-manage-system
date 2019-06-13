@@ -180,12 +180,12 @@
 		<!--<repository>-->
 			<!--<id>releases</id>-->
 			<!--<name>releases repository</name>-->
-			<!--<url>http://nexus.yingu.com/nexus/content/repositories/releases/</url>-->
+			<!--<url></url>-->
 		<!--</repository>-->
 		<!--<snapshotRepository>-->
 			<!--<id>snapshots</id>-->
 			<!--<name>snapshot repository</name>-->
-			<!--<url>http://nexus.yingu.com/nexus/content/repositories/snapshots/</url>-->
+			<!--<url></url>-->
 		<!--</snapshotRepository>-->
 	<!--</distributionManagement>-->
 
