@@ -40,6 +40,8 @@ public class ShiroConfig {
 //        filterChainDefinitionMap.put("/ycyscore-api/**", "anon");
 //        filterChainDefinitionMap.put("/loginlog-api/**", "anon");
 //        filterChainDefinitionMap.put("/mayi-api/**", "anon");
+        //数据恢复不需要认证
+        filterChainDefinitionMap.put("/loginlog-api/rollBackTables", "anon");
         //上传图片不需要认证 start
         filterChainDefinitionMap.put("/img-api/upload", "anon");
         filterChainDefinitionMap.put("/img-api/uploadFile", "anon");
