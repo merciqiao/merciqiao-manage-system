@@ -4,6 +4,9 @@
 <mapper namespace="com.carloan.service.admin.mayi.dao.MayiDao">
 
 
+	<select id="queryZanZhu" resultType="com.carloan.service.admin.mayi.vo.ZanzhuVo">
+		select * from zanzhu order by createtime desc;
+	</select>
 
 	<select id="queryObject" resultType="com.carloan.service.admin.mayi.vo.MayiVO">
 		select * from mayi where ip = #{value}

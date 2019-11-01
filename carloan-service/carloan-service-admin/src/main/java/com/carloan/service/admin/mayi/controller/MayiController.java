@@ -6,12 +6,15 @@ import com.carloan.apimodel.common.Status;
 import com.carloan.service.admin.mayi.entity.MayiEntity;
 import com.carloan.service.admin.mayi.service.MayiService;
 import com.carloan.service.admin.mayi.vo.MayiVO;
+import com.carloan.service.admin.mayi.vo.ZanzhuVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 
 /**
@@ -56,6 +59,21 @@ public class MayiController {
 		try{
 			result= (ResponseResult<MayiVO>)mayiService.queryList(vo);
 
+			return result;
+		}catch (Exception ex) {
+			log.error(ex.getMessage(), ex);
+			result.setStatus(Status.FAILED);
+			result.setMessage("执行异常,请重试");
+			return result;
+
+		}
+	}
+	@RequestMapping(value = "/queryZanZhu",method = RequestMethod.POST)
+	public ResponseResult<ZanzhuVo> queryZanZhu()throws Exception{
+		ResponseResult<ZanzhuVo> result=new ResponseResult<>();
+		try{
+			List<ZanzhuVo> list= mayiService.queryZanZhu();
+			result.setDataList(list);
 			return result;
 		}catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
