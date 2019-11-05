@@ -62,6 +62,11 @@ public class ShiroConfig {
         //filterChainDefinitionMap.put("/quartzjob-api/queryCarLoanInfoByPrimaryKey/**", "perms[workfile/queryCreditIntoInfo:exportExcel]");
         //自定义授权 end
 
+        /*接口demo不需要认证 start*/
+        filterChainDefinitionMap.put("/demo-api/**", "anon");
+        /*接口demo不需要认证 end*/
+
+
 
         filterChainDefinitionMap.put("/**", "authc");//
 
