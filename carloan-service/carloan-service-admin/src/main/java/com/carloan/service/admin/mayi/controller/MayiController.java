@@ -8,6 +8,7 @@ import com.carloan.service.admin.mayi.service.MayiService;
 import com.carloan.service.admin.mayi.vo.MayiVO;
 import com.carloan.service.admin.mayi.vo.ZanzhuVo;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,7 @@ public class MayiController {
 	@Autowired
 	private MayiService mayiService;
 	@RequestMapping(value = "/add",method = RequestMethod.POST)
+	@RequiresPermissions("liuyan_add")
 	public Response add(@RequestBody MayiEntity vo)throws Exception{
 		Response result=new Response();
 		try{
@@ -54,6 +56,7 @@ public class MayiController {
 		}
 	}
 	@RequestMapping(value = "/queryList",method = RequestMethod.POST)
+	@RequiresPermissions("liuyan_select")
 	public ResponseResult<MayiVO> queryList(@RequestBody MayiEntity vo)throws Exception{
 		ResponseResult<MayiVO> result=new ResponseResult<>();
 		try{

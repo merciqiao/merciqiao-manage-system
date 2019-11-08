@@ -260,9 +260,7 @@
 		LEFT JOIN sys_role c ON b.role_id = c.id
 		left join sys_role_user d on c.id=d.ROLE_ID
 		WHERE
-		a.resoure_url IS NOT NULL
-		AND a.resoure_url != ''
-		AND a.permission IS NOT NULL
+		 a.permission IS NOT NULL
 		AND a.PERMISSION != ''
 		<if test="dto.userId != null and dto.userId != ''">
 			and d.TARGET_ID=#{dto.userId}
